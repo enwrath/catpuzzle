@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="Board">
     BOARD:
     <div class="TileRow" :key="`row-${y}`" v-for="(row, y) in data.tiles">
       <BoardTile @placebox="placeBox" :inside="tile" :x="x" :y="y" :key="`tile-${x}-${y}`" v-for="(tile, x) in row" />
@@ -29,4 +29,13 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+.Board {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  align-content: center;
+}
+.TileRow {
+  display: flex;
+}
 </style>
