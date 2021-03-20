@@ -1,8 +1,7 @@
 <template>
   <div @click="placeBox()">
     Tile {{x}}, {{y}} <br />
-    {{inside}} <br />
-    {{canPlaceBox}}
+    {{inside}}
   </div>
 </template>
 

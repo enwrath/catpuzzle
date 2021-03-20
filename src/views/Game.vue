@@ -1,6 +1,6 @@
 <template>
   <div>
-    <span>Boxes for this map: {{data.totalBoxes}}</span>
+    <span>Boxes {{boxesOnBoard}} / {{data.totalBoxes}}</span>
     <Board @placebox="boxPlaced" :data="data"></Board>
   </div>
 </template>
@@ -23,9 +23,16 @@ export default {
   },
   methods: {
     boxPlaced(e) {
-      const newRow = this.data.tiles[e.y].slice(0);
-      newRow[e.x] = "box"
-      this.$set(this.data.tiles, e.y, newRow)
+      if (this.boxesOnBoard < this.data.totalBoxes) {
+        const newRow = this.data.tiles[e.y].slice(0);
+        newRow[e.x] = "box"
+        this.$set(this.data.tiles, e.y, newRow);
+      }
+    }
+  },
+  computed: {
+    boxesOnBoard: function () {
+      return this.data.tiles.flat().filter(x => x.includes("box")).length;
     }
   }
 }
