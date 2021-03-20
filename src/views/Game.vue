@@ -17,18 +17,21 @@ export default {
     return {
       data: {
         totalBoxes: 2,
-        tiles: [["","block","cat","cat"],["","","",""],["block","","","block"]]
+        tiles: [["","","cat",""],["","","","cat"],["block","","","block"]]
       }
     }
   },
   methods: {
     boxPlaced(e) {
       if (this.boxesOnBoard < this.data.totalBoxes) {
-        const newRow = this.data.tiles[e.y].slice(0);
-        newRow[e.x] = "box"
-        this.$set(this.data.tiles, e.y, newRow);
+        this.setTile(e.y, e.x, "box");
         this.moveCats();
       }
+    },
+    setTile(y, x, stuff) {
+      const newRow = this.data.tiles[y].slice(0);
+      newRow[x] = stuff;
+      this.$set(this.data.tiles, y, newRow);
     },
     moveCats() {
       let moves = [];
@@ -44,9 +47,31 @@ export default {
           }
         }
       }
-      console.log(moves);
-      //Check that no two cats try to go to same spot
-      //Actually move the cats
+
+      // 2 cats cant fit into the same box -> rip box
+      const filteredMoves = this.filterMoves(moves);
+
+      for (const m of filteredMoves.allowed) {
+        this.setTile(m.y2, m.x2, "box-cat");
+        this.setTile(m.y1, m.x1, "");
+      }
+      for (const m of filteredMoves.bad) {
+        this.setTile(m.y2, m.x2, "broken-box");
+      }
+      //TODO: somehow communicate user what happened
+      //visuals????????? oh no
+
+    },
+    filterMoves(moves) {
+      let allowedMoves = [];
+      let badMoves = [];
+
+      for (const m of moves) {
+        const overlapMoves = moves.filter(x => x.x1 !== m.x1 && x.y1 !== m.y1 && x.x2 === m.x2 && x.y2 === m.y2);
+        if (overlapMoves.length === 0) allowedMoves.push(m);
+        else badMoves.push(m);
+      }
+      return {allowed: allowedMoves, bad: badMoves};
     },
     neighbourTiles(y, x) {
       let neighbours = [];
