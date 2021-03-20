@@ -1,7 +1,7 @@
 <template>
   <div>
-    <span>Boxes left: {{boxesLeft}}</span>
-    <Board></Board>
+    <span>Boxes for this map: {{data.totalBoxes}}</span>
+    <Board @placebox="boxPlaced" :data="data"></Board>
   </div>
 </template>
 
@@ -15,12 +15,17 @@ export default {
   },
   data() {
     return {
-      boxesLeft: 2
+      data: {
+        totalBoxes: 2,
+        tiles: [["","block","cat","cat"],["","","",""],["block","","","block"]]
+      }
     }
   },
   methods: {
-    boxPlaced() {
-      console.log("box placed");
+    boxPlaced(e) {
+      const newRow = this.data.tiles[e.y].slice(0);
+      newRow[e.x] = "box"
+      this.$set(this.data.tiles, e.y, newRow)
     }
   }
 }

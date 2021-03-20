@@ -1,7 +1,10 @@
 <template>
   <div>
-    BOARD!
-    <BoardTile></BoardTile>
+    BOARD:
+    <div class="TileRow" :key="`row-${y}`" v-for="(row, y) in data.tiles">
+      <BoardTile @placebox="placeBox" :inside="tile" :x="x" :y="y" :key="`tile-${x}-${y}`" v-for="(tile, x) in row" />
+    </div>
+
   </div>
 </template>
 
@@ -13,6 +16,14 @@ export default {
   components: {
     BoardTile
   },
+  props: {
+    data: Object
+  },
+  methods: {
+    placeBox (e) {
+      this.$emit("placebox", e);
+    }
+  }
 }
 </script>
 
