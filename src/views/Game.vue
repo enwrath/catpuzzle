@@ -16,8 +16,8 @@ export default {
   data() {
     return {
       data: {
-        totalBoxes: 2,
-        tiles: [["","","cat",""],["","","","cat"],["block","","","block"]]
+        totalBoxes: 3,
+        tiles: [["","","cat",""],["kitten","","","cat"],["block","","","block"],["","","",""]]
       }
     }
   },
@@ -41,7 +41,14 @@ export default {
             const n = this.neighbourTiles(y,x);
             for (const tile of n) {
               if (this.data.tiles[tile.y][tile.x] === "box") {
-                moves.push({x1: x, x2:tile.x, y1:y, y2:tile.y});
+                moves.push({x1: x, x2:tile.x, y1:y, y2:tile.y, cat:"cat"});
+              }
+            }
+          } else if (this.data.tiles[y][x] === "kitten") {
+            const n = this.kittenMoveTiles(y,x);
+            for (const tile of n) {
+              if (this.data.tiles[tile.y][tile.x] === "box") {
+                moves.push({x1: x, x2:tile.x, y1:y, y2:tile.y, cat:"kitten"});
               }
             }
           }
@@ -52,11 +59,28 @@ export default {
       const filteredMoves = this.filterMoves(moves);
 
       for (const m of filteredMoves.allowed) {
-        this.setTile(m.y2, m.x2, "box-cat");
+
+        this.setTile(m.y2, m.x2, `box-${m.cat}`);
         this.setTile(m.y1, m.x1, "");
       }
       for (const m of filteredMoves.bad) {
         this.setTile(m.y2, m.x2, "broken-box");
+        if (m.cat === "kitten") {
+          if (Math.abs(m.y2-m.y1) === 2 || Math.abs(m.x2-m.x1) === 2) {
+            let newY, newX;
+            if (m.y2 - m.y1 <= 1) newY = m.y1;
+            else if (m.y2 - m.y1 < 0) newY = m.y2+1;
+            else newY = m.y2-1;
+            if (m.x2 - m.x1 <= 1) newX = m.x1;
+            else if (m.x2 - m.x1 < 0) newX = m.x2+1;
+            else newX = m.x2-1;
+            console.log(newX, newY)
+            this.setTile(m.y1, m.x1, "");
+            //This tile should be empty! Based on earlier checks
+            this.setTile(newY, newX, m.cat);
+          }
+        }
+
       }
       //TODO: somehow communicate user what happened
       //visuals????????? oh no
@@ -80,6 +104,15 @@ export default {
       if (this.data.tiles[y-1] !== undefined && this.data.tiles[y-1][x] !== undefined) neighbours.push({x:x, y:y-1});
       if (this.data.tiles[y][x+1] !== undefined) neighbours.push({x:x+1, y:y});
       if (this.data.tiles[y][x-1] !== undefined) neighbours.push({x:x-1, y:y});
+      return neighbours;
+    },
+    kittenMoveTiles(y,x) {
+      let neighbours = this.neighbourTiles(y,x);
+      //Kitten can move 2tiles in direction
+      if (this.data.tiles[y+1] !== undefined && this.data.tiles[y+1][x] === "" && this.data.tiles[y+2] !== undefined && this.data.tiles[y+2][x] !== undefined) neighbours.push({x:x, y:y+2});
+      if (this.data.tiles[y-1] !== undefined && this.data.tiles[y-1][x] === "" && this.data.tiles[y-2] !== undefined && this.data.tiles[y-2][x] !== undefined) neighbours.push({x:x, y:y-2});
+      if (this.data.tiles[y][x+1] !== undefined && this.data.tiles[y][x+1] === "" && this.data.tiles[y][x+2] !== undefined) neighbours.push({x:x+2, y:y});
+      if (this.data.tiles[y][x-1] !== undefined && this.data.tiles[y][x-1] === "" && this.data.tiles[y][x-2] !== undefined) neighbours.push({x:x-2, y:y});
       return neighbours;
     }
   },
