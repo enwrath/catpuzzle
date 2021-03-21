@@ -1,6 +1,7 @@
 <template>
   <div>
-    <span>Boxes {{boxesOnBoard}} / {{data.totalBoxes}}</span>
+    <p>Boxes {{boxesOnBoard}} / {{data.totalBoxes}}</p>
+    <button :disabled="data.history.length===0" @click="undoMove">UNDO</button>
     <Board @placebox="boxPlaced" :data="data"></Board>
   </div>
 </template>
@@ -17,13 +18,15 @@ export default {
     return {
       data: {
         totalBoxes: 3,
-        tiles: [["","","cat",""],["kitten","","","cat"],["block","","","block"],["","","",""]]
+        tiles: [["","","cat",""],["kitten","","","cat"],["block","","","block"],["","","",""]],
+        history: []
       }
     }
   },
   methods: {
     boxPlaced(e) {
       if (this.boxesOnBoard < this.data.totalBoxes) {
+        this.addToHistory();
         this.setTile(e.y, e.x, "box");
         this.moveCats();
       }
@@ -32,6 +35,17 @@ export default {
       const newRow = this.data.tiles[y].slice(0);
       newRow[x] = stuff;
       this.$set(this.data.tiles, y, newRow);
+    },
+    addToHistory() {
+      this.$set(this.data.history, this.data.history.length, [...this.data.tiles]);
+      //this.history.push([...this.tiles]);
+    },
+    undoMove() {
+      if (this.data.history.length === 0) return;
+      for (const row in this.data.tiles) {
+        this.$set(this.data.tiles, row, this.data.history[this.data.history.length-1][row]);
+      }
+      this.$delete(this.data.history, this.data.history.length-1);
     },
     moveCats() {
       let moves = [];
@@ -62,8 +76,10 @@ export default {
 
         this.setTile(m.y2, m.x2, `box-${m.cat}`);
         this.setTile(m.y1, m.x1, "");
+        console.log(m)
       }
       for (const m of filteredMoves.bad) {
+        console.log(m)
         this.setTile(m.y2, m.x2, "broken-box");
         if (m.cat === "kitten") {
           if (Math.abs(m.y2-m.y1) === 2 || Math.abs(m.x2-m.x1) === 2) {
@@ -74,7 +90,6 @@ export default {
             if (m.x2 - m.x1 <= 1) newX = m.x1;
             else if (m.x2 - m.x1 < 0) newX = m.x2+1;
             else newX = m.x2-1;
-            console.log(newX, newY)
             this.setTile(m.y1, m.x1, "");
             //This tile should be empty! Based on earlier checks
             this.setTile(newY, newX, m.cat);
@@ -91,8 +106,9 @@ export default {
       let badMoves = [];
 
       for (const m of moves) {
-        const overlapMoves = moves.filter(x => x.x1 !== m.x1 && x.y1 !== m.y1 && x.x2 === m.x2 && x.y2 === m.y2);
-        if (overlapMoves.length === 0) allowedMoves.push(m);
+        const overlapMoves = moves.filter(x => x.x2 === m.x2 && x.y2 === m.y2);
+        // All moves overlap with self
+        if (overlapMoves.length === 1) allowedMoves.push(m);
         else badMoves.push(m);
       }
       return {allowed: allowedMoves, bad: badMoves};
