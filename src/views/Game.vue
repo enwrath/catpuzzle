@@ -18,23 +18,49 @@ export default {
     return {
       data: {
         totalBoxes: 3,
-        tiles: [["","","cat",""],["kitten","","","cat"],["block","","","block"],["","","",""]],
-        history: []
+        tiles: [["","","cat",""],["kitten","","","cat"],["block","","","block"],["cat","","",""]],
+        tempTiles: [],
+        history: [],
+        animations: [],
+        animations2: [],
+        timer: '',
+        animating: false
       }
     }
   },
   methods: {
     boxPlaced(e) {
-      if (this.boxesOnBoard < this.data.totalBoxes) {
+      if (!this.animating && this.boxesOnBoard < this.data.totalBoxes) {
         this.addToHistory();
+        this.newTempTiles();
         this.setTile(e.y, e.x, "box");
         this.moveCats();
       }
     },
+    clearAnimations(first) {
+      if (first) this.data.animations.splice(0);
+      else this.data.animations2.splice(0);
+    },
+    animations2Start() {
+      for (const row in this.data.animations2) {
+        this.$set(this.data.animations, row, this.data.animations2[row]);
+      }
+      this.timer = setTimeout(this.afterAnimation, 1000);
+    },
+    newTempTiles() {
+      for (const row in this.data.tiles) {
+        this.$set(this.data.tempTiles, row, [...this.data.tiles[row]]);
+      }
+    },
+    useTempTiles() {
+      for (const row in this.data.tiles) {
+        this.$set(this.data.tiles, row, [...this.data.tempTiles[row]]);
+      }
+    },
     setTile(y, x, stuff) {
-      const newRow = this.data.tiles[y].slice(0);
+      const newRow = this.data.tempTiles[y].slice(0);
       newRow[x] = stuff;
-      this.$set(this.data.tiles, y, newRow);
+      this.$set(this.data.tempTiles, y, newRow);
     },
     addToHistory() {
       this.$set(this.data.history, this.data.history.length, [...this.data.tiles]);
@@ -42,6 +68,7 @@ export default {
     },
     undoMove() {
       if (this.data.history.length === 0) return;
+      this.clearAnimations();
       for (const row in this.data.tiles) {
         this.$set(this.data.tiles, row, this.data.history[this.data.history.length-1][row]);
       }
@@ -49,19 +76,19 @@ export default {
     },
     moveCats() {
       let moves = [];
-      for (let y = 0; y < this.data.tiles.length; y++){
-        for (let x = 0; x < this.data.tiles[y].length; x++){
-          if (this.data.tiles[y][x] === "cat") {
+      for (let y = 0; y < this.data.tempTiles.length; y++){
+        for (let x = 0; x < this.data.tempTiles[y].length; x++){
+          if (this.data.tempTiles[y][x] === "cat") {
             const n = this.neighbourTiles(y,x);
             for (const tile of n) {
-              if (this.data.tiles[tile.y][tile.x] === "box") {
+              if (this.data.tempTiles[tile.y][tile.x] === "box") {
                 moves.push({x1: x, x2:tile.x, y1:y, y2:tile.y, cat:"cat"});
               }
             }
-          } else if (this.data.tiles[y][x] === "kitten") {
+          } else if (this.data.tempTiles[y][x] === "kitten") {
             const n = this.kittenMoveTiles(y,x);
             for (const tile of n) {
-              if (this.data.tiles[tile.y][tile.x] === "box") {
+              if (this.data.tempTiles[tile.y][tile.x] === "box") {
                 moves.push({x1: x, x2:tile.x, y1:y, y2:tile.y, cat:"kitten"});
               }
             }
@@ -76,11 +103,13 @@ export default {
 
         this.setTile(m.y2, m.x2, `box-${m.cat}`);
         this.setTile(m.y1, m.x1, "");
+        this.addAnimation(m.y1,m.x1,m.y2,m.x2, false);
         console.log(m)
       }
       for (const m of filteredMoves.bad) {
         console.log(m)
         this.setTile(m.y2, m.x2, "broken-box");
+        this.addAnimation(m.y1,m.x1,m.y2,m.x2, true);
         if (m.cat === "kitten") {
           if (Math.abs(m.y2-m.y1) === 2 || Math.abs(m.x2-m.x1) === 2) {
             let newY, newX;
@@ -99,7 +128,39 @@ export default {
       }
       //TODO: somehow communicate user what happened
       //visuals????????? oh no
-
+      this.animating = true;
+      this.timer = setTimeout(this.afterAnimation, 1000);
+    },
+    addAnimation(y1, x1, y2, x2, badmove) {
+      if (y1 === y2) {
+        if (x2 - x1 < 0) {
+          this.data.animations.push({x:x1, y:y1, name:"moveLeft"});
+          if (badmove) this.data.animations2.push({x:x1, y:y1, name:"arriveLeft"});
+        }
+        else {
+          this.data.animations.push({x:x1, y:y1, name:"moveRight"});
+          if (badmove) this.data.animations2.push({x:x1, y:y1, name:"arriveRight"});
+        }
+      } else {
+        if (y2 - y1 < 0) {
+          this.data.animations.push({x:x1, y:y1, name:"moveUp"});
+          if (badmove) this.data.animations2.push({x:x1, y:y1, name:"arriveUp"});
+        }
+        else {
+          this.data.animations.push({x:x1, y:y1, name:"moveDown"});
+          if (badmove) this.data.animations2.push({x:x1, y:y1, name:"arriveDown"});
+        }
+      }
+    },
+    afterAnimation() {
+      this.useTempTiles();
+      this.clearAnimations(true);
+      if (this.data.animations2.length !== 0) {
+        this.animations2Start();
+        this.clearAnimations(false);
+      } else {
+      this.animating = false;
+      }
     },
     filterMoves(moves) {
       let allowedMoves = [];

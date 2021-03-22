@@ -2,7 +2,7 @@
   <div class="Board">
     BOARD:
     <div class="TileRow" :key="`row-${y}`" v-for="(row, y) in data.tiles">
-      <BoardTile @placebox="placeBox" :inside="tile" :x="x" :y="y" :key="`tile-${x}-${y}`" v-for="(tile, x) in row" />
+      <BoardTile @placebox="placeBox" :inside="tile" :x="x" :y="y" :animations="data.animations" :key="`tile-${x}-${y}`" v-for="(tile, x) in row" />
     </div>
 
   </div>
