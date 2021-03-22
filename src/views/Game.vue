@@ -133,8 +133,12 @@ export default {
       }
       //TODO: somehow communicate user what happened
       //visuals????????? oh no
-      this.animating = true;
-      this.timer = setTimeout(this.afterAnimation, 950);
+      if (filteredMoves.allowed.length > 0 || filteredMoves.bad.length > 0) {
+        this.animating = true;
+        this.timer = setTimeout(this.afterAnimation, 950);
+      } else {
+        this.useTempTiles();
+      }
     },
     addAnimation(y1, x1, y2, x2, badmove) {
       if (y1 === y2) {
