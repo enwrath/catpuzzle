@@ -111,12 +111,12 @@ export default {
         if (m.cat === "kitten") {
           if (Math.abs(m.y2-m.y1) === 2 || Math.abs(m.x2-m.x1) === 2) {
             let newY, newX;
-            if (m.y2 - m.y1 <= 1) newY = m.y1;
-            else if (m.y2 - m.y1 < 0) newY = m.y2+1;
-            else newY = m.y2-1;
-            if (m.x2 - m.x1 <= 1) newX = m.x1;
-            else if (m.x2 - m.x1 < 0) newX = m.x2+1;
-            else newX = m.x2-1;
+            if (m.y2 < m.y1) newY = m.y2+1;
+            else if (m.y2 > m.y1) newY = m.y2-1;
+            else newY = m.y1;
+            if (m.x2 < m.x1) newX = m.x2+1;
+            else if (m.x2 > m.x1) newX = m.x2-1;
+            else newX = m.x1;
             this.setTile(m.y1, m.x1, "");
             //This tile should be empty! Based on earlier checks
             this.setTile(newY, newX, m.cat);
