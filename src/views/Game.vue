@@ -2,6 +2,8 @@
   <div>
     <p>Boxes {{boxesOnBoard}} / {{data.totalBoxes}}</p>
     <button :disabled="data.history.length===0" @click="undoMove">UNDO</button>
+    <p v-if="victory">PUZZLE COMPLETE! ALL CATS ARE IN BOXES.</p>
+    <p v-else>Place boxes on the board for cats to get in.</p>
     <Board @placebox="boxPlaced" :data="data"></Board>
   </div>
 </template>
@@ -23,9 +25,10 @@ export default {
         history: [],
         animations: [],
         animations2: [],
-        timer: '',
-        animating: false
-      }
+        timer: ''
+      },
+      animating: false,
+      victory: false
     }
   },
   methods: {
@@ -42,7 +45,7 @@ export default {
       }
     },
     checkVictory() {
-        if (this.data.tiles.flat().every(x => !x.includes("cat") || (x.includes("cat") && x.includes("box")))) console.log("Victoryy!");
+        if (this.data.tiles.flat().every(x => !x.includes("cat") || (x.includes("cat") && x.includes("box")))) this.victory = true;
     },
     clearAnimations(first) {
       if (first) this.data.animations.splice(0);
