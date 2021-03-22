@@ -18,7 +18,7 @@ export default {
     return {
       data: {
         totalBoxes: 3,
-        tiles: [["","","cat",""],["kitten","","",""],["block","","","block"],["","kitten","kitten",""]],
+        tiles: [["","","cat",""],["cat2","","",""],["block","","","block"],["","cat2","cat2",""]],
         tempTiles: [],
         history: [],
         animations: [],
@@ -34,6 +34,10 @@ export default {
         this.addToHistory();
         this.newTempTiles();
         this.setTile(e.y, e.x, "box");
+        //also add box to current tiles instantly so it's visible
+        const newRow = this.data.tiles[e.y].slice(0);
+        newRow[e.x] = "box";
+        this.$set(this.data.tiles, e.y, newRow);
         this.moveCats();
       }
     },
@@ -85,11 +89,11 @@ export default {
                 moves.push({x1: x, x2:tile.x, y1:y, y2:tile.y, cat:"cat"});
               }
             }
-          } else if (this.data.tempTiles[y][x] === "kitten") {
-            const n = this.kittenMoveTiles(y,x);
+          } else if (this.data.tempTiles[y][x] === "cat2") {
+            const n = this.cat2MoveTiles(y,x);
             for (const tile of n) {
               if (this.data.tempTiles[tile.y][tile.x] === "box") {
-                moves.push({x1: x, x2:tile.x, y1:y, y2:tile.y, cat:"kitten"});
+                moves.push({x1: x, x2:tile.x, y1:y, y2:tile.y, cat:"cat2"});
               }
             }
           }
@@ -108,7 +112,7 @@ export default {
       for (const m of filteredMoves.bad) {
         this.setTile(m.y2, m.x2, "broken-box");
         this.addAnimation(m.y1,m.x1,m.y2,m.x2, true);
-        if (m.cat === "kitten") {
+        if (m.cat === "cat2") {
           if (Math.abs(m.y2-m.y1) === 2 || Math.abs(m.x2-m.x1) === 2) {
             let newY, newX;
             if (m.y2 < m.y1) newY = m.y2+1;
@@ -183,7 +187,7 @@ export default {
       if (this.data.tiles[y][x-1] !== undefined) neighbours.push({x:x-1, y:y});
       return neighbours;
     },
-    kittenMoveTiles(y,x) {
+    cat2MoveTiles(y,x) {
       let neighbours = this.neighbourTiles(y,x);
       //Kitten can move 2tiles in direction
       if (this.data.tiles[y+1] !== undefined && this.data.tiles[y+1][x] === "" && this.data.tiles[y+2] !== undefined && this.data.tiles[y+2][x] !== undefined) neighbours.push({x:x, y:y+2});

@@ -1,9 +1,8 @@
 <template>
   <div @click="placeBox()">
-    <img v-if="inside==='cat'||inside==='kitten'" :class="animationName" :style="`--distance: ${animDistance}`" :src="require(`@/assets/${inside}.png`)" />
+    <img v-if="inside!==''" :class="animationName" :style="`--distance: ${animDistance}; z-index: ${ownZ}`" :src="require(`@/assets/${inside}.png`)" />
     <p v-else>
-      Tile {{x}}, {{y}} <br />
-      {{inside}}
+      Tile {{x}}, {{y}}
     </p>
   </div>
 </template>
@@ -31,6 +30,10 @@ export default {
   computed: {
     canPlaceBox: function () {
       return this.inside === "";
+    },
+    ownZ: function () {
+      if (this.inside.includes("cat")) return 10;
+      else return 5;
     }
   },
   methods: {
@@ -66,7 +69,6 @@ div:hover {
 img {
   width: 100%;
   height: 100%;
-  z-index: 10;
   position: relative;
   --distance: 100%;
 }
