@@ -1,6 +1,6 @@
 <template>
   <div @click="placeBox()">
-    <img v-if="inside==='cat'" :class="animationName" src="../assets/cat.png" />
+    <img v-if="inside==='cat'||inside==='kitten'" :class="animationName" :style="`--distance: ${animDistance}`" :src="require(`@/assets/${inside}.png`)" />
     <p v-else>
       Tile {{x}}, {{y}} <br />
       {{inside}}
@@ -19,7 +19,8 @@ export default {
   },
   data() {
     return {
-      animationName: "idleAnimation"
+      animationName: "idleAnimation",
+      animDistance: "0"
     }
   },
   watch: {
@@ -38,8 +39,14 @@ export default {
     },
     checkAnimation() {
       const selfanim =  this.animations.filter(x => x.x === this.x && x.y === this.y);
-      if (selfanim.length === 0) this.animationName = "idleAnimation";
-      else this.animationName = selfanim[0].name;
+      if (selfanim.length === 0) {
+        this.animationName = "idleAnimation";
+        this.animDistance = "0";
+      }
+      else {
+        this.animationName = selfanim[0].name;
+        this.animDistance = selfanim[0].distance;
+      }
     }
   }
 }
@@ -61,72 +68,42 @@ img {
   height: 100%;
   z-index: 10;
   position: relative;
+  --distance: 100%;
 }
-.moveLeft {
+.moveHor {
   animation-duration: 1s;
-  animation-name: moveleft;
+  animation-name: movehor;
 }
-@keyframes moveleft {
-  0% { margin-left: 0; }
-  100% { margin-left: -100%; }
+@keyframes movehor {
+  0% { left: 0; }
+  100% { left: var(--distance); }
 }
-.moveRight {
+.moveVer {
   animation-duration: 1s;
-  animation-name: moveright;
+  animation-name: movever;
 }
-@keyframes moveright {
-  0% { margin-left: 0; }
-  100% { margin-left: 100%; }
-}
-.moveUp {
-  animation-duration: 1s;
-  animation-name: moveup;
-}
-@keyframes moveup {
-  0% { margin-top: 0; }
-  100% { margin-top: -100%; }
-}
-.moveDown {
-  animation-duration: 1s;
-  animation-name: movedown;
-}
-@keyframes movedown {
-  0% { margin-top: 0; }
-  100% { margin-top: 100%; }
+@keyframes movever {
+  0% { top: 0; }
+  100% { top: var(--distance); }
 }
 
-.arriveLeft {
+.arriveHor {
   animation-duration: 1s;
-  animation-name: arriveleft;
+  animation-name: arrivehor;
 }
-@keyframes arriveleft {
-  0% { margin-left: -100%; }
-  100% { margin-left: 0; }
+@keyframes arrivehor {
+  0% { left: var(--distance); }
+  100% { left: 0; }
 }
-.arriveRight {
+.arriveVer {
   animation-duration: 1s;
-  animation-name: arriveright;
+  animation-name: arrivever;
 }
-@keyframes arriveright {
-  0% { margin-left: 100%; }
-  100% { margin-left: 0; }
+@keyframes arrivever {
+  0% { top: var(--distance); }
+  100% { top: 0; }
 }
-.arriveUp {
-  animation-duration: 1s;
-  animation-name: arriveup;
-}
-@keyframes arriveup {
-  0% { margin-top: -100%; }
-  100% { margin-top: 0; }
-}
-.arriveDown {
-  animation-duration: 1s;
-  animation-name: arrivedown;
-}
-@keyframes arrivedown {
-  0% { margin-top: 100%; }
-  100% { margin-top: 0; }
-}
+
 
 
 

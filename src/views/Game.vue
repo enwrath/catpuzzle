@@ -18,7 +18,7 @@ export default {
     return {
       data: {
         totalBoxes: 3,
-        tiles: [["","","cat",""],["kitten","","","cat"],["block","","","block"],["cat","","",""]],
+        tiles: [["","","cat",""],["kitten","","",""],["block","","","block"],["","kitten","kitten",""]],
         tempTiles: [],
         history: [],
         animations: [],
@@ -104,10 +104,8 @@ export default {
         this.setTile(m.y2, m.x2, `box-${m.cat}`);
         this.setTile(m.y1, m.x1, "");
         this.addAnimation(m.y1,m.x1,m.y2,m.x2, false);
-        console.log(m)
       }
       for (const m of filteredMoves.bad) {
-        console.log(m)
         this.setTile(m.y2, m.x2, "broken-box");
         this.addAnimation(m.y1,m.x1,m.y2,m.x2, true);
         if (m.cat === "kitten") {
@@ -133,22 +131,24 @@ export default {
     },
     addAnimation(y1, x1, y2, x2, badmove) {
       if (y1 === y2) {
+        const tilesMoved = `${Math.abs(x2-x1)*100}%`;
         if (x2 - x1 < 0) {
-          this.data.animations.push({x:x1, y:y1, name:"moveLeft"});
-          if (badmove) this.data.animations2.push({x:x1, y:y1, name:"arriveLeft"});
+          this.data.animations.push({x:x1, y:y1, name:"moveHor", distance: `-${tilesMoved}`});
+          if (badmove) this.data.animations2.push({x:x2+1, y:y2, name:"arriveHor", distance:"-100%"});
         }
         else {
-          this.data.animations.push({x:x1, y:y1, name:"moveRight"});
-          if (badmove) this.data.animations2.push({x:x1, y:y1, name:"arriveRight"});
+          this.data.animations.push({x:x1, y:y1, name:"moveHor", distance: tilesMoved});
+          if (badmove) this.data.animations2.push({x:x2-1, y:y2, name:"arriveHor", distance:"100%"});
         }
       } else {
+        const tilesMoved = `${Math.abs(y2-y1)*100}%`;
         if (y2 - y1 < 0) {
-          this.data.animations.push({x:x1, y:y1, name:"moveUp"});
-          if (badmove) this.data.animations2.push({x:x1, y:y1, name:"arriveUp"});
+          this.data.animations.push({x:x1, y:y1, name:"moveVer", distance: `-${tilesMoved}`});
+          if (badmove) this.data.animations2.push({x:x2, y:y2+1, name:"arriveVer", distance:"-100%"});
         }
         else {
-          this.data.animations.push({x:x1, y:y1, name:"moveDown"});
-          if (badmove) this.data.animations2.push({x:x1, y:y1, name:"arriveDown"});
+          this.data.animations.push({x:x1, y:y1, name:"moveVer", distance: tilesMoved});
+          if (badmove) this.data.animations2.push({x:x2, y:y2-1, name:"arriveVer", distance:"100%"});
         }
       }
     },
