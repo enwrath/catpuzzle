@@ -17,7 +17,7 @@ export default {
   data() {
     return {
       data: {
-        totalBoxes: 3,
+        totalBoxes: 10,
         tiles: [["","","cat",""],["cat2","","",""],["block","","","block"],["","cat2","cat2",""]],
         tempTiles: [],
         history: [],
@@ -40,6 +40,9 @@ export default {
         this.$set(this.data.tiles, e.y, newRow);
         this.moveCats();
       }
+    },
+    checkVictory() {
+        if (this.data.tiles.flat().every(x => !x.includes("cat") || (x.includes("cat") && x.includes("box")))) console.log("Victoryy!");
     },
     clearAnimations(first) {
       if (first) this.data.animations.splice(0);
@@ -164,6 +167,7 @@ export default {
         this.clearAnimations(false);
       } else {
       this.animating = false;
+      this.checkVictory();
       }
     },
     filterMoves(moves) {
