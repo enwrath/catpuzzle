@@ -45,7 +45,7 @@ export default {
       for (const row in this.data.animations2) {
         this.$set(this.data.animations, row, this.data.animations2[row]);
       }
-      this.timer = setTimeout(this.afterAnimation, 1000);
+      this.timer = setTimeout(this.afterAnimation, 950);
     },
     newTempTiles() {
       for (const row in this.data.tiles) {
@@ -127,7 +127,7 @@ export default {
       //TODO: somehow communicate user what happened
       //visuals????????? oh no
       this.animating = true;
-      this.timer = setTimeout(this.afterAnimation, 1000);
+      this.timer = setTimeout(this.afterAnimation, 950);
     },
     addAnimation(y1, x1, y2, x2, badmove) {
       if (y1 === y2) {
