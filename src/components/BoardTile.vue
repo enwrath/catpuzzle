@@ -1,6 +1,6 @@
 <template>
   <div @click="placeBox()">
-    <img v-if="inside!==''" :class="animationName" :style="`--distance: ${animDistance}; z-index: ${ownZ}`" :src="require(`@/assets/${inside}.png`)" />
+    <img v-if="inside!==''" :class="{[animationName]: hasActiveCat}" :style="`--distance: ${animDistance}; z-index: ${ownZ}`" :src="require(`@/assets/${inside}.png`)" />
     <p v-else>
       Tile {{x}}, {{y}}
     </p>
@@ -31,8 +31,11 @@ export default {
     canPlaceBox: function () {
       return this.inside === "";
     },
+    hasActiveCat: function() {
+      return this.inside.includes("cat") && !this.inside.includes("box");
+    },
     ownZ: function () {
-      if (this.inside.includes("cat")) return 10;
+      if (this.hasActiveCat) return 10;
       else return 5;
     }
   },
