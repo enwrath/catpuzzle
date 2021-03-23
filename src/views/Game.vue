@@ -181,9 +181,14 @@ export default {
     filterMoves(moves) {
       let allowedMoves = [];
       let badMoves = [];
-
+      let actualMoves = [];
       for (const m of moves) {
-        const overlapMoves = moves.filter(x => x.x2 === m.x2 && x.y2 === m.y2);
+        const multipleMoves = moves.filter(x => x.x1 === m.x1 && x.y1 === m.y1);
+        // If cat can move to multiple boxes, do not move at all
+        if (multipleMoves.length === 1) actualMoves.push(m);
+      }
+      for (const m of actualMoves) {
+        const overlapMoves = actualMoves.filter(x => x.x2 === m.x2 && x.y2 === m.y2);
         // All moves overlap with self
         if (overlapMoves.length === 1) allowedMoves.push(m);
         else badMoves.push(m);
