@@ -1,0 +1,10 @@
+{
+  "level1": {
+    "id": "level1",
+    "name": "First level"
+  },
+  "level2": {
+    "id": "level2",
+    "name": "Second level"
+  }
+}

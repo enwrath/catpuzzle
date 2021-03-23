@@ -31,6 +31,14 @@ export default {
       victory: false
     }
   },
+  created() {
+    console.log("created level id:",this.$route.params.levelId);
+  },
+  watch: {
+    $route() {
+      console.log("watched levelid: ",this.$route.params.levelId);
+    }
+  },
   methods: {
     boxPlaced(e) {
       if (!this.animating && this.boxesOnBoard < this.data.totalBoxes) {

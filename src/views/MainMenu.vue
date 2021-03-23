@@ -1,7 +1,7 @@
 <template>
   <div>
     <h1>CAT PUZZLE BOX GAME</h1>
-    <router-link to="/game">Play</router-link>
+    <router-link to="/levelselect">Play</router-link>
   </div>
 </template>
 
