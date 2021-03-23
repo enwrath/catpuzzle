@@ -21,8 +21,8 @@
   "4": {
     "id": "4",
     "name": "Boxed in",
-    "boxes": 4,
+    "boxes": 5,
     "message": "Sometimes you need to break a box to make boxed cats.",
-    "tiles": [["","","","","cat"],["","","box","",""],["","block","block","cat2","cat"],["","","block","block","block"],["","","","",""]]
+    "tiles": [["","","cat","block"],["box","","","cat2"],["block","cat2","cat","block"],["block","block","block",""]]
   }
 }
