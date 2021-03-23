@@ -1,10 +1,17 @@
 {
   "level1": {
     "id": "level1",
-    "name": "First level"
+    "name": "First level",
+    "tiles": [["","","cat",""],["cat2","","",""],["block","","","block"],["","cat2","cat2",""]]
   },
   "level2": {
     "id": "level2",
-    "name": "Second level"
+    "name": "Second level",
+    "tiles": [["","","",""],["cat2","","",""],["block","","","block"],["","cat2","cat2",""]]
+  },
+  "level3": {
+    "id": "level3",
+    "name": "Small level",
+    "tiles": [["","",""],["cat2","",""],["block","",""]]
   }
 }

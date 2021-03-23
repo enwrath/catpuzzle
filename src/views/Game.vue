@@ -10,6 +10,7 @@
 
 <script>
 import Board from '@/components/Board.vue'
+import levelList from "@/data/levellist.json";
 
 export default {
   name: 'Game',
@@ -20,26 +21,36 @@ export default {
     return {
       data: {
         totalBoxes: 10,
-        tiles: [["","","cat",""],["cat2","","",""],["block","","","block"],["","cat2","cat2",""]],
+        tiles: [],
         tempTiles: [],
         history: [],
         animations: [],
         animations2: [],
         timer: ''
       },
+      levels: levelList,
       animating: false,
       victory: false
     }
   },
   created() {
     console.log("created level id:",this.$route.params.levelId);
+    this.loadLevel();
   },
   watch: {
     $route() {
       console.log("watched levelid: ",this.$route.params.levelId);
+      this.loadLevel();
     }
   },
   methods: {
+    loadLevel() {
+      this.data.tiles = [];
+      console.log("loading level ",this.$route.params.levelId);
+      for (const row in this.levels[this.$route.params.levelId].tiles) {
+        this.$set(this.data.tiles, row, [...this.levels[this.$route.params.levelId].tiles[row]]);
+      }
+    },
     boxPlaced(e) {
       if (!this.animating && this.boxesOnBoard < this.data.totalBoxes) {
         this.addToHistory();
