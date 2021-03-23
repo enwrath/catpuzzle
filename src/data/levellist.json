@@ -20,9 +20,23 @@
   },
   "4": {
     "id": "4",
-    "name": "Boxed in",
+    "name": "Sacrificial box",
     "boxes": 5,
     "message": "Sometimes you need to break a box to make boxed cats.",
     "tiles": [["","","cat","block"],["box","","","cat2"],["block","cat2","cat","block"],["block","block","block",""]]
+  },
+  "5": {
+    "id": "5",
+    "name": "Surrounded",
+    "boxes": 7,
+    "message": "Center has cats aplenty. Spread out!",
+    "tiles": [["","","cat2",""],["","cat","cat",""],["","cat","cat","cat2"],["cat2","","",""]]
+  },
+  "6": {
+    "id": "6",
+    "name": "Chain reaction",
+    "boxes": 12,
+    "message": "A single box can cause large movements.",
+    "tiles": [["cat2","","cat2","box","cat2","box","cat2"],["","box","","","","","box"],["","cat","box","cat","box","box","cat2"],["","box","","","","","box"],["cat2","","cat2","box","cat2","box","cat2"]]
   }
 }
