@@ -72,7 +72,7 @@ export default {
       }
     },
     boxPlaced(e) {
-      if (!this.animating && this.boxesOnBoard < this.data.totalBoxes) {
+      if (!this.victory && !this.animating && this.boxesOnBoard < this.data.totalBoxes) {
         this.addToHistory();
         this.newTempTiles();
         this.setTile(e.y, e.x, "box");
