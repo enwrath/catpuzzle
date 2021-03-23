@@ -31,7 +31,7 @@ export default {
   data() {
     return {
       data: {
-        totalBoxes: 10,
+        totalBoxes: 1,
         tiles: [],
         tempTiles: [],
         history: [],
@@ -64,6 +64,7 @@ export default {
       this.data.animations2 = [];
       this.animating = false;
       this.victory = false;
+      this.data.totalBoxes = this.levels[this.$route.params.levelId].boxes;
       clearTimeout(this.data.timer);
       console.log("loading level ",this.$route.params.levelId);
       for (const row in this.levels[this.$route.params.levelId].tiles) {

@@ -2,16 +2,25 @@
   "1": {
     "id": "1",
     "name": "First level",
+    "boxes": 4,
     "tiles": [["","","cat",""],["cat2","","",""],["block","","","block"],["","cat2","cat2",""]]
   },
   "2": {
     "id": "2",
     "name": "Second level",
+    "boxes": 3,
     "tiles": [["","","",""],["cat2","","",""],["block","","","block"],["","cat2","cat2",""]]
   },
   "3": {
     "id": "3",
     "name": "Small level",
+    "boxes": 1,
     "tiles": [["","",""],["cat2","",""],["block","",""]]
+  },
+  "4": {
+    "id": "4",
+    "name": "Boxed in",
+    "boxes": 4,
+    "tiles": [["","","","","cat"],["","","box","",""],["","block","block","cat2","cat"],["","","block","block","block"],["","","","",""]]
   }
 }
