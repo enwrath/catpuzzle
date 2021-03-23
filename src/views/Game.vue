@@ -49,8 +49,11 @@ export default {
       this.data.tiles = [];
       this.data.history = [];
       this.data.tempTiles = [];
-      this.animations = [];
-      this.animations2 = [];
+      this.data.animations = [];
+      this.data.animations2 = [];
+      this.animating = false;
+      this.victory = false;
+      clearTimeout(this.data.timer);
       console.log("loading level ",this.$route.params.levelId);
       for (const row in this.levels[this.$route.params.levelId].tiles) {
         this.$set(this.data.tiles, row, [...this.levels[this.$route.params.levelId].tiles[row]]);
@@ -79,7 +82,7 @@ export default {
       for (const row in this.data.animations2) {
         this.$set(this.data.animations, row, this.data.animations2[row]);
       }
-      this.timer = setTimeout(this.afterAnimation, 950);
+      this.data.timer = setTimeout(this.afterAnimation, 950);
     },
     newTempTiles() {
       for (const row in this.data.tiles) {
@@ -162,7 +165,7 @@ export default {
       //visuals????????? oh no
       if (filteredMoves.allowed.length > 0 || filteredMoves.bad.length > 0) {
         this.animating = true;
-        this.timer = setTimeout(this.afterAnimation, 950);
+        this.data.timer = setTimeout(this.afterAnimation, 950);
       } else {
         this.useTempTiles();
         this.animating = false;
