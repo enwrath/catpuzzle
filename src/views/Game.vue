@@ -123,7 +123,10 @@ export default {
     },
     undoMove() {
       if (this.data.history.length === 0) return;
-      this.clearAnimations();
+      this.clearAnimations(true);
+      this.clearAnimations(false);
+      this.animating = false;
+      clearTimeout(this.data.timer);
       for (const row in this.data.tiles) {
         this.$set(this.data.tiles, row, this.data.history[this.data.history.length-1][row]);
       }
