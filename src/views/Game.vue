@@ -141,6 +141,8 @@ export default {
         this.timer = setTimeout(this.afterAnimation, 950);
       } else {
         this.useTempTiles();
+        this.animating = false;
+        this.checkVictory();
       }
     },
     addAnimation(y1, x1, y2, x2, badmove) {
@@ -173,8 +175,7 @@ export default {
         this.animations2Start();
         this.clearAnimations(false);
       } else {
-      this.animating = false;
-      this.checkVictory();
+      this.moveCats();
       }
     },
     filterMoves(moves) {
