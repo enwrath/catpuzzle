@@ -10,7 +10,6 @@
       <router-link v-if="nextLevelExists" :to="`/game/${nextLevel}`" custom v-slot="{ navigate }">
         <button @click="navigate">Next level</button>
       </router-link>
-      <span>{{nextLevelExists}}</span>
     </div>
     <div v-else>
       <button :disabled="data.history.length===0" @click="undoMove">UNDO</button>
