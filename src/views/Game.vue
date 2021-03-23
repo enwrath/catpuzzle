@@ -1,9 +1,21 @@
 <template>
   <div>
     <p>Boxes {{boxesOnBoard}} / {{data.totalBoxes}}</p>
-    <button :disabled="data.history.length===0" @click="undoMove">UNDO</button>
-    <p v-if="victory">PUZZLE COMPLETE! ALL CATS ARE IN BOXES.</p>
-    <p v-else>Place boxes on the board for cats to get in.</p>
+    <div v-if="victory">
+      <p >PUZZLE COMPLETE! ALL CATS ARE IN BOXES.</p>
+      <button @click="loadLevel">Replay level</button>
+      <router-link to="/levelselect" custom v-slot="{ navigate }">
+        <button @click="navigate">Level selection</button>
+      </router-link>
+      <router-link v-if="nextLevelExists" :to="`/game/${nextLevel}`" custom v-slot="{ navigate }">
+        <button @click="navigate">Next level</button>
+      </router-link>
+      <span>{{nextLevelExists}}</span>
+    </div>
+    <div v-else>
+      <button :disabled="data.history.length===0" @click="undoMove">UNDO</button>
+      <p >Place boxes on the board for cats to get in.</p>
+    </div>
     <Board @placebox="boxPlaced" :data="data"></Board>
   </div>
 </template>
@@ -244,6 +256,12 @@ export default {
   computed: {
     boxesOnBoard: function () {
       return this.data.tiles.flat().filter(x => x.includes("box")).length;
+    },
+    nextLevel: function () {
+      return parseInt(this.$route.params.levelId)+1;
+    },
+    nextLevelExists: function () {
+      return this.nextLevel in this.levels;
     }
   }
 }
