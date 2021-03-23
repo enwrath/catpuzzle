@@ -1,6 +1,6 @@
 <template>
   <div>
-    <p>Boxes {{boxesOnBoard}} / {{data.totalBoxes}}</p>
+    <p>Boxes left: {{boxesLeft}}</p>
     <div v-if="victory">
       <p >PUZZLE COMPLETE! ALL CATS ARE IN BOXES.</p>
       <button @click="loadLevel">Replay level</button>
@@ -13,7 +13,11 @@
     </div>
     <div v-else>
       <button :disabled="data.history.length===0" @click="undoMove">UNDO</button>
-      <p >Place boxes on the board for cats to get in.</p>
+    </div>
+
+    <div v-if="'message' in levelData">
+      <p>MAP MESSAGE/HINT/STORYTEXT/SOMETHING
+      <br />{{levelData.message}}</p>
     </div>
     <Board @placebox="boxPlaced" :data="data"></Board>
   </div>
@@ -41,7 +45,8 @@ export default {
       },
       levels: levelList,
       animating: false,
-      victory: false
+      victory: false,
+      levelData: {}
     }
   },
   created() {
@@ -57,6 +62,7 @@ export default {
   methods: {
     loadLevel() {
       //Set them empty to prevent problems when Game is not created from scratch
+      this.levelData = this.levels[this.$route.params.levelId];
       this.data.tiles = [];
       this.data.history = [];
       this.data.tempTiles = [];
@@ -64,11 +70,11 @@ export default {
       this.data.animations2 = [];
       this.animating = false;
       this.victory = false;
-      this.data.totalBoxes = this.levels[this.$route.params.levelId].boxes;
+      this.data.totalBoxes = this.levelData.boxes;
       clearTimeout(this.data.timer);
       console.log("loading level ",this.$route.params.levelId);
-      for (const row in this.levels[this.$route.params.levelId].tiles) {
-        this.$set(this.data.tiles, row, [...this.levels[this.$route.params.levelId].tiles[row]]);
+      for (const row in this.levelData.tiles) {
+        this.$set(this.data.tiles, row, [...this.levelData.tiles[row]]);
       }
     },
     boxPlaced(e) {
@@ -256,6 +262,9 @@ export default {
   computed: {
     boxesOnBoard: function () {
       return this.data.tiles.flat().filter(x => x.includes("box")).length;
+    },
+    boxesLeft: function () {
+      return this.data.totalBoxes - this.boxesOnBoard;
     },
     nextLevel: function () {
       return parseInt(this.$route.params.levelId)+1;

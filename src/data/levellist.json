@@ -3,6 +3,7 @@
     "id": "1",
     "name": "First level",
     "boxes": 4,
+    "message": "Test level, yay. Click on a tile to place a box!",
     "tiles": [["","","cat",""],["cat2","","",""],["block","","","block"],["","cat2","cat2",""]]
   },
   "2": {
@@ -21,6 +22,7 @@
     "id": "4",
     "name": "Boxed in",
     "boxes": 4,
+    "message": "Sometimes you need to break a box to make boxed cats.",
     "tiles": [["","","","","cat"],["","","box","",""],["","block","block","cat2","cat"],["","","block","block","block"],["","","","",""]]
   }
 }
