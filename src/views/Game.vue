@@ -45,7 +45,12 @@ export default {
   },
   methods: {
     loadLevel() {
+      //Set them empty to prevent problems when Game is not created from scratch
       this.data.tiles = [];
+      this.data.history = [];
+      this.data.tempTiles = [];
+      this.animations = [];
+      this.animations2 = [];
       console.log("loading level ",this.$route.params.levelId);
       for (const row in this.levels[this.$route.params.levelId].tiles) {
         this.$set(this.data.tiles, row, [...this.levels[this.$route.params.levelId].tiles[row]]);
