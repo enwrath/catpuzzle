@@ -1,6 +1,6 @@
 <template>
   <div @click="placeBox()">
-    <img v-if="inside!==''" :class="{[animationName]: hasActiveCat}" :style="`--distance: ${animDistance}; z-index: ${ownZ}`" :src="require(`@/assets/${inside}.png`)" />
+    <img v-if="inside!==''" :class="{[animationName]: hasActiveCat}" :style="`--xdistance: ${xDistance}; --ydistance: ${yDistance}; z-index: ${ownZ}`" :src="require(`@/assets/${inside}.png`)" />
     <p v-else>
       Tile {{x}}, {{y}}
     </p>
@@ -19,7 +19,8 @@ export default {
   data() {
     return {
       animationName: "idleAnimation",
-      animDistance: "0"
+      xDistance: "0",
+      yDistance: "0"
     }
   },
   watch: {
@@ -51,7 +52,8 @@ export default {
       }
       else {
         this.animationName = selfanim[0].name;
-        this.animDistance = selfanim[0].distance;
+        this.xDistance = selfanim[0].xdistance;
+        this.yDistance = selfanim[0].ydistance;
       }
     }
   }
@@ -73,44 +75,25 @@ img {
   width: 100%;
   height: 100%;
   position: relative;
-  --distance: 100%;
+  --ydistance: 100%;
+  --xdistance: 100%;
 }
-.moveHor {
+.move {
   animation-duration: 1s;
-  animation-name: movehor;
+  animation-name: move;
 }
-@keyframes movehor {
-  0% { left: 0; }
-  100% { left: var(--distance); }
+@keyframes move {
+  0% { left: 0; top: 0; }
+  100% { left: var(--xdistance); top: var(--ydistance); }
 }
-.moveVer {
+.arrive {
   animation-duration: 1s;
-  animation-name: movever;
+  animation-name: arrive;
 }
-@keyframes movever {
-  0% { top: 0; }
-  100% { top: var(--distance); }
+@keyframes arrive {
+  0% { left: var(--xdistance); top: var(--ydistance); }
+  100% { left: 0; top: 0; }
 }
-
-.arriveHor {
-  animation-duration: 1s;
-  animation-name: arrivehor;
-}
-@keyframes arrivehor {
-  0% { left: var(--distance); }
-  100% { left: 0; }
-}
-.arriveVer {
-  animation-duration: 1s;
-  animation-name: arrivever;
-}
-@keyframes arrivever {
-  0% { top: var(--distance); }
-  100% { top: 0; }
-}
-
-
-
 
 .idleAnimation {
   animation-duration: 1s;

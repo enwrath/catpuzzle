@@ -197,22 +197,22 @@ export default {
       if (y1 === y2) {
         const tilesMoved = `${Math.abs(x2-x1)*100}%`;
         if (x2 - x1 < 0) {
-          this.data.animations.push({x:x1, y:y1, name:"moveHor", distance: `-${tilesMoved}`});
-          if (badmove) this.data.animations2.push({x:x2+1, y:y2, name:"arriveHor", distance:"-100%"});
+          this.data.animations.push({x:x1, y:y1, name:"move", xdistance: `-${tilesMoved}`, ydistance: "0"});
+          if (badmove) this.data.animations2.push({x:x2+1, y:y2, name:"arrive", xdistance:"-100%", ydistance: "0"});
         }
         else {
-          this.data.animations.push({x:x1, y:y1, name:"moveHor", distance: tilesMoved});
-          if (badmove) this.data.animations2.push({x:x2-1, y:y2, name:"arriveHor", distance:"100%"});
+          this.data.animations.push({x:x1, y:y1, name:"move", xdistance: tilesMoved, ydistance: "0"});
+          if (badmove) this.data.animations2.push({x:x2-1, y:y2, name:"arrive", xdistance:"100%", ydistance: "0"});
         }
       } else {
         const tilesMoved = `${Math.abs(y2-y1)*100}%`;
         if (y2 - y1 < 0) {
-          this.data.animations.push({x:x1, y:y1, name:"moveVer", distance: `-${tilesMoved}`});
-          if (badmove) this.data.animations2.push({x:x2, y:y2+1, name:"arriveVer", distance:"-100%"});
+          this.data.animations.push({x:x1, y:y1, name:"move", xdistance: "0", ydistance: `-${tilesMoved}`});
+          if (badmove) this.data.animations2.push({x:x2, y:y2+1, name:"arrive", xdistance: "0", ydistance:"-100%"});
         }
         else {
-          this.data.animations.push({x:x1, y:y1, name:"moveVer", distance: tilesMoved});
-          if (badmove) this.data.animations2.push({x:x2, y:y2-1, name:"arriveVer", distance:"100%"});
+          this.data.animations.push({x:x1, y:y1, name:"move", xdistance: "0", ydistance: tilesMoved});
+          if (badmove) this.data.animations2.push({x:x2, y:y2-1, name:"arrive", xdistance: "0", ydistance:"100%"});
         }
       }
     },
