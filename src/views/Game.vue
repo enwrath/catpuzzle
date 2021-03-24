@@ -1,6 +1,8 @@
 <template>
   <div>
-    <p>Boxes left: {{boxesLeft}}</p>
+    <router-link to="/levelselect">Back to level selection</router-link>
+    <Sidebar :boxesLeft="boxesLeft" :canUndo="canUndo" @undomove="undoMove" @restartlevel="loadLevel"></Sidebar>
+
     <div v-if="victory">
       <p >PUZZLE COMPLETE! ALL CATS ARE IN BOXES.</p>
       <button @click="loadLevel">Replay level</button>
@@ -10,9 +12,6 @@
       <router-link v-if="nextLevelExists" :to="`/game/${nextLevel}`" custom v-slot="{ navigate }">
         <button @click="navigate">Next level</button>
       </router-link>
-    </div>
-    <div v-else>
-      <button :disabled="data.history.length===0" @click="undoMove">UNDO</button>
     </div>
 
     <div v-if="'message' in levelData">
@@ -25,12 +24,13 @@
 
 <script>
 import Board from '@/components/Board.vue'
+import Sidebar from '@/components/Sidebar.vue'
 import levelList from "@/data/levellist.json";
 
 export default {
   name: 'Game',
   components: {
-    Board
+    Board, Sidebar
   },
   data() {
     return {
@@ -274,6 +274,9 @@ export default {
     },
     nextLevelExists: function () {
       return this.nextLevel in this.levels;
+    },
+    canUndo: function () {
+      return this.data.history.length === 0;
     }
   }
 }
