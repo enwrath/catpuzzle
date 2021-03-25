@@ -28,10 +28,16 @@ export default {
 <style scoped>
 .Sidebar {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: center;
   align-content: center;
   margin-top: 2em;
+  color: white;
+}
+@media only screen and (min-width: 500px) {
+  .Sidebar {
+    flex-direction: column;
+  }
 }
 .BoxLeft {
   display: flex;
