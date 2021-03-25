@@ -1,24 +1,25 @@
 <template>
-  <div>
-    <router-link to="/levelselect">Back to level selection</router-link>
+  <div class="FlexRow">
     <Sidebar :boxesLeft="boxesLeft" :canUndo="canUndo" @undomove="undoMove" @restartlevel="loadLevel"></Sidebar>
+    <div class="FlexColumn">
 
-    <div v-if="victory">
-      <p >PUZZLE COMPLETE! ALL CATS ARE IN BOXES.</p>
-      <button @click="loadLevel">Replay level</button>
-      <router-link to="/levelselect" custom v-slot="{ navigate }">
-        <button @click="navigate">Level selection</button>
-      </router-link>
-      <router-link v-if="nextLevelExists" :to="`/game/${nextLevel}`" custom v-slot="{ navigate }">
-        <button @click="navigate">Next level</button>
-      </router-link>
-    </div>
+      <div v-if="victory">
+        <p >PUZZLE COMPLETE! ALL CATS ARE IN BOXES.</p>
+        <button @click="loadLevel">Replay level</button>
+        <router-link to="/levelselect" custom v-slot="{ navigate }">
+          <button @click="navigate">Level selection</button>
+        </router-link>
+        <router-link v-if="nextLevelExists" :to="`/game/${nextLevel}`" custom v-slot="{ navigate }">
+          <button @click="navigate">Next level</button>
+        </router-link>
+      </div>
 
-    <div v-if="'message' in levelData">
-      <p>MAP MESSAGE/HINT/STORYTEXT/SOMETHING
-      <br />{{levelData.message}}</p>
+      <div v-if="'message' in levelData">
+        <p>MAP MESSAGE/HINT/STORYTEXT/SOMETHING
+        <br />{{levelData.message}}</p>
+      </div>
+      <Board @placebox="boxPlaced" :data="data"></Board>
     </div>
-    <Board @placebox="boxPlaced" :data="data"></Board>
   </div>
 </template>
 
@@ -285,4 +286,12 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+.FlexRow {
+  display: flex;
+  flex-direction: row;
+}
+.FlexColumn {
+  display: flex;
+  flex-direction: column;
+}
 </style>
