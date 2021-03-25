@@ -2,16 +2,8 @@
   <div class="FlexRow">
     <Sidebar :boxesLeft="boxesLeft" :canUndo="canUndo" @undomove="undoMove" @restartlevel="loadLevel"></Sidebar>
     <div class="FlexColumn">
-
       <div v-if="victory">
-        <p >PUZZLE COMPLETE! ALL CATS ARE IN BOXES.</p>
-        <button @click="loadLevel">Replay level</button>
-        <router-link to="/levelselect" custom v-slot="{ navigate }">
-          <button @click="navigate">Level selection</button>
-        </router-link>
-        <router-link v-if="nextLevelExists" :to="`/game/${nextLevel}`" custom v-slot="{ navigate }">
-          <button @click="navigate">Next level</button>
-        </router-link>
+        <PuzzleCompleted @restartlevel="loadLevel" :nextLevel="nextLevel" :nextLevelExists="nextLevelExists"></PuzzleCompleted>
       </div>
 
       <div v-if="'message' in levelData">
@@ -24,14 +16,15 @@
 </template>
 
 <script>
-import Board from '@/components/Board.vue'
-import Sidebar from '@/components/Sidebar.vue'
+import Board from '@/components/Board.vue';
+import Sidebar from '@/components/Sidebar.vue';
+import PuzzleCompleted from '@/components/PuzzleCompleted.vue';
 import levelList from "@/data/levellist.json";
 
 export default {
   name: 'Game',
   components: {
-    Board, Sidebar
+    Board, Sidebar, PuzzleCompleted
   },
   data() {
     return {
