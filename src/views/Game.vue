@@ -7,8 +7,7 @@
       </div>
 
       <div v-if="'message' in levelData">
-        <p>MAP MESSAGE/HINT/STORYTEXT/SOMETHING
-        <br />{{levelData.message}}</p>
+        <LevelMessage :message="levelData.message"></LevelMessage>
       </div>
       <Board @placebox="boxPlaced" :data="data"></Board>
     </div>
@@ -19,12 +18,13 @@
 import Board from '@/components/Board.vue';
 import Sidebar from '@/components/Sidebar.vue';
 import PuzzleCompleted from '@/components/PuzzleCompleted.vue';
+import LevelMessage from '@/components/LevelMessage.vue';
 import levelList from "@/data/levellist.json";
 
 export default {
   name: 'Game',
   components: {
-    Board, Sidebar, PuzzleCompleted
+    Board, Sidebar, PuzzleCompleted, LevelMessage
   },
   data() {
     return {
