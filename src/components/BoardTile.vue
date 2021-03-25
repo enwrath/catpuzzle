@@ -1,5 +1,5 @@
 <template>
-  <div @click="placeBox()">
+  <div @click="placeBox()" :style="`width: ${tileSize}px; height: ${tileSize}px`">
     <img v-if="inside!==''" :class="{[animationName]: hasActiveCat}" :style="`--xdistance: ${xDistance}; --ydistance: ${yDistance}; z-index: ${ownZ}`" :src="require(`@/assets/${inside}.png`)" />
     <p v-else>
       Tile {{x}}, {{y}}
@@ -14,7 +14,8 @@ export default {
     inside: String,
     x: Number,
     y: Number,
-    animations: Array
+    animations: Array,
+    tileSize: Number
   },
   data() {
     return {
@@ -38,6 +39,9 @@ export default {
     ownZ: function () {
       if (this.hasActiveCat) return 10;
       else return 5;
+    },
+    tileMaxSize: function() {
+      return 1;
     }
   },
   methods: {
@@ -64,17 +68,15 @@ export default {
 <style scoped>
 div {
   display: inline-block;
-  width: 100px;
-  height: 100px;
   background: gray;
 }
 div:hover {
   background: cyan;
 }
 img {
+  position: relative;
   width: 100%;
   height: 100%;
-  position: relative;
   --ydistance: 100%;
   --xdistance: 100%;
 }
