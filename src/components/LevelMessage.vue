@@ -21,7 +21,9 @@ export default {
 .main {
   display: flex;
   flex-direction: row;
-  margin-top: 1em;
+  background: #353558;
+  padding-right: 1em;
+  justify-content: center;
 }
 .bubble {
   position: relative;

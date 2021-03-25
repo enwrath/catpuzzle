@@ -5,6 +5,11 @@
 </template>
 
 <style>
+
+body {
+  height: 100vh;
+  margin: 0;
+}
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -12,6 +17,7 @@
   text-align: center;
   color: #2c3e50;
   user-select: none;
+  height: 100%;
 }
 
 #nav {

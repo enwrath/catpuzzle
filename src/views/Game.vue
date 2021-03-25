@@ -282,9 +282,13 @@ export default {
 .FlexRow {
   display: flex;
   flex-direction: row;
+  background: #353558;
+  height: 100%;
 }
 .FlexColumn {
   display: flex;
   flex-direction: column;
+  align-content: center;
+  width: 100%;
 }
 </style>

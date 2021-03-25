@@ -31,7 +31,7 @@ export default {
   flex-direction: column;
   align-items: center;
   align-content: center;
-  justify-content: center;
+  margin-top: 2em;
 }
 .BoxLeft {
   display: flex;
