@@ -4,8 +4,8 @@
       <img :src="require(`@/assets/box.png`)" />
       <span>X</span><span class="BigText">{{boxesLeft}}</span>
     </div>
-    <button :disabled="canUndo" @click="$emit('undomove')">
-      <img v-if="!canUndo" :src="require(`@/assets/undo.png`)" />
+    <button :disabled="!canUndo" @click="$emit('undomove')">
+      <img v-if="canUndo" :src="require(`@/assets/undo.png`)" />
       <img v-else :src="require(`@/assets/undodisabled.png`)" />
     </button>
     <button @click="$emit('restartlevel')">

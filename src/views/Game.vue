@@ -277,7 +277,7 @@ export default {
       return this.nextLevel in this.levels;
     },
     canUndo: function () {
-      return this.data.history.length === 0;
+      return this.data.history.length > 0 && !this.victory;
     }
   }
 }
