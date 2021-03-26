@@ -144,6 +144,13 @@ export default {
                 moves.push({x1: x, x2:tile.x, y1:y, y2:tile.y, cat:"cat2"});
               }
             }
+          } else if (this.data.tempTiles[y][x] === "cat3") {
+            const n = this.cat3MoveTiles(y,x);
+            for (const tile of n) {
+              if (this.data.tempTiles[tile.y][tile.x] === "box") {
+                moves.push({x1: x, x2:tile.x, y1:y, y2:tile.y, cat:"cat3"});
+              }
+            }
           }
         }
       }
@@ -188,26 +195,16 @@ export default {
       }
     },
     addAnimation(y1, x1, y2, x2, badmove) {
-      if (y1 === y2) {
-        const tilesMoved = `${Math.abs(x2-x1)*100}%`;
-        if (x2 - x1 < 0) {
-          this.data.animations.push({x:x1, y:y1, name:"move", xdistance: `-${tilesMoved}`, ydistance: "0"});
-          if (badmove) this.data.animations2.push({x:x2+1, y:y2, name:"arrive", xdistance:"-100%", ydistance: "0"});
-        }
-        else {
-          this.data.animations.push({x:x1, y:y1, name:"move", xdistance: tilesMoved, ydistance: "0"});
-          if (badmove) this.data.animations2.push({x:x2-1, y:y2, name:"arrive", xdistance:"100%", ydistance: "0"});
-        }
-      } else {
-        const tilesMoved = `${Math.abs(y2-y1)*100}%`;
-        if (y2 - y1 < 0) {
-          this.data.animations.push({x:x1, y:y1, name:"move", xdistance: "0", ydistance: `-${tilesMoved}`});
-          if (badmove) this.data.animations2.push({x:x2, y:y2+1, name:"arrive", xdistance: "0", ydistance:"-100%"});
-        }
-        else {
-          this.data.animations.push({x:x1, y:y1, name:"move", xdistance: "0", ydistance: tilesMoved});
-          if (badmove) this.data.animations2.push({x:x2, y:y2-1, name:"arrive", xdistance: "0", ydistance:"100%"});
-        }
+      const xdist = `${(x2-x1)*100}%`;
+      const ydist = `${(y2-y1)*100}%`;
+      this.data.animations.push({x:x1, y:y1, name:"move", xdistance: xdist, ydistance: ydist});
+
+      if (badmove) {
+        const xdir = (x2 < x1 ) ? -1 : 1;
+        const ydir = (y2 < y1 ) ? -1 : 1;
+        const badx = (x2 === x1) ? 0 : xdir;
+        const bady = (y2 === y1) ? 0 : ydir;
+        this.data.animations2.push({x:x2-badx, y:y2-bady, name:"arrive", xdistance: `${badx*100}%`, ydistance: `${bady*100}%`});
       }
     },
     afterAnimation() {
@@ -254,7 +251,16 @@ export default {
       if (this.data.tiles[y][x+1] !== undefined && this.data.tiles[y][x+1] === "" && this.data.tiles[y][x+2] !== undefined) neighbours.push({x:x+2, y:y});
       if (this.data.tiles[y][x-1] !== undefined && this.data.tiles[y][x-1] === "" && this.data.tiles[y][x-2] !== undefined) neighbours.push({x:x-2, y:y});
       return neighbours;
-    }
+    },
+    cat3MoveTiles(y, x) {
+      let neighbours = [];
+      //If the value is undefined then we are in hell anyway...
+      if (this.data.tiles[y+1] !== undefined && this.data.tiles[y+1][x+1] !== undefined) neighbours.push({x:x+1, y:y+1});
+      if (this.data.tiles[y+1] !== undefined && this.data.tiles[y+1][x-1] !== undefined) neighbours.push({x:x-1, y:y+1});
+      if (this.data.tiles[y-1] !== undefined && this.data.tiles[y-1][x+1] !== undefined) neighbours.push({x:x+1, y:y-1});
+      if (this.data.tiles[y-1] !== undefined && this.data.tiles[y-1][x-1] !== undefined) neighbours.push({x:x-1, y:y-1});
+      return neighbours;
+    },
   },
   computed: {
     boxesOnBoard: function () {

@@ -38,5 +38,12 @@
     "boxes": 12,
     "message": "A single box can cause large movements.",
     "tiles": [["cat2","","cat2","box","cat2","box","cat2"],["","box","","","","","box"],["","cat","box","cat","box","box","cat2"],["","box","","","","","box"],["cat2","","cat2","box","cat2","box","cat2"]]
+  },
+  "7": {
+    "id": "7",
+    "name": "Cutting corners",
+    "boxes": 1,
+    "message": "Ninja cat moves diagonally. Being surrounded on all four directions is no challenge!",
+    "tiles": [["","block", ""],["block","cat3","block"],["","block",""]]
   }
 }
