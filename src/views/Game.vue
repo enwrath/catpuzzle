@@ -40,7 +40,8 @@ export default {
       levels: levelList,
       animating: false,
       victory: false,
-      levelData: {}
+      levelData: {},
+      passableTiles: ["","pushleft"]
     }
   },
   created() {
@@ -159,9 +160,7 @@ export default {
       const filteredMoves = this.filterMoves(moves);
 
       for (const m of filteredMoves.allowed) {
-
-        this.setTile(m.y2, m.x2, `box-${m.cat}`);
-        this.setTile(m.y1, m.x1, "");
+        this.setCatPosition(m, m.y1, m.x1, m.y2, m.x2);
         this.addAnimation(m.y1,m.x1,m.y2,m.x2, false);
       }
       for (const m of filteredMoves.bad) {
@@ -176,9 +175,7 @@ export default {
             if (m.x2 < m.x1) newX = m.x2+1;
             else if (m.x2 > m.x1) newX = m.x2-1;
             else newX = m.x1;
-            this.setTile(m.y1, m.x1, "");
-            //This tile should be empty! Based on earlier checks
-            this.setTile(newY, newX, m.cat);
+            this.setCatPosition(m, m.y1, m.x1, newY, newX);
           }
         }
 
@@ -193,6 +190,16 @@ export default {
         this.animating = false;
         this.checkVictory();
       }
+    },
+    setCatPosition(move, y1, x1, y2, x2) {
+      const newTile = this.data.tempTiles[y2][x2] === "" ? "" : `${this.data.tempTiles[y2][x2]}-`;
+      //const oldTile = this.data.tempTiles[y1][x1];
+      this.setTile(y2, x2, `${newTile}${move.cat}`);
+      this.setTile(y1, x1, "");
+    },
+    setCatPosition2(move, newY, newX) {
+      this.setTile(newY, newX, `box-${move.cat}`);
+      this.setTile(move.y1, move.x1, "");
     },
     addAnimation(y1, x1, y2, x2, badmove) {
       const xdist = `${(x2-x1)*100}%`;
@@ -246,10 +253,10 @@ export default {
     cat2MoveTiles(y,x) {
       let neighbours = this.neighbourTiles(y,x);
       //Kitten can move 2tiles in direction
-      if (this.data.tiles[y+1] !== undefined && this.data.tiles[y+1][x] === "" && this.data.tiles[y+2] !== undefined && this.data.tiles[y+2][x] !== undefined) neighbours.push({x:x, y:y+2});
-      if (this.data.tiles[y-1] !== undefined && this.data.tiles[y-1][x] === "" && this.data.tiles[y-2] !== undefined && this.data.tiles[y-2][x] !== undefined) neighbours.push({x:x, y:y-2});
-      if (this.data.tiles[y][x+1] !== undefined && this.data.tiles[y][x+1] === "" && this.data.tiles[y][x+2] !== undefined) neighbours.push({x:x+2, y:y});
-      if (this.data.tiles[y][x-1] !== undefined && this.data.tiles[y][x-1] === "" && this.data.tiles[y][x-2] !== undefined) neighbours.push({x:x-2, y:y});
+      if (this.data.tiles[y+1] !== undefined && this.passableTiles.includes(this.data.tiles[y+1][x]) && this.data.tiles[y+2] !== undefined && this.data.tiles[y+2][x] !== undefined) neighbours.push({x:x, y:y+2});
+      if (this.data.tiles[y-1] !== undefined && this.passableTiles.includes(this.data.tiles[y-1][x]) && this.data.tiles[y-2] !== undefined && this.data.tiles[y-2][x] !== undefined) neighbours.push({x:x, y:y-2});
+      if (this.data.tiles[y][x+1] !== undefined && this.passableTiles.includes(this.data.tiles[y][x+1]) && this.data.tiles[y][x+2] !== undefined) neighbours.push({x:x+2, y:y});
+      if (this.data.tiles[y][x-1] !== undefined && this.passableTiles.includes(this.data.tiles[y][x-1]) && this.data.tiles[y][x-2] !== undefined) neighbours.push({x:x-2, y:y});
       return neighbours;
     },
     cat3MoveTiles(y, x) {

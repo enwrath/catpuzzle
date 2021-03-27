@@ -1,6 +1,7 @@
 <template>
   <div @click="placeBox()" :style="`width: ${tileSize}px; height: ${tileSize}px`">
-    <img v-if="inside!==''" :class="{[animationName]: hasActiveCat}" :style="`--xdistance: ${xDistance}; --ydistance: ${yDistance}; z-index: ${ownZ}`" :src="require(`@/assets/${inside}.png`)" />
+    <img v-if="img1!==''" :class="{[animationName]: hasActiveCat}" :style="`--xdistance: ${xDistance}; --ydistance: ${yDistance}; z-index: ${ownZ}`" :src="require(`@/assets/${img1}.png`)" />
+    <img v-if="img2!==''" class="belowimage" :src="require(`@/assets/${img2}.png`)" />
     <p v-else>
       Tile {{x}}, {{y}}
     </p>
@@ -21,7 +22,7 @@ export default {
     return {
       animationName: "idleAnimation",
       xDistance: "0",
-      yDistance: "0"
+      yDistance: "0",
     }
   },
   watch: {
@@ -30,6 +31,17 @@ export default {
     }
   },
   computed: {
+    img1: function () {
+      if (this.inside === "") return "";
+      else if (this.inside.includes("box")) return this.inside;
+      else if (this.inside.includes("-")) return this.inside.split("-")[1];
+      else return this.inside;
+    },
+    img2: function () {
+      if (this.inside.includes("box")) return "";
+      else if (this.inside.includes("-")) return this.inside.split("-")[0];
+      else return "";
+    },
     canPlaceBox: function () {
       return this.inside === "";
     },
@@ -77,8 +89,14 @@ img {
   position: relative;
   width: 100%;
   height: 100%;
-  --ydistance: 100%;
-  --xdistance: 100%;
+  --ydistance: 0;
+  --xdistance: 0;
+}
+.belowimage {
+  width: 100%;
+  height: 100%;
+  top: -100%;
+  z-index: 5;
 }
 .move {
   animation-duration: 1s;
