@@ -152,6 +152,9 @@ export default {
                 moves.push({x1: x, x2:tile.x, y1:y, y2:tile.y, cat:"cat3"});
               }
             }
+          } else if (this.data.tempTiles[y][x].includes("push") && this.data.tempTiles[y][x].includes("-")) {
+            const move = this.pushCat(y, x);
+            if ("x1" in move) moves.push(move);
           }
         }
       }
@@ -180,8 +183,6 @@ export default {
         }
 
       }
-      //TODO: somehow communicate user what happened
-      //visuals????????? oh no
       if (filteredMoves.allowed.length > 0 || filteredMoves.bad.length > 0) {
         this.animating = true;
         this.data.timer = setTimeout(this.afterAnimation, 950);
@@ -191,15 +192,29 @@ export default {
         this.checkVictory();
       }
     },
+    pushCat(y, x) {
+      //tile is of format push(direction)-(cat)
+      const cat = this.data.tempTiles[y][x].split("-")[1];
+      const direction = this.data.tempTiles[y][x].split("-")[0].split("push")[1];
+      if (direction === "left") {
+        if (this.tileIsMovable(y, x-1)) return {x1: x, x2:x-1, y1:y, y2:y, cat:cat};
+      } else if (direction === "right") {
+        if (this.tileIsMovable(y, x+1)) return {x1: x, x2:x+1, y1:y, y2:y, cat:cat};
+      } else if (direction === "up") {
+        if (this.tileIsMovable(y-1, x)) return {x1: x, x2:x, y1:y, y2:y-1, cat:cat};
+      } else if (direction === "down") {
+        if (this.tileIsMovable(y+1, x)) return {x1: x, x2:x, y1:y, y2:y+1, cat:cat};
+      } else return {};
+    },
+    tileIsMovable(y, x) {
+      console.log("checking tile",y, x)
+      return this.data.tempTiles[y] !== undefined && this.data.tempTiles[y][x] !== undefined && this.passableTiles.includes(this.data.tempTiles[y][x]);
+    },
     setCatPosition(move, y1, x1, y2, x2) {
       const newTile = this.data.tempTiles[y2][x2] === "" ? "" : `${this.data.tempTiles[y2][x2]}-`;
-      //const oldTile = this.data.tempTiles[y1][x1];
+      const oldTile = this.data.tempTiles[y1][x1].includes("-") ? this.data.tempTiles[y1][x1].split("-")[0] : "";
       this.setTile(y2, x2, `${newTile}${move.cat}`);
-      this.setTile(y1, x1, "");
-    },
-    setCatPosition2(move, newY, newX) {
-      this.setTile(newY, newX, `box-${move.cat}`);
-      this.setTile(move.y1, move.x1, "");
+      this.setTile(y1, x1, oldTile);
     },
     addAnimation(y1, x1, y2, x2, badmove) {
       const xdist = `${(x2-x1)*100}%`;
