@@ -71,9 +71,16 @@
   },
   "11": {
     "id": "11",
-    "name": "Testground",
-    "boxes": 3,
+    "name": "Conveyor belt",
+    "boxes": 7,
     "message": "testing!",
-    "tiles": [["","","",""],["cat","","pushleft","cat2"],["","","",""]]
+    "tiles": [["cat2","pushdown","","cat"],["pushdown","pushleft","",""],["pushright","pushright","pushright","box"]]
+  },
+  "12": {
+    "id": "12",
+    "name": "Testground",
+    "boxes": 7,
+    "message": "testing!",
+    "tiles": [["box","cat","pushdown-cat","pushleft-cat2"],["pushup-cat","","","cat2"],["pushright-cat2","","","pushup-cat"]]
   }
 }

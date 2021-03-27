@@ -41,7 +41,7 @@ export default {
       animating: false,
       victory: false,
       levelData: {},
-      passableTiles: ["","pushleft"]
+      passableTiles: ["","pushleft","pushright","pushup","pushdown"]
     }
   },
   created() {
@@ -197,18 +197,18 @@ export default {
       const cat = this.data.tempTiles[y][x].split("-")[1];
       const direction = this.data.tempTiles[y][x].split("-")[0].split("push")[1];
       if (direction === "left") {
-        if (this.tileIsMovable(y, x-1)) return {x1: x, x2:x-1, y1:y, y2:y, cat:cat};
+        if (this.canPushTo(y, x-1)) return {x1: x, x2:x-1, y1:y, y2:y, cat:cat};
       } else if (direction === "right") {
-        if (this.tileIsMovable(y, x+1)) return {x1: x, x2:x+1, y1:y, y2:y, cat:cat};
+        if (this.canPushTo(y, x+1)) return {x1: x, x2:x+1, y1:y, y2:y, cat:cat};
       } else if (direction === "up") {
-        if (this.tileIsMovable(y-1, x)) return {x1: x, x2:x, y1:y, y2:y-1, cat:cat};
+        if (this.canPushTo(y-1, x)) return {x1: x, x2:x, y1:y, y2:y-1, cat:cat};
       } else if (direction === "down") {
-        if (this.tileIsMovable(y+1, x)) return {x1: x, x2:x, y1:y, y2:y+1, cat:cat};
-      } else return {};
+        if (this.canPushTo(y+1, x)) return {x1: x, x2:x, y1:y, y2:y+1, cat:cat};
+      }
+      return {};
     },
-    tileIsMovable(y, x) {
-      console.log("checking tile",y, x)
-      return this.data.tempTiles[y] !== undefined && this.data.tempTiles[y][x] !== undefined && this.passableTiles.includes(this.data.tempTiles[y][x]);
+    canPushTo(y, x) {
+      return this.data.tempTiles[y] !== undefined && this.data.tempTiles[y][x] !== undefined && (this.passableTiles.includes(this.data.tempTiles[y][x]) || this.data.tempTiles[y][x] === "box");
     },
     setCatPosition(move, y1, x1, y2, x2) {
       const newTile = this.data.tempTiles[y2][x2] === "" ? "" : `${this.data.tempTiles[y2][x2]}-`;
