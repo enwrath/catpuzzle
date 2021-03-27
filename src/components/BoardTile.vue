@@ -85,16 +85,16 @@ img {
   animation-name: move;
 }
 @keyframes move {
-  0% { left: 0; top: 0; }
-  100% { left: var(--xdistance); top: var(--ydistance); }
+  0% { transform: translate3d(0, 0, 0); }
+  100% { transform: translate3d(var(--xdistance), var(--ydistance), 0); }
 }
 .arrive {
   animation-duration: 1s;
   animation-name: arrive;
 }
 @keyframes arrive {
-  0% { left: var(--xdistance); top: var(--ydistance); }
-  100% { left: 0; top: 0; }
+  0% { transform: translate3d(var(--xdistance), var(--ydistance), 0); }
+  100% { transform: translate3d(0, 0, 0); }
 }
 
 .idleAnimation {
@@ -104,9 +104,9 @@ img {
 }
 
 @keyframes moveidle {
-  0% { margin-left: 0; }
-  33% { margin-left: 5%; }
-  66%, 72% { margin-left: -5%; }
-  100% { margin-left: 0; }
+  0% { transform: translate3d(0, 0, 0); }
+  33% { transform: translate3d(5%, -0, 0); }
+  66% { transform: translate3d(-5%, 0, 0); }
+  100% { transform: translate3d(0, 0, 0); }
 }
 </style>
