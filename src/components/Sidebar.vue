@@ -1,9 +1,13 @@
 <template>
   <div class="Sidebar">
-    <div class="BoxLeft">
-      <img :src="require(`@/assets/box.png`)" />
-      <span>X</span><span class="BigText">{{boxesLeft}}</span>
-    </div>
+    <button class="BoxLeft" :class="{ActiveItem: itemSelected==='box'}" @click="$emit('selectbox')">
+        <img :src="require(`@/assets/box.png`)" />
+        <span>X</span><span class="BigText">{{boxesLeft}}</span>
+    </button>
+    <button v-if="fishLeft !== -1" @click="$emit('selectfish')" class="BoxLeft" :class="{ActiveItem: itemSelected==='fish'}">
+      <img :src="require(`@/assets/fish.png`)" />
+      <span>X</span><span class="BigText">{{fishLeft}}</span>
+    </button>
     <button :disabled="!canUndo" @click="$emit('undomove')">
       <img v-if="canUndo" :src="require(`@/assets/undo.png`)" />
       <img v-else :src="require(`@/assets/undodisabled.png`)" />
@@ -19,7 +23,9 @@ export default {
   name: 'Sidebar',
   props: {
     boxesLeft: Number,
-    canUndo: Boolean
+    fishLeft: Number,
+    canUndo: Boolean,
+    itemSelected: String
   }
 }
 </script>
@@ -33,6 +39,9 @@ export default {
   align-content: center;
   margin-top: 2em;
   color: white;
+}
+.ActiveItem {
+  background: cyan;
 }
 @media only screen and (min-width: 500px) {
   .Sidebar {

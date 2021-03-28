@@ -66,6 +66,7 @@
     "id": "10",
     "name": "In progres",
     "boxes": 10,
+    "fish": 3,
     "message": "not compleeeteeed",
     "tiles": [["cat","box","","","cat2","","",""],["box","","","","","","",""],["cat2","","","cat2","","","",""],["","cat3","cat3","","","","",""],["box","","box","","","","",""]]
   },
@@ -73,7 +74,7 @@
     "id": "11",
     "name": "Conveyor belt",
     "boxes": 7,
-    "message": "testing!",
+    "message": "Tiles with push symbol can be walked on, but boxes can't be put on them. Cats that stop on them will be pushed forward.",
     "tiles": [["cat2","pushdown","","cat"],["pushdown","pushleft","",""],["pushright","pushright","pushright","box"]]
   },
   "12": {
@@ -82,5 +83,12 @@
     "boxes": 7,
     "message": "testing!",
     "tiles": [["box","cat","pushdown-cat","pushleft-cat2"],["pushup-cat","","","cat2"],["pushright-cat2","","","pushup-cat"]]
+  },
+  "13": {
+    "id": "13",
+    "name": "Traffic jam",
+    "boxes": 8,
+    "message": "Cats can't be pushed through other cats. Cats are also unable to move themselves when on push tile, even if the pushing is blocked.",
+    "tiles": [["box","box","block","",""],["pushright-cat3","pushright-cat","pushright-cat","cat2",""],["box","box","block","",""]]
   }
 }

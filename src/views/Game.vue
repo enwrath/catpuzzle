@@ -1,6 +1,6 @@
 <template>
   <div class="FlexRow">
-    <Sidebar :boxesLeft="boxesLeft" :canUndo="canUndo" @undomove="undoMove" @restartlevel="loadLevel"></Sidebar>
+    <Sidebar :boxesLeft="boxesLeft" :canUndo="canUndo" @undomove="undoMove" @selectfish="setItem('fish')" @selectbox="setItem('box')" :fishLeft="fishLeft" :itemSelected="itemSelected" @restartlevel="loadLevel"></Sidebar>
     <div class="FlexColumn">
       <div v-if="victory">
         <PuzzleCompleted @restartlevel="loadLevel" :nextLevel="nextLevel" :nextLevelExists="nextLevelExists"></PuzzleCompleted>
@@ -9,7 +9,7 @@
       <div v-if="'message' in levelData">
         <LevelMessage :message="levelData.message"></LevelMessage>
       </div>
-      <Board @placebox="boxPlaced" :data="data"></Board>
+      <Board @placebox="mouseClick" :data="data"></Board>
     </div>
   </div>
 </template>
@@ -35,13 +35,16 @@ export default {
         history: [],
         animations: [],
         animations2: [],
-        timer: ''
+        timer: '',
+        fishUsed: 0
       },
       levels: levelList,
       animating: false,
       victory: false,
       levelData: {},
-      passableTiles: ["","pushleft","pushright","pushup","pushdown"]
+      itemSelected: "box",
+      passableTiles: ["","pushleft","pushright","pushup","pushdown","fish"],
+      goalTiles: ["box", "fish"]
     }
   },
   created() {
@@ -65,6 +68,8 @@ export default {
       this.data.animations2 = [];
       this.animating = false;
       this.victory = false;
+      this.itemSelected = "box";
+      this.data.fishUsed = 0;
       this.data.totalBoxes = this.levelData.boxes;
       clearTimeout(this.data.timer);
       console.log("loading level ",this.$route.params.levelId);
@@ -72,17 +77,28 @@ export default {
         this.$set(this.data.tiles, row, [...this.levelData.tiles[row]]);
       }
     },
-    boxPlaced(e) {
-      if (!this.victory && !this.animating && this.boxesOnBoard < this.data.totalBoxes) {
-        this.addToHistory();
-        this.newTempTiles();
-        this.setTile(e.y, e.x, "box");
-        //also add box to current tiles instantly so it's visible
-        const newRow = this.data.tiles[e.y].slice(0);
-        newRow[e.x] = "box";
-        this.$set(this.data.tiles, e.y, newRow);
-        this.moveCats();
+    mouseClick(e) {
+      if (!this.victory && !this.animating) {
+        if (this.itemSelected === 'box' && this.boxesOnBoard < this.data.totalBoxes) {
+          this.placeItem(e.y, e.x);
+        } else if (this.itemSelected === 'fish' && this.fishLeft > 0) {
+          this.data.fishUsed += 1;
+          this.placeItem(e.y, e.x);
+        }
       }
+    },
+    placeItem(y, x) {
+      this.addToHistory();
+      this.newTempTiles();
+      this.setTile(y, x, this.itemSelected);
+      //also add box to current tiles instantly so it's visible
+      const newRow = this.data.tiles[y].slice(0);
+      newRow[x] = this.itemSelected;
+      this.$set(this.data.tiles, y, newRow);
+      this.moveCats();
+    },
+    setItem(name) {
+      this.itemSelected = name;
     },
     checkVictory() {
         if (this.data.tiles.flat().every(x => !x.includes("cat") || (x.includes("cat") && x.includes("box")))) this.victory = true;
@@ -134,21 +150,21 @@ export default {
           if (this.data.tempTiles[y][x] === "cat") {
             const n = this.neighbourTiles(y,x);
             for (const tile of n) {
-              if (this.data.tempTiles[tile.y][tile.x] === "box") {
+              if (this.goalTiles.includes(this.data.tempTiles[tile.y][tile.x])) {
                 moves.push({x1: x, x2:tile.x, y1:y, y2:tile.y, cat:"cat"});
               }
             }
           } else if (this.data.tempTiles[y][x] === "cat2") {
             const n = this.cat2MoveTiles(y,x);
             for (const tile of n) {
-              if (this.data.tempTiles[tile.y][tile.x] === "box") {
+              if (this.goalTiles.includes(this.data.tempTiles[tile.y][tile.x])) {
                 moves.push({x1: x, x2:tile.x, y1:y, y2:tile.y, cat:"cat2"});
               }
             }
           } else if (this.data.tempTiles[y][x] === "cat3") {
             const n = this.cat3MoveTiles(y,x);
             for (const tile of n) {
-              if (this.data.tempTiles[tile.y][tile.x] === "box") {
+              if (this.goalTiles.includes(this.data.tempTiles[tile.y][tile.x])) {
                 moves.push({x1: x, x2:tile.x, y1:y, y2:tile.y, cat:"cat3"});
               }
             }
@@ -167,7 +183,12 @@ export default {
         this.addAnimation(m.y1,m.x1,m.y2,m.x2, false);
       }
       for (const m of filteredMoves.bad) {
-        this.setTile(m.y2, m.x2, "broken-box");
+        if (this.data.tempTiles[m.y2][m.x2].includes("box")) {
+          this.setTile(m.y2, m.x2, "broken-box");
+        } else {
+          //Non box stuff just disappears
+          this.setTile(m.y2, m.x2, "");
+        }
         this.addAnimation(m.y1,m.x1,m.y2,m.x2, true);
         if (m.cat === "cat2") {
           if (Math.abs(m.y2-m.y1) === 2 || Math.abs(m.x2-m.x1) === 2) {
@@ -208,12 +229,17 @@ export default {
       return {};
     },
     canPushTo(y, x) {
-      return this.data.tempTiles[y] !== undefined && this.data.tempTiles[y][x] !== undefined && (this.passableTiles.includes(this.data.tempTiles[y][x]) || this.data.tempTiles[y][x] === "box");
+      return this.data.tempTiles[y] !== undefined && this.data.tempTiles[y][x] !== undefined && (this.passableTiles.includes(this.data.tempTiles[y][x]) || this.goalTiles.includes(this.data.tempTiles[y][x]));
     },
     setCatPosition(move, y1, x1, y2, x2) {
       const newTile = this.data.tempTiles[y2][x2] === "" ? "" : `${this.data.tempTiles[y2][x2]}-`;
       const oldTile = this.data.tempTiles[y1][x1].includes("-") ? this.data.tempTiles[y1][x1].split("-")[0] : "";
-      this.setTile(y2, x2, `${newTile}${move.cat}`);
+      if (newTile.includes("fish")) {
+        //Fish just gets eaten
+        this.setTile(y2, x2, move.cat);
+      } else {
+        this.setTile(y2, x2, `${newTile}${move.cat}`);
+      }
       this.setTile(y1, x1, oldTile);
     },
     addAnimation(y1, x1, y2, x2, badmove) {
@@ -299,6 +325,10 @@ export default {
     },
     canUndo: function () {
       return this.data.history.length > 0 && !this.victory;
+    },
+    fishLeft: function () {
+      if ("fish" in this.levelData) return this.levelData.fish - this.data.fishUsed;
+      else return -1;
     }
   }
 }
