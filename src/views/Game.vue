@@ -44,7 +44,10 @@ export default {
       levelData: {},
       itemSelected: "box",
       passableTiles: ["","pushleft","pushright","pushup","pushdown","fish"],
-      goalTiles: ["box", "fish"]
+      goalTiles: ["box", "fish"],
+      subTurnData: {
+        tilesPushedTo: []
+      }
     }
   },
   created() {
@@ -144,6 +147,8 @@ export default {
       this.$delete(this.data.history, this.data.history.length-1);
     },
     moveCats() {
+      this.subTurnData.tilesPushedTo = [];
+      
       let moves = [];
       for (let y = 0; y < this.data.tempTiles.length; y++){
         for (let x = 0; x < this.data.tempTiles[y].length; x++){
@@ -214,6 +219,7 @@ export default {
         }
 
       }
+
       if (filteredMoves.allowed.length > 0 || filteredMoves.bad.length > 0) {
         this.animating = true;
         this.data.timer = setTimeout(this.afterAnimation, 950);
@@ -228,14 +234,27 @@ export default {
       const cat = this.data.tempTiles[y][x].split("-")[1];
       const direction = this.data.tempTiles[y][x].split("-")[0].split("push")[1];
       if (direction === "left") {
-        if (this.canPushTo(y, x-1)) return {x1: x, x2:x-1, y1:y, y2:y, cat:cat};
+        if (this.canPushTo(y, x-1) && !this.subTurnData.tilesPushedTo.some(tile => tile.x === x-1 && tile.y === y)) {
+          this.subTurnData.tilesPushedTo.push({y: y, x: x-1});
+          return {x1: x, x2:x-1, y1:y, y2:y, cat:cat};
+        }
       } else if (direction === "right") {
-        if (this.canPushTo(y, x+1)) return {x1: x, x2:x+1, y1:y, y2:y, cat:cat};
+        if (this.canPushTo(y, x+1) && !this.subTurnData.tilesPushedTo.some(tile => tile.x === x+1 && tile.y === y)) {
+          this.subTurnData.tilesPushedTo.push({y: y, x: x+1});
+          return {x1: x, x2:x+1, y1:y, y2:y, cat:cat};
+        }
       } else if (direction === "up") {
-        if (this.canPushTo(y-1, x)) return {x1: x, x2:x, y1:y, y2:y-1, cat:cat};
+        if (this.canPushTo(y-1, x) && !this.subTurnData.tilesPushedTo.some(tile => tile.x === x && tile.y === y-1)) {
+          this.subTurnData.tilesPushedTo.push({y: y-1, x: x});
+          return {x1: x, x2:x, y1:y, y2:y-1, cat:cat};
+        }
       } else if (direction === "down") {
-        if (this.canPushTo(y+1, x)) return {x1: x, x2:x, y1:y, y2:y+1, cat:cat};
+        if (this.canPushTo(y+1, x) && !this.subTurnData.tilesPushedTo.some(tile => tile.x === x && tile.y === y+1)) {
+          this.subTurnData.tilesPushedTo.push({y: y+1, x: x});
+          return {x1: x, x2:x, y1:y, y2:y+1, cat:cat};
+        }
       }
+
       return {};
     },
     canPushTo(y, x) {
