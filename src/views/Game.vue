@@ -32,7 +32,10 @@ export default {
         totalBoxes: 1,
         tiles: [],
         tempTiles: [],
-        history: [],
+        history: {
+          tileHistory: [],
+          fishHistory: []
+        },
         animations: [],
         animations2: [],
         timer: '',
@@ -65,7 +68,10 @@ export default {
       //Set them empty to prevent problems when Game is not created from scratch
       this.levelData = this.levels[this.$route.params.levelId];
       this.data.tiles = [];
-      this.data.history = [];
+      this.data.history = {
+        tileHistory: [],
+        fishHistory: []
+      },
       this.data.tempTiles = [];
       this.data.animations = [];
       this.data.animations2 = [];
@@ -85,8 +91,8 @@ export default {
         if (this.itemSelected === 'box' && this.boxesOnBoard < this.data.totalBoxes) {
           this.placeItem(e.y, e.x);
         } else if (this.itemSelected === 'fish' && this.fishLeft > 0) {
-          this.data.fishUsed += 1;
           this.placeItem(e.y, e.x);
+          this.data.fishUsed += 1;
         }
       }
     },
@@ -132,23 +138,26 @@ export default {
       this.$set(this.data.tempTiles, y, newRow);
     },
     addToHistory() {
-      this.$set(this.data.history, this.data.history.length, [...this.data.tiles]);
+      this.$set(this.data.history.tileHistory, this.data.history.tileHistory.length, [...this.data.tiles]);
+      this.$set(this.data.history.fishHistory, this.data.history.fishHistory.length, this.data.fishUsed);
       //this.history.push([...this.tiles]);
     },
     undoMove() {
-      if (this.data.history.length === 0) return;
+      if (this.data.history.tileHistory.length === 0) return;
       this.clearAnimations(true);
       this.clearAnimations(false);
       this.animating = false;
       clearTimeout(this.data.timer);
       for (const row in this.data.tiles) {
-        this.$set(this.data.tiles, row, this.data.history[this.data.history.length-1][row]);
+        this.$set(this.data.tiles, row, this.data.history.tileHistory[this.data.history.tileHistory.length-1][row]);
       }
-      this.$delete(this.data.history, this.data.history.length-1);
+      this.data.fishUsed = this.data.history.fishHistory[this.data.history.fishHistory.length-1];
+      this.$delete(this.data.history.tileHistory, this.data.history.tileHistory.length-1);
+      this.$delete(this.data.history.fishHistory, this.data.history.fishHistory.length-1);
     },
     moveCats() {
       this.subTurnData.tilesPushedTo = [];
-      
+
       let moves = [];
       for (let y = 0; y < this.data.tempTiles.length; y++){
         for (let x = 0; x < this.data.tempTiles[y].length; x++){
@@ -353,7 +362,7 @@ export default {
       return this.nextLevel in this.levels;
     },
     canUndo: function () {
-      return this.data.history.length > 0 && !this.victory;
+      return this.data.history.tileHistory.length > 0 && !this.victory;
     },
     fishLeft: function () {
       if ("fish" in this.levelData) return this.levelData.fish - this.data.fishUsed;
