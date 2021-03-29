@@ -147,28 +147,38 @@ export default {
       let moves = [];
       for (let y = 0; y < this.data.tempTiles.length; y++){
         for (let x = 0; x < this.data.tempTiles[y].length; x++){
-          if (this.data.tempTiles[y][x] === "cat") {
+          let currentCat = this.data.tempTiles[y][x];
+
+          // Forbidden regexp tech from SO
+          // Can end up with cat above cat, so this kinda fixes it so the top one can move
+          // Happens only in super specific cases
+          // Probably can't end up with 3 cat stack???
+          if ((currentCat.match(/cat/g) || []).length === 2) {
+            currentCat = currentCat.split("-")[1];
+          }
+
+          if (currentCat === "cat") {
             const n = this.neighbourTiles(y,x);
             for (const tile of n) {
               if (this.goalTiles.includes(this.data.tempTiles[tile.y][tile.x])) {
                 moves.push({x1: x, x2:tile.x, y1:y, y2:tile.y, cat:"cat"});
               }
             }
-          } else if (this.data.tempTiles[y][x] === "cat2") {
+          } else if (currentCat === "cat2") {
             const n = this.cat2MoveTiles(y,x);
             for (const tile of n) {
               if (this.goalTiles.includes(this.data.tempTiles[tile.y][tile.x])) {
                 moves.push({x1: x, x2:tile.x, y1:y, y2:tile.y, cat:"cat2"});
               }
             }
-          } else if (this.data.tempTiles[y][x] === "cat3") {
+          } else if (currentCat === "cat3") {
             const n = this.cat3MoveTiles(y,x);
             for (const tile of n) {
               if (this.goalTiles.includes(this.data.tempTiles[tile.y][tile.x])) {
                 moves.push({x1: x, x2:tile.x, y1:y, y2:tile.y, cat:"cat3"});
               }
             }
-          } else if (this.data.tempTiles[y][x].includes("push") && this.data.tempTiles[y][x].includes("-")) {
+          } else if (currentCat.includes("push") && currentCat.includes("-")) {
             const move = this.pushCat(y, x);
             if ("x1" in move) moves.push(move);
           }
