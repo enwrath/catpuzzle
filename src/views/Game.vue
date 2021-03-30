@@ -47,10 +47,7 @@ export default {
       levelData: {},
       itemSelected: "box",
       passableTiles: ["","pushleft","pushright","pushup","pushdown","fish"],
-      goalTiles: ["box", "fish"],
-      subTurnData: {
-        tilesPushedTo: []
-      }
+      goalTiles: ["box", "fish"]
     }
   },
   created() {
@@ -156,8 +153,6 @@ export default {
       this.$delete(this.data.history.fishHistory, this.data.history.fishHistory.length-1);
     },
     moveCats() {
-      this.subTurnData.tilesPushedTo = [];
-
       let moves = [];
       for (let y = 0; y < this.data.tempTiles.length; y++){
         for (let x = 0; x < this.data.tempTiles[y].length; x++){
@@ -165,10 +160,10 @@ export default {
 
           // Forbidden regexp tech from SO
           // Can end up with cat above cat, so this kinda fixes it so the top one can move
-          // Happens only in super specific cases
-          // Probably can't end up with 3 cat stack???
-          if ((currentCat.match(/cat/g) || []).length === 2) {
-            currentCat = currentCat.split("-")[1];
+          // Can kinda stack cats infinitely
+          if ((currentCat.match(/cat/g) || []).length > 1) {
+            const splitCats = currentCat.split("-");
+            currentCat = splitCats[splitCats.length-1];
           }
 
           if (currentCat === "cat") {
@@ -243,24 +238,20 @@ export default {
       const cat = this.data.tempTiles[y][x].split("-")[1];
       const direction = this.data.tempTiles[y][x].split("-")[0].split("push")[1];
       if (direction === "left") {
-        if (this.canPushTo(y, x-1) && !this.subTurnData.tilesPushedTo.some(tile => tile.x === x-1 && tile.y === y)) {
-          this.subTurnData.tilesPushedTo.push({y: y, x: x-1});
-          return {x1: x, x2:x-1, y1:y, y2:y, cat:cat};
+        if (this.canPushTo(y, x-1)) {
+          return {x1: x, x2:x-1, y1:y, y2:y, cat:cat, type:"force"};
         }
       } else if (direction === "right") {
-        if (this.canPushTo(y, x+1) && !this.subTurnData.tilesPushedTo.some(tile => tile.x === x+1 && tile.y === y)) {
-          this.subTurnData.tilesPushedTo.push({y: y, x: x+1});
-          return {x1: x, x2:x+1, y1:y, y2:y, cat:cat};
+        if (this.canPushTo(y, x+1)) {
+          return {x1: x, x2:x+1, y1:y, y2:y, cat:cat, type:"force"};
         }
       } else if (direction === "up") {
-        if (this.canPushTo(y-1, x) && !this.subTurnData.tilesPushedTo.some(tile => tile.x === x && tile.y === y-1)) {
-          this.subTurnData.tilesPushedTo.push({y: y-1, x: x});
-          return {x1: x, x2:x, y1:y, y2:y-1, cat:cat};
+        if (this.canPushTo(y-1, x)) {
+          return {x1: x, x2:x, y1:y, y2:y-1, cat:cat, type:"force"};
         }
       } else if (direction === "down") {
-        if (this.canPushTo(y+1, x) && !this.subTurnData.tilesPushedTo.some(tile => tile.x === x && tile.y === y+1)) {
-          this.subTurnData.tilesPushedTo.push({y: y+1, x: x});
-          return {x1: x, x2:x, y1:y, y2:y+1, cat:cat};
+        if (this.canPushTo(y+1, x)) {
+          return {x1: x, x2:x, y1:y, y2:y+1, cat:cat, type:"force"};
         }
       }
 
@@ -271,7 +262,8 @@ export default {
     },
     setCatPosition(move, y1, x1, y2, x2) {
       const newTile = this.data.tempTiles[y2][x2] === "" ? "" : `${this.data.tempTiles[y2][x2]}-`;
-      const oldTile = this.data.tempTiles[y1][x1].includes("-") ? this.data.tempTiles[y1][x1].split("-")[0] : "";
+      const oldSplit = this.data.tempTiles[y1][x1].split("-");
+      const oldTile = this.data.tempTiles[y1][x1].includes("-") ? oldSplit.slice(0,oldSplit.length-1).join("-") : "";
       if (newTile.includes("fish")) {
         //Fish just gets eaten
         this.setTile(y2, x2, move.cat);
@@ -313,6 +305,12 @@ export default {
         if (multipleMoves.length === 1) actualMoves.push(m);
       }
       for (const m of actualMoves) {
+
+        if ("type" in m && m.type === "force") {
+          allowedMoves.push(m);
+          continue;
+        }
+
         const overlapMoves = actualMoves.filter(x => x.x2 === m.x2 && x.y2 === m.y2);
         // All moves overlap with self
         if (overlapMoves.length === 1) allowedMoves.push(m);

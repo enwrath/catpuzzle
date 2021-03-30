@@ -1,10 +1,10 @@
 <template>
   <div @click="placeBox()" :style="`width: ${tileSize}px; height: ${tileSize}px`">
     <img v-if="img1!==''" :class="{[animationName]: hasActiveCat}" :style="`--xdistance: ${xDistance}; --ydistance: ${yDistance}; z-index: ${ownZ}`" :src="require(`@/assets/${img1}.png`)" />
-    <img v-if="img2!==''" class="belowimage" :src="require(`@/assets/${img2}.png`)" />
     <p v-else>
       Tile {{x}}, {{y}}
     </p>
+    <img :key="`${x}${y}-img-${i}`" v-for="(img, i) in btmImages" class="belowimage" :src="require(`@/assets/${img}.png`)"  />
   </div>
 </template>
 
@@ -34,12 +34,21 @@ export default {
     img1: function () {
       if (this.inside === "") return "";
       else if (this.inside.includes("box")) return this.inside;
-      else if (this.inside.includes("-")) return this.inside.split("-")[1];
+      else if (this.inside.includes("-")) return this.inside.split("-")[this.inside.split("-").length-1];
       else return this.inside;
+    },
+    btmImages: function () {
+      if (this.inside.includes("box")) return [];
+      else if (this.inside.includes("-")) {
+        const split = this.inside.split("-");
+
+        return split.slice(0, split.length-1);
+      }
+      else return [];
     },
     img2: function () {
       if (this.inside.includes("box")) return "";
-      else if (this.inside.includes("-")) return this.inside.split("-")[0];
+      else if (this.inside.includes("-")) return this.inside.split("-")[this.inside.split("-").length-2];
       else return "";
     },
     canPlaceBox: function () {
@@ -81,6 +90,7 @@ export default {
 div {
   display: inline-block;
   background: gray;
+  position: relative;
 }
 div:hover {
   background: cyan;
@@ -93,9 +103,10 @@ img {
   --xdistance: 0;
 }
 .belowimage {
+  position: absolute;
   width: 100%;
   height: 100%;
-  top: -100%;
+  margin-left: -100%;
   z-index: 5;
 }
 .move {
