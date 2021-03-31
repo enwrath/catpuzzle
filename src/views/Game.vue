@@ -63,7 +63,13 @@ export default {
   methods: {
     loadLevel() {
       //Set them empty to prevent problems when Game is not created from scratch
-      this.levelData = this.levels[this.$route.params.levelId];
+      console.log(this.$route.params.levelId)
+      if (this.$route.params.levelId.includes("custom-")) {
+        const d = atob(this.$route.params.levelId.split("custom-")[1]);
+        this.levelData = JSON.parse(d);
+      } else {
+        this.levelData = this.levels[this.$route.params.levelId];
+      }
       this.data.tiles = [];
       this.data.history = {
         tileHistory: [],
