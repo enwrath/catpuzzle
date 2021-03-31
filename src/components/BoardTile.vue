@@ -46,14 +46,6 @@ export default {
       }
       else return [];
     },
-    img2: function () {
-      if (this.inside.includes("box")) return "";
-      else if (this.inside.includes("-")) return this.inside.split("-")[this.inside.split("-").length-2];
-      else return "";
-    },
-    canPlaceBox: function () {
-      return this.inside === "";
-    },
     hasActiveCat: function() {
       return this.inside.includes("cat") && !this.inside.includes("box");
     },
@@ -67,7 +59,7 @@ export default {
   },
   methods: {
     placeBox() {
-      if (this.canPlaceBox) this.$emit("placebox", {x:this.x, y:this.y})
+      this.$emit("placebox", {x:this.x, y:this.y})
     },
     checkAnimation() {
       const selfanim =  this.animations.filter(x => x.x === this.x && x.y === this.y);

@@ -85,6 +85,7 @@ export default {
     },
     mouseClick(e) {
       if (!this.victory && !this.animating) {
+        if (this.data.tiles[e.y][e.x] !== "") return;
         if (this.itemSelected === 'box' && this.boxesOnBoard < this.data.totalBoxes) {
           this.placeItem(e.y, e.x);
         } else if (this.itemSelected === 'fish' && this.fishLeft > 0) {
