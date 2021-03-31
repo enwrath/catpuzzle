@@ -1,6 +1,6 @@
 <template>
   <div class="FlexRow">
-    <SidebarLevelEdit :levelBase64="levelToBase64" :itemSelected="itemSelected" @selectitem="itemChange" @sizechange="changeSize"></SidebarLevelEdit>
+    <SidebarLevelEdit @changeamount="amountChange" :levelBase64="levelToBase64" :itemSelected="itemSelected" @selectitem="itemChange" @sizechange="changeSize" :amounts="amounts"></SidebarLevelEdit>
     <div class="FlexColumn">
       <router-link to="/">Back to main menu</router-link>
       <h1>This is level editor</h1>
@@ -22,13 +22,13 @@ export default {
   data() {
     return {
       data: {
-        totalBoxes: 1,
-        tiles: [["","cat",""],["","",""],["","",""]],
-        animations: [],
-        animations2: [],
-        timer: ''
+        tiles: [["","cat",""],["","",""],["","",""]]
       },
-      itemSelected: "box"
+      amounts: {
+        box: 1,
+        fish: 1
+      },
+      itemSelected: "box",
     }
   },
   methods: {
@@ -38,6 +38,10 @@ export default {
     },
     itemChange(e) {
       this.itemSelected = e;
+    },
+    amountChange(e) {
+      const c = e.increase ? 1 : -1;
+      this.amounts[e.item] += c;
     },
     setTile(y, x, stuff) {
       console.log("setting tile to",stuff)
@@ -76,8 +80,8 @@ export default {
       return this.data.tiles.flat().filter(x => x.includes("box")).length;
     },
     levelToBase64: function () {
-      const boxes = this.boxesOnBoard + this.boxesAllowed;
-      const level = {boxes: boxes, tiles: this.data.tiles};
+      const boxes = this.boxesOnBoard + this.amounts.box;
+      const level = {boxes: boxes, fish: this.amounts.fish, tiles: this.data.tiles};
       return btoa(JSON.stringify(level));
     }
   }

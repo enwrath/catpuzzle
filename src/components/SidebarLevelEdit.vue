@@ -3,6 +3,11 @@
     <router-link :to="`/game/custom-${levelBase64}`" custom v-slot="{ navigate }">
       <button @click="navigate">Testplay</button>
     </router-link>
+    <div :key="`${name}-amount`" v-for="(amount, name) of amounts">
+      {{ name }}: {{ amount}}
+      <button @click="$emit('changeamount', {item: name, increase: true})">+</button>
+      <button @click="$emit('changeamount', {item: name, increase: false})">-</button>
+    </div>
     <button @click="$emit('sizechange', {row: true, grow: true})">Add a row</button>
     <button @click="$emit('sizechange', {row: false, grow: true})">Add a column</button>
     <button @click="$emit('sizechange', {row: true, grow: false})">Remove last row</button>
@@ -18,9 +23,7 @@
 export default {
   name: 'SidebarLevelEdit',
   props: {
-    boxesAllowed: Number,
-    fishAllowed: Number,
-    canUndo: Boolean,
+    amounts: Object,
     itemSelected: String,
     levelBase64: String
   },
