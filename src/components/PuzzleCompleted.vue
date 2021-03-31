@@ -2,10 +2,14 @@
   <div>
     <p >PUZZLE COMPLETE! ALL CATS ARE IN BOXES.</p>
     <button @click="$emit('restartlevel')">Replay level</button>
-    <router-link to="/levelselect" custom v-slot="{ navigate }">
+
+    <router-link v-if="fromEditor" to="/leveledit" custom v-slot="{ navigate }">
+      <button @click="navigate">Back to level editor</button>
+    </router-link>
+    <router-link v-if="!fromEditor" to="/levelselect" custom v-slot="{ navigate }">
       <button @click="navigate">Level selection</button>
     </router-link>
-    <router-link v-if="nextLevelExists" :to="`/game/${nextLevel}`" custom v-slot="{ navigate }">
+    <router-link v-if="nextLevelExists && !fromEditor" :to="`/game/${nextLevel}`" custom v-slot="{ navigate }">
       <button @click="navigate">Next level</button>
     </router-link>
   </div>
@@ -17,7 +21,8 @@ export default {
   name: 'PuzzleCompleted',
   props: {
     nextLevelExists: Boolean,
-    nextLevel: Number
+    nextLevel: Number,
+    fromEditor: Boolean
   }
 }
 </script>

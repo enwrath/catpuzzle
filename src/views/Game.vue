@@ -2,8 +2,11 @@
   <div class="FlexRow">
     <Sidebar :boxesLeft="boxesLeft" :canUndo="canUndo" @undomove="undoMove" @selectfish="setItem('fish')" @selectbox="setItem('box')" :fishLeft="fishLeft" :itemSelected="itemSelected" @restartlevel="loadLevel"></Sidebar>
     <div class="FlexColumn">
+      <router-link v-if="fromEditor" to="/leveledit" custom v-slot="{ navigate }">
+        <button @click="navigate">Back to level editor</button>
+      </router-link>
       <div v-if="victory">
-        <PuzzleCompleted @restartlevel="loadLevel" :nextLevel="nextLevel" :nextLevelExists="nextLevelExists"></PuzzleCompleted>
+        <PuzzleCompleted @restartlevel="loadLevel" :nextLevel="nextLevel" :nextLevelExists="nextLevelExists" :fromEditor="fromEditor"></PuzzleCompleted>
       </div>
 
       <div v-if="'message' in levelData">
@@ -47,7 +50,8 @@ export default {
       levelData: {},
       itemSelected: "box",
       passableTiles: ["","pushleft","pushright","pushup","pushdown","fish"],
-      goalTiles: ["box", "fish"]
+      goalTiles: ["box", "fish"],
+      fromEditor: false
     }
   },
   created() {
@@ -67,6 +71,7 @@ export default {
       if (this.$route.params.levelId.includes("custom-")) {
         const d = atob(this.$route.params.levelId.split("custom-")[1]);
         this.levelData = JSON.parse(d);
+        if ("from" in this.levelData && this.levelData.from === "editor") this.fromEditor = true;
       } else {
         this.levelData = this.levels[this.$route.params.levelId];
       }

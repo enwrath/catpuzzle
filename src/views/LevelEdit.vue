@@ -42,6 +42,7 @@ export default {
     amountChange(e) {
       const c = e.increase ? 1 : -1;
       this.amounts[e.item] += c;
+      if (this.amounts[e.item] < 0) this.amounts[e.item] = 0;
     },
     setTile(y, x, stuff) {
       console.log("setting tile to",stuff)
@@ -81,7 +82,7 @@ export default {
     },
     levelToBase64: function () {
       const boxes = this.boxesOnBoard + this.amounts.box;
-      const level = {boxes: boxes, fish: this.amounts.fish, tiles: this.data.tiles};
+      const level = {boxes: boxes, fish: this.amounts.fish, tiles: this.data.tiles, from: "editor"};
       return btoa(JSON.stringify(level));
     }
   }
