@@ -1,5 +1,9 @@
 <template>
   <div class="Sidebar">
+    <button @click="$emit('sizechange', {row: true, grow: true})">Add a row</button>
+    <button @click="$emit('sizechange', {row: false, grow: true})">Add a column</button>
+    <button @click="$emit('sizechange', {row: true, grow: false})">Remove last row</button>
+    <button @click="$emit('sizechange', {row: false, grow: false})">Remove last column</button>
     <button :key="`${item}-button`" v-for="item in tileTypes" :class="{ActiveItem: itemSelected===item}" @click="$emit('selectitem', item)">
         <img :src="require(`@/assets/${item}.png`)" />
     </button>
@@ -18,7 +22,7 @@ export default {
   },
   data() {
     return {
-      tileTypes: ["eraser", "box", "fish", "cat"]
+      tileTypes: ["eraser", "box", "fish", "block", "cat", "cat2", "cat3", "pushup", "pushright", "pushdown", "pushleft"]
     }
   }
 }
@@ -33,6 +37,7 @@ export default {
   align-content: center;
   margin-top: 2em;
   color: white;
+  flex-wrap: wrap;
 }
 .ActiveItem {
   background: cyan;

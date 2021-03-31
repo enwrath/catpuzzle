@@ -1,6 +1,6 @@
 <template>
   <div class="FlexRow">
-    <SidebarLevelEdit :itemSelected="itemSelected" @selectitem="itemChange"></SidebarLevelEdit>
+    <SidebarLevelEdit :itemSelected="itemSelected" @selectitem="itemChange" @sizechange="changeSize"></SidebarLevelEdit>
     <div class="FlexColumn">
       <router-link to="/">Back to main menu</router-link>
       <h1>This is level editor</h1>
@@ -45,6 +45,31 @@ export default {
       newRow[x] = stuff;
       this.$set(this.data.tiles, y, newRow);
     },
+    changeSize(e) {
+      if (e.row && e.grow) this.addNewRow();
+      else if (e.row && !e.grow) this.deleteLastRow();
+      if (!e.row && e.grow) this.addNewColumn();
+      else if (!e.row && !e.grow) this.deleteLastColumn();
+    },
+    addNewRow() {
+      let newRow = [];
+      for (let i = 0; i < this.data.tiles[0].length; i++) {
+        newRow.push("");
+      }
+      this.$set(this.data.tiles, this.data.tiles.length, newRow);
+    },
+    addNewColumn() {
+      for (const row of this.data.tiles) row.push("");
+    },
+    deleteLastRow() {
+      if (this.data.tiles.length <= 1) return;
+      this.data.tiles.pop();
+    },
+    deleteLastColumn() {
+      if (this.data.tiles[0].length <= 1) return;
+      console.log("teat")
+      for (const row of this.data.tiles) row.pop();
+    }
   }
 }
 </script>
