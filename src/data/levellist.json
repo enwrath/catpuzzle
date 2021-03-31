@@ -90,5 +90,19 @@
     "boxes": 8,
     "message": "Cats can't be pushed through other cats. Cats are also unable to move themselves when on push tile, even if the pushing is blocked.",
     "tiles": [["box","box","block","",""],["pushright-cat3","pushright-cat","pushright-cat","cat2",""],["box","box","block","",""]]
+  },
+  "14": {
+    "id": "14",
+    "name": "ohno",
+    "boxes": 4,
+    "fish": 3,
+    "tiles": [["","","","",""],["","","pushdown-cat","",""],["","pushright-cat2","","pushleft-cat3",""],["","","pushup","",""],["","","cat2","",""]]
+  },
+  "15": {
+    "id": "15",
+    "name": "ohno2",
+    "boxes": 4,
+    "fish": 3,
+    "tiles": [["cat2","","","cat",""],["","pushup-cat","","",""]]
   }
 }
