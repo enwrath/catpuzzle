@@ -1,5 +1,8 @@
 <template>
   <div class="Sidebar">
+    <router-link :to="`/game/custom-${levelBase64}`" custom v-slot="{ navigate }">
+      <button @click="navigate">Testplay</button>
+    </router-link>
     <button @click="$emit('sizechange', {row: true, grow: true})">Add a row</button>
     <button @click="$emit('sizechange', {row: false, grow: true})">Add a column</button>
     <button @click="$emit('sizechange', {row: true, grow: false})">Remove last row</button>
@@ -13,12 +16,13 @@
 <script>
 
 export default {
-  name: 'Sidebar',
+  name: 'SidebarLevelEdit',
   props: {
-    boxesLeft: Number,
-    fishLeft: Number,
+    boxesAllowed: Number,
+    fishAllowed: Number,
     canUndo: Boolean,
-    itemSelected: String
+    itemSelected: String,
+    levelBase64: String
   },
   data() {
     return {

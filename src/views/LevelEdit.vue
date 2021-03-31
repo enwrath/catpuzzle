@@ -1,6 +1,6 @@
 <template>
   <div class="FlexRow">
-    <SidebarLevelEdit :itemSelected="itemSelected" @selectitem="itemChange" @sizechange="changeSize"></SidebarLevelEdit>
+    <SidebarLevelEdit :levelBase64="levelToBase64" :itemSelected="itemSelected" @selectitem="itemChange" @sizechange="changeSize"></SidebarLevelEdit>
     <div class="FlexColumn">
       <router-link to="/">Back to main menu</router-link>
       <h1>This is level editor</h1>
@@ -69,6 +69,16 @@ export default {
       if (this.data.tiles[0].length <= 1) return;
       console.log("teat")
       for (const row of this.data.tiles) row.pop();
+    }
+  },
+  computed: {
+    boxesOnBoard: function () {
+      return this.data.tiles.flat().filter(x => x.includes("box")).length;
+    },
+    levelToBase64: function () {
+      const boxes = this.boxesOnBoard + this.boxesAllowed;
+      const level = {boxes: boxes, tiles: this.data.tiles};
+      return btoa(JSON.stringify(level));
     }
   }
 }
