@@ -95,7 +95,7 @@ export default {
       }
       //Resolve any cats-on-pushers situations
       //Animations don't happen if no timeout here
-      this.data.timer = setTimeout(this.firstActionCheck, 250);
+      this.data.timer = setTimeout(this.firstActionCheck, 100);
 
     },
     firstActionCheck() {
@@ -312,7 +312,9 @@ export default {
         this.animations2Start();
         this.clearAnimations(false);
       } else {
-      this.moveCats();
+        //Some animations break if this isn't on timeout
+        this.data.timer = setTimeout(this.moveCats, 100);
+        //this.moveCats();
       }
     },
     filterMoves(moves) {
