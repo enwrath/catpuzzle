@@ -83,7 +83,7 @@ export default {
       this.data.tempTiles = [];
       this.data.animations = [];
       this.data.animations2 = [];
-      this.animating = false;
+      this.animating = true;
       this.victory = false;
       this.itemSelected = "box";
       this.data.fishUsed = 0;
@@ -93,6 +93,14 @@ export default {
       for (const row in this.levelData.tiles) {
         this.$set(this.data.tiles, row, [...this.levelData.tiles[row]]);
       }
+      //Resolve any cats-on-pushers situations
+      //Animations don't happen if no timeout here
+      this.data.timer = setTimeout(this.firstActionCheck, 250);
+
+    },
+    firstActionCheck() {
+      this.newTempTiles();
+      this.moveCats();
     },
     mouseClick(e) {
       if (!this.victory && !this.animating) {
