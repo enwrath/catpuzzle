@@ -4,7 +4,7 @@
     <p v-else>
       Tile {{x}}, {{y}}
     </p>
-    <img :key="`${x}${y}-img-${i}`" v-for="(img, i) in btmImages" class="belowimage" :src="require(`@/assets/${img}.png`)"  />
+    <img :key="`${x}${y}-img-${i}`" v-for="(img, i) in btmImages" :class="{[animationName]: btmImagesAnimate && i !== 0}" class="belowimage" :style="`--xdistance: ${xDistance}; --ydistance: ${yDistance};`" :src="require(`@/assets/${img}.png`)"  />
   </div>
 </template>
 
@@ -55,6 +55,9 @@ export default {
     },
     tileMaxSize: function() {
       return 1;
+    },
+    btmImagesAnimate: function() {
+      return this.inside.includes("push") && this.animationName !== "idleAnimation";
     }
   },
   methods: {

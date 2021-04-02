@@ -178,6 +178,12 @@ export default {
         for (let x = 0; x < this.data.tempTiles[y].length; x++){
           let currentCat = this.data.tempTiles[y][x];
 
+
+          if (currentCat.includes("push") && currentCat.includes("-")) {
+            const move = this.pushCat(y, x);
+            if ("x1" in move) moves.push(move);
+            continue;
+          }
           // Forbidden regexp tech from SO
           // Can end up with cat above cat, so this kinda fixes it so the top one can move
           // Can kinda stack cats infinitely
@@ -207,9 +213,6 @@ export default {
                 moves.push({x1: x, x2:tile.x, y1:y, y2:tile.y, cat:"cat3"});
               }
             }
-          } else if (currentCat.includes("push") && currentCat.includes("-")) {
-            const move = this.pushCat(y, x);
-            if ("x1" in move) moves.push(move);
           }
         }
       }
@@ -254,8 +257,9 @@ export default {
       }
     },
     pushCat(y, x) {
-      //tile is of format push(direction)-(cat)
-      const cat = this.data.tempTiles[y][x].split("-")[1];
+      //tile is of format push(direction)-(cat)(-s)
+      const cat = this.data.tempTiles[y][x].split("-").slice(1,this.data.tempTiles[y][x].length-1).join("-");
+
       const direction = this.data.tempTiles[y][x].split("-")[0].split("push")[1];
       if (direction === "left") {
         if (this.canPushTo(y, x-1)) {
@@ -274,7 +278,7 @@ export default {
           return {x1: x, x2:x, y1:y, y2:y+1, cat:cat, type:"force"};
         }
       }
-
+      console.log("pushing",cat)
       return {};
     },
     canPushTo(y, x) {
@@ -283,7 +287,12 @@ export default {
     setCatPosition(move, y1, x1, y2, x2) {
       const newTile = this.data.tempTiles[y2][x2] === "" ? "" : `${this.data.tempTiles[y2][x2]}-`;
       const oldSplit = this.data.tempTiles[y1][x1].split("-");
-      const oldTile = this.data.tempTiles[y1][x1].includes("-") ? oldSplit.slice(0,oldSplit.length-1).join("-") : "";
+      let oldTile = this.data.tempTiles[y1][x1].includes("-") ? oldSplit.slice(0,oldSplit.length-1).join("-") : "";
+
+      //Push everything onward
+      if (this.data.tempTiles[y1][x1].includes("push")) {
+        oldTile = oldSplit[0];
+      }
       if (newTile.includes("fish")) {
         //Fish just gets eaten
         this.setTile(y2, x2, move.cat);
