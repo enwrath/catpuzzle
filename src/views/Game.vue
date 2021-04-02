@@ -127,7 +127,7 @@ export default {
       this.itemSelected = name;
     },
     checkVictory() {
-        if (this.data.tiles.flat().every(x => !x.includes("cat") || (x.includes("cat") && x.includes("box")))) this.victory = true;
+        if (this.data.tiles.flat().every(x => !x.includes("cat") || (x.includes("cat") && x.includes("box") && !x.includes("broken")))) this.victory = true;
     },
     clearAnimations(first) {
       if (first) this.data.animations.splice(0);
@@ -184,13 +184,15 @@ export default {
             if ("x1" in move) moves.push(move);
             continue;
           }
-          // Forbidden regexp tech from SO
-          // Can end up with cat above cat, so this kinda fixes it so the top one can move
-          // Can kinda stack cats infinitely
-          if ((currentCat.match(/cat/g) || []).length > 1) {
-            const splitCats = currentCat.split("-");
-            currentCat = splitCats[splitCats.length-1];
-          }
+
+          if (!currentCat.includes("cat")) continue;
+
+          // Only topmost cat moves by itself
+          // Handle pushers etc. stack movements before this!
+          //Don't move cats in boxes!!!!
+          if (currentCat.includes("box") && !currentCat.includes("broken")) continue;
+          const splitCats = currentCat.split("-");
+          currentCat = splitCats[splitCats.length-1];
 
           if (currentCat === "cat") {
             const n = this.neighbourTiles(y,x);
@@ -226,7 +228,7 @@ export default {
       }
       for (const m of filteredMoves.bad) {
         if (this.data.tempTiles[m.y2][m.x2].includes("box")) {
-          this.setTile(m.y2, m.x2, "broken-box");
+          this.setTile(m.y2, m.x2, "brokenbox");
         } else {
           //Non box stuff just disappears
           this.setTile(m.y2, m.x2, "");
@@ -246,7 +248,6 @@ export default {
         }
 
       }
-
       if (filteredMoves.allowed.length > 0 || filteredMoves.bad.length > 0) {
         this.animating = true;
         this.data.timer = setTimeout(this.afterAnimation, 950);
@@ -278,27 +279,30 @@ export default {
           return {x1: x, x2:x, y1:y, y2:y+1, cat:cat, type:"force"};
         }
       }
-      console.log("pushing",cat)
       return {};
     },
     canPushTo(y, x) {
       return this.data.tempTiles[y] !== undefined && this.data.tempTiles[y][x] !== undefined && (this.passableTiles.includes(this.data.tempTiles[y][x]) || this.goalTiles.includes(this.data.tempTiles[y][x]));
     },
     setCatPosition(move, y1, x1, y2, x2) {
-      const newTile = this.data.tempTiles[y2][x2] === "" ? "" : `${this.data.tempTiles[y2][x2]}-`;
+      let newTile = this.data.tempTiles[y2][x2] === "" ? "" : `${this.data.tempTiles[y2][x2]}-`;
       const oldSplit = this.data.tempTiles[y1][x1].split("-");
+      const newSplit = this.data.tempTiles[y2][x2].split("-");
       let oldTile = this.data.tempTiles[y1][x1].includes("-") ? oldSplit.slice(0,oldSplit.length-1).join("-") : "";
 
       //Push everything onward
       if (this.data.tempTiles[y1][x1].includes("push")) {
         oldTile = oldSplit[0];
       }
+      //Fish just gets eaten
       if (newTile.includes("fish")) {
-        //Fish just gets eaten
-        this.setTile(y2, x2, move.cat);
-      } else {
-        this.setTile(y2, x2, `${newTile}${move.cat}`);
+        newTile = newSplit.slice(0,newSplit.length-1).join("-");
       }
+      // Can there be more things than boxes on tile?
+      if (newTile.includes("box") && move.cat.includes("-")) {
+        newTile = "brokenbox-";
+      }
+      this.setTile(y2, x2, `${newTile}${move.cat}`);
       this.setTile(y1, x1, oldTile);
     },
     addAnimation(y1, x1, y2, x2, badmove) {

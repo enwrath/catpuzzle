@@ -33,12 +33,12 @@ export default {
   computed: {
     img1: function () {
       if (this.inside === "") return "";
-      else if (this.inside.includes("box")) return this.inside;
+      else if (this.inside.includes("box") && !this.inside.includes("broken")) return this.inside;
       else if (this.inside.includes("-")) return this.inside.split("-")[this.inside.split("-").length-1];
       else return this.inside;
     },
     btmImages: function () {
-      if (this.inside.includes("box")) return [];
+      if (this.inside.includes("box") && !this.inside.includes("broken")) return [];
       else if (this.inside.includes("-")) {
         const split = this.inside.split("-");
 
@@ -47,7 +47,7 @@ export default {
       else return [];
     },
     hasActiveCat: function() {
-      return this.inside.includes("cat") && !this.inside.includes("box");
+      return this.inside.includes("cat") && (!this.inside.includes("box") || this.inside.includes("broken"));
     },
     ownZ: function () {
       if (this.hasActiveCat) return 10;
@@ -102,7 +102,7 @@ img {
   width: 100%;
   height: 100%;
   margin-left: -100%;
-  z-index: 5;
+  z-index: 4;
 }
 .move {
   animation-duration: 1s;

@@ -103,6 +103,12 @@
     "name": "ohno2",
     "boxes": 4,
     "fish": 3,
-    "tiles": [["cat2","","","cat",""],["","pushup-cat","","",""]]
+    "tiles": [["cat2","","box","cat",""],["","pushup-cat","","",""]]
+  },
+  "16": {
+    "id": "16",
+    "name": "catstackpush",
+    "boxes": 4,
+    "tiles": [["pushright-cat2-cat-cat3","box",""],["","",""]]
   }
 }
