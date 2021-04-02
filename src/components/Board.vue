@@ -18,7 +18,8 @@ export default {
   data() {
     return {
       width: 240,
-      height: 240
+      height: 240,
+      maxTileSize: 240
     }
   },
   props: {
@@ -41,8 +42,10 @@ export default {
     tileSize: function () {
       const tileW = Math.floor(this.width / this.data.tiles[0].length);
       const tileH = Math.floor(this.height / this.data.tiles.length);
-      if (tileW < tileH) return tileW;
-      else return tileH;
+      let size = tileH;
+      if (tileW < tileH) size = tileW;
+      if (size > this.maxTileSize) return this.maxTileSize
+      else return size;
     }
   }
 }
