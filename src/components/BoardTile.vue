@@ -53,9 +53,6 @@ export default {
       if (this.hasActiveCat) return 10;
       else return 5;
     },
-    tileMaxSize: function() {
-      return 1;
-    },
     btmImagesAnimate: function() {
       return this.inside.includes("push") && this.animationName !== "idleAnimation";
     }
