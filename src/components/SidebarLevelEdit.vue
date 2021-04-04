@@ -42,14 +42,15 @@ export default {
   flex-direction: row;
   align-items: center;
   align-content: center;
-  margin-top: 2em;
+  margin: auto;
   color: white;
   flex-wrap: wrap;
+
 }
 .ActiveItem {
   background: cyan;
 }
-@media only screen and (min-width: 500px) {
+@media only screen and (min-width: 700px) {
   .Sidebar {
     flex-direction: column;
   }

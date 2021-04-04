@@ -433,7 +433,6 @@ export default {
   display: flex;
   flex-direction: column;
   align-content: center;
-  width: 100%;
-  height: 100%;
+  flex-grow: 1;
 }
 </style>
