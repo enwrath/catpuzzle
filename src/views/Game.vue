@@ -229,9 +229,13 @@ export default {
       for (const m of filteredMoves.bad) {
         if (this.data.tempTiles[m.y2][m.x2].includes("box")) {
           this.setTile(m.y2, m.x2, this.data.tempTiles[m.y2][m.x2].replace("box", "brokenbox"));
-        } else {
-          //Non box stuff just disappears
-          this.setTile(m.y2, m.x2, "");
+        } else if (this.data.tempTiles[m.y2][m.x2].includes("fish")) {
+          //If tile has things other than fish, preserve them
+          //And make sure there is no trailing or starting or double "-"
+          let newTile = this.data.tempTiles[m.y2][m.x2].replace("fish","").replace("--","-");
+          if (newTile.length > 0 && newTile[0] === "-") newTile = newTile.slice(1);
+          if (newTile.length > 0 && newTile[newTile.length-1] === "-") newTile = newTile.slice(0,-1);
+          this.setTile(m.y2, m.x2, newTile);
         }
         this.addAnimation(m.y1,m.x1,m.y2,m.x2, true);
         if (m.cat === "cat2") {
