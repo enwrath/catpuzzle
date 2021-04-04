@@ -228,7 +228,7 @@ export default {
       }
       for (const m of filteredMoves.bad) {
         if (this.data.tempTiles[m.y2][m.x2].includes("box")) {
-          this.setTile(m.y2, m.x2, "brokenbox");
+          this.setTile(m.y2, m.x2, this.data.tempTiles[m.y2][m.x2].replace("box", "brokenbox"));
         } else {
           //Non box stuff just disappears
           this.setTile(m.y2, m.x2, "");
