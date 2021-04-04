@@ -43,6 +43,7 @@ export default {
   align-items: center;
   align-content: center;
   margin: auto;
+  margin-top: 0;
   color: white;
   flex-wrap: wrap;
 
