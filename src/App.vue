@@ -4,8 +4,31 @@
       <router-view v-if="$route.meta.keepAlive"></router-view>
     </keep-alive>
     <router-view v-if="!$route.meta.keepAlive"></router-view>
+    <div >
+      <img hidden :src="`${img}`" :key="`preloadimage-${key}`" v-for="(img, key) in images">
+    </div>
   </div>
 </template>
+
+<script>
+export default {
+  data() {
+    return {
+      images: {}
+    }
+  },
+  mounted() {
+    this.importAll(require.context("./assets/", true, /\.png$/));
+  },
+  methods: {
+    importAll(r) {
+      var imgs = {};
+      r.keys().forEach(key => (imgs[key] = r(key)));
+      this.images = imgs;
+    }
+  }
+}
+</script>
 
 <style>
 
