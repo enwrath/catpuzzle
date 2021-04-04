@@ -228,7 +228,10 @@ export default {
       }
       for (const m of filteredMoves.bad) {
         if (this.data.tempTiles[m.y2][m.x2].includes("box")) {
-          this.setTile(m.y2, m.x2, this.data.tempTiles[m.y2][m.x2].replace("box", "brokenbox"));
+          // Multiple cats will attempt this!
+          if (!this.data.tempTiles[m.y2][m.x2].includes("brokenbox")) {
+            this.setTile(m.y2, m.x2, this.data.tempTiles[m.y2][m.x2].replace("box", "brokenbox"));
+          }
         } else if (this.data.tempTiles[m.y2][m.x2].includes("fish")) {
           //If tile has things other than fish, preserve them
           //And make sure there is no trailing or starting or double "-"
