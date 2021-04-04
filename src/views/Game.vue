@@ -421,7 +421,7 @@ export default {
   background: #353558;
   height: 100%;
 }
-@media only screen and (min-width: 500px) {
+@media only screen and (min-width: 700px) {
   .FlexRow {
     display: flex;
     flex-direction: row;
