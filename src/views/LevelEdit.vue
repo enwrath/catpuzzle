@@ -3,7 +3,18 @@
     <SidebarLevelEdit @changeamount="amountChange" :levelBase64="levelToBase64" :itemSelected="itemSelected" @selectitem="itemChange" @sizechange="changeSize" :amounts="amounts"></SidebarLevelEdit>
     <div class="FlexColumn">
       <router-link to="/">Back to main menu</router-link>
-      <h1>This is level editor</h1>
+      <div class="itemRow">
+        <div class="itemColumn">
+          <span>Export code:</span>
+          <input type="text" value="" id="levelExport" readonly>
+          <button @click="exportLevel">Copy level code</button>
+        </div><div class="itemColumn">
+          <span>Import code:</span>
+          <input type="text" value="" id="levelImport" placeholder="Paste level code here">
+          <button @click="importLevel">Load level</button>
+        </div>
+      </div>
+
 
       <Board @placebox="mouseClick" :data="data"></Board>
     </div>
@@ -22,19 +33,22 @@ export default {
   data() {
     return {
       data: {
-        tiles: [["","cat",""],["","",""],["","",""]]
+        tiles: [["","",""],["","",""],["","",""]]
       },
       amounts: {
         box: 1,
         fish: 1
       },
       itemSelected: "box",
+      importInput: "",
+      exportInput: ""
     }
   },
   methods: {
     mouseClick(e) {
       if (this.itemSelected === "eraser") this.setTile(e.y, e.x, "");
       else this.addToTile(e.y, e.x, this.itemSelected);
+      this.exportInput.value = this.levelToBase64;
     },
     itemChange(e) {
       this.itemSelected = e;
@@ -87,6 +101,24 @@ export default {
       if (this.data.tiles[0].length <= 1) return;
       console.log("teat")
       for (const row of this.data.tiles) row.pop();
+    },
+    exportLevel() {
+      this.exportInput.select();
+      this.exportInput.setSelectionRange(0, 99999);
+      document.execCommand("copy");
+    },
+    importLevel() {
+      try {
+        const d = atob(this.importInput.value);
+        const levelData = JSON.parse(d);
+        // TODO: Verify that data is good
+        this.data.tiles = levelData.tiles;
+        this.amounts.box = levelData.boxes - this.boxesOnBoard;
+        this.amounts.fish = levelData.fish;
+      }
+      catch(err) {
+        alert("Imported map data is bad.")
+      }
     }
   },
   computed: {
@@ -98,6 +130,10 @@ export default {
       const level = {boxes: boxes, fish: this.amounts.fish, tiles: this.data.tiles, from: "editor"};
       return btoa(JSON.stringify(level));
     }
+  },
+  mounted() {
+    this.exportInput = document.getElementById("levelExport");
+    this.importInput = document.getElementById("levelImport");
   }
 }
 </script>
@@ -105,6 +141,16 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 a,h1 {
+  color: white;
+}
+.itemRow {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+}
+.itemColumn {
+  display: flex;
+  flex-direction: column;
   color: white;
 }
 </style>
