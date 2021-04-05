@@ -69,6 +69,7 @@ export default {
       //Set them empty to prevent problems when Game is not created from scratch
       console.log(this.$route.params.levelId)
       if (this.$route.params.levelId.includes("custom-")) {
+        // TODO: verify that data is good
         const d = atob(this.$route.params.levelId.split("custom-")[1]);
         this.levelData = JSON.parse(d);
         if ("from" in this.levelData && this.levelData.from === "editor") this.fromEditor = true;

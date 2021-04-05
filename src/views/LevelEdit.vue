@@ -1,6 +1,6 @@
 <template>
   <div class="FlexRow">
-    <SidebarLevelEdit @changeamount="amountChange" :levelBase64="levelToBase64" :itemSelected="itemSelected" @selectitem="itemChange" @sizechange="changeSize" :amounts="amounts"></SidebarLevelEdit>
+    <SidebarLevelEdit @changeamount="amountChange" :levelBase64="levelToBase64Editor" :itemSelected="itemSelected" @selectitem="itemChange" @sizechange="changeSize" :amounts="amounts"></SidebarLevelEdit>
     <div class="FlexColumn">
       <router-link to="/">Back to main menu</router-link>
       <div class="itemRow">
@@ -57,6 +57,7 @@ export default {
       const c = e.increase ? 1 : -1;
       this.amounts[e.item] += c;
       if (this.amounts[e.item] < 0) this.amounts[e.item] = 0;
+      this.exportInput.value = this.levelToBase64;
     },
     addToTile(y, x, stuff) {
       console.log("adding",stuff)
@@ -126,6 +127,11 @@ export default {
       return this.data.tiles.flat().filter(x => x.includes("box")).length;
     },
     levelToBase64: function () {
+      const boxes = this.boxesOnBoard + this.amounts.box;
+      const level = {boxes: boxes, fish: this.amounts.fish, tiles: this.data.tiles};
+      return btoa(JSON.stringify(level));
+    },
+    levelToBase64Editor: function () {
       const boxes = this.boxesOnBoard + this.amounts.box;
       const level = {boxes: boxes, fish: this.amounts.fish, tiles: this.data.tiles, from: "editor"};
       return btoa(JSON.stringify(level));

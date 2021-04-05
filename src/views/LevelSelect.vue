@@ -5,6 +5,14 @@
     <div :key="`level-${level.id}`" v-for="level in levels" >
       <router-link :to="`/game/${level.id}`">{{level.name}}</router-link>
     </div>
+    <div>
+      <h1>Custom level</h1>
+      <input type="text" v-model="levelBase64" id="customLevel" placeholder="Paste level code here">
+
+      <router-link :to="`/game/custom-${levelBase64}`" custom v-slot="{ navigate }">
+        <button @click="navigate" :disabled="levelBase64 === ''">Testplay</button>
+      </router-link>
+    </div>
   </div>
 </template>
 
@@ -16,6 +24,7 @@ export default {
   data() {
     return {
       levels: levelList,
+      levelBase64: ""
     };
   },
 }
