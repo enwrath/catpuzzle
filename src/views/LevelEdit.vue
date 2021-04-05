@@ -34,7 +34,7 @@ export default {
   methods: {
     mouseClick(e) {
       if (this.itemSelected === "eraser") this.setTile(e.y, e.x, "");
-      else this.setTile(e.y, e.x, this.itemSelected);
+      else this.addToTile(e.y, e.x, this.itemSelected);
     },
     itemChange(e) {
       this.itemSelected = e;
@@ -44,8 +44,21 @@ export default {
       this.amounts[e.item] += c;
       if (this.amounts[e.item] < 0) this.amounts[e.item] = 0;
     },
+    addToTile(y, x, stuff) {
+      console.log("adding",stuff)
+      let newTile = this.data.tiles[y][x];
+      const splitTile = newTile.split("-");
+      // Can't stack above boxes
+      if (splitTile[splitTile.length-1] === "box" && !stuff.includes("cat")) return;
+      // Can't stack non-cats above cats
+      if (splitTile[splitTile.length-1].includes("cat") && !stuff.includes("cat")) return;
+      // Can't stack anything above box-cat
+      if (splitTile.length >= 2 && splitTile[splitTile.length-1].includes("cat") && splitTile[splitTile.length-2] === "box") return;
+      if (newTile === "") newTile = stuff;
+      else newTile = newTile + "-" + stuff;
+      this.setTile(y, x, newTile);
+    },
     setTile(y, x, stuff) {
-      console.log("setting tile to",stuff)
       const newRow = this.data.tiles[y].slice(0);
       newRow[x] = stuff;
       this.$set(this.data.tiles, y, newRow);
