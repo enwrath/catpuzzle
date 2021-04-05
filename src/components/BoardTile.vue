@@ -4,7 +4,7 @@
     <p v-else>
       Tile {{x}}, {{y}}
     </p>
-    <img :key="`${x}${y}-img-${i}`" v-for="(img, i) in btmImages" :class="{[animationName]: btmImagesAnimate && i !== 0}" class="belowimage" :style="`--xdistance: ${xDistance}; --ydistance: ${yDistance};`" :src="require(`@/assets/${img}.png`)"  />
+    <img :key="`${x}${y}-img-${i}`" v-for="(img, i) in btmImages" :class="{[animationName]: btmImagesAnimate && i !== 0}" class="belowimage" :style="`--xdistance: ${xDistance}; --ydistance: ${yDistance}; <-index: ${ownZ-i}`" :src="require(`@/assets/${img}.png`)"  />
   </div>
 </template>
 
@@ -106,7 +106,6 @@ img {
 .move {
   animation-duration: 1s;
   animation-name: move;
-  z-index: 6;
 }
 @keyframes move {
   0% { transform: translate3d(0, 0, 0); }
