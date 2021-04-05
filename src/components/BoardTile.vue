@@ -1,6 +1,6 @@
 <template>
   <div @click="placeBox()" :style="`width: ${tileSize}px; height: ${tileSize}px`">
-    <img v-if="img1!==''" :class="{[animationName]: hasActiveCat}" :style="`--xdistance: ${xDistance}; --ydistance: ${yDistance}; z-index: ${ownZ}`" :src="require(`@/assets/${img1}.png`)" />
+    <img v-if="img1!==''" :class="{[animationName]: isAnimated}" :style="`--xdistance: ${xDistance}; --ydistance: ${yDistance}; z-index: ${ownZ}`" :src="require(`@/assets/${img1}.png`)" />
     <p v-else>
       Tile {{x}}, {{y}}
     </p>
@@ -33,21 +33,23 @@ export default {
   computed: {
     img1: function () {
       if (this.inside === "") return "";
-      else if (this.inside.includes("box") && !this.inside.includes("broken")) return this.inside;
-      else if (this.inside.includes("-")) return this.inside.split("-")[this.inside.split("-").length-1];
-      else return this.inside;
+      const splitTile = this.inside.split("-");
+      if (splitTile.length === 1) return splitTile[0]
+      else if (splitTile.length >= 2 && splitTile[splitTile.length-2] === "box" && splitTile[splitTile.length-1].includes("cat")) return splitTile[splitTile.length-2] + "-" + splitTile[splitTile.length-1];
+      else return splitTile[splitTile.length-1];
     },
     btmImages: function () {
-      if (this.inside.includes("box") && !this.inside.includes("broken")) return [];
-      else if (this.inside.includes("-")) {
-        const split = this.inside.split("-");
-
-        return split.slice(0, split.length-1);
-      }
-      else return [];
+      const splitTile = this.inside.split("-");
+      let topImages = 1;
+      if (this.img1.includes("-")) topImages = 2;
+      if (splitTile.length <= topImages) return [];
+      else return splitTile.slice(0, -topImages);
     },
     hasActiveCat: function() {
-      return this.inside.includes("cat") && (!this.inside.includes("box") || this.inside.includes("broken"));
+      return this.img1.includes("cat") && (!this.img1.includes("box") || this.img1.includes("broken"));
+    },
+    isAnimated: function() {
+      return this.hasActiveCat || this.animationName !== "idleAnimation";
     },
     ownZ: function () {
       if (this.hasActiveCat) return 10;
@@ -104,6 +106,7 @@ img {
 .move {
   animation-duration: 1s;
   animation-name: move;
+  z-index: 6;
 }
 @keyframes move {
   0% { transform: translate3d(0, 0, 0); }
