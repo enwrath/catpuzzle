@@ -117,7 +117,15 @@ img {
   0% { transform: translate3d(var(--xdistance), var(--ydistance), 0); }
   100% { transform: translate3d(0, 0, 0); }
 }
-
+.hit {
+  animation-duration: 1s;
+  animation-name: hit;
+}
+@keyframes hit {
+  0% { transform: translate3d(0, 0, 0); }
+  25% { transform: translate3d(var(--xdistance), var(--ydistance), 0); }
+  100% { transform: translate3d(0, 0, 0); }
+}
 .idleAnimation {
   animation-duration: 1s;
   animation-name: moveidle;

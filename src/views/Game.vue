@@ -215,13 +215,41 @@ export default {
                 moves.push({x1: x, x2:tile.x, y1:y, y2:tile.y, cat:"cat3"});
               }
             }
+          } else if (currentCat === "cat4") {
+            let actions = [];
+            const n = this.cat2MoveTiles(y,x);
+            for (const tile of n) {
+              if (this.goalTiles.includes(this.data.tempTiles[tile.y][tile.x])) {
+                actions.push({x1: x, x2:tile.x, y1:y, y2:tile.y, cat:"cat4"});
+              }
+            }
+            const n2 = this.neighbourTiles(y,x);
+            for (const tile of n2) {
+              const topcat = this.data.tempTiles[tile.y][tile.x].split("-");
+              const targetCat = topcat[topcat.length-1];
+              if (targetCat.includes("cat") && !targetCat.includes("broken") && targetCat != "cat4") {
+                let newX = tile.x;
+                if (x < tile.x) newX = tile.x+1;
+                else if (x > tile.x) newX = tile.x-1;
+                let newY = y;
+                if (y < tile.y) newY = tile.y+1;
+                else if (y > tile.y) newY = tile.y-1;
+                actions.push({x1: tile.x, x2:newX, y1:tile.y, y2:newY, cat:targetCat, type:"hit"});
+              }
+            }
+            if (actions.length === 1) {
+              moves.push(actions[0]);
+              if ("type" in actions[0]) {
+                const xdist = `${(actions[0].x1-x)*30}%`;
+                const ydist = `${(actions[0].y1-y)*30}%`;
+                this.data.animations.push({x:x, y:y, name:"hit", xdistance: xdist, ydistance: ydist});
+              }
+            }
           }
         }
       }
-
       // 2 cats cant fit into the same box -> rip box
       const filteredMoves = this.filterMoves(moves);
-
       for (const m of filteredMoves.allowed) {
         this.setCatPosition(m, m.y1, m.x1, m.y2, m.x2);
         this.addAnimation(m.y1,m.x1,m.y2,m.x2, false);
@@ -257,10 +285,13 @@ export default {
       }
       if (filteredMoves.allowed.length > 0 || filteredMoves.bad.length > 0) {
         this.animating = true;
+        clearTimeout(this.data.timer);
         this.data.timer = setTimeout(this.afterAnimation, 950);
       } else {
         this.useTempTiles();
         this.animating = false;
+        clearTimeout(this.data.timer);
+        this.data.timer = setTimeout(this.clearAnimations, 950, true);
         this.checkVictory();
       }
     },
@@ -292,10 +323,10 @@ export default {
       return this.data.tempTiles[y] !== undefined && this.data.tempTiles[y][x] !== undefined && (this.passableTiles.includes(this.data.tempTiles[y][x]) || this.goalTiles.includes(this.data.tempTiles[y][x]));
     },
     setCatPosition(move, y1, x1, y2, x2) {
-      let newTile = this.data.tempTiles[y2][x2] === "" ? "" : `${this.data.tempTiles[y2][x2]}-`;
       const oldSplit = this.data.tempTiles[y1][x1].split("-");
-      const newSplit = this.data.tempTiles[y2][x2].split("-");
       let oldTile = this.data.tempTiles[y1][x1].includes("-") ? oldSplit.slice(0,oldSplit.length-1).join("-") : "";
+      const newSplit = this.data.tempTiles[y2][x2].split("-");
+      let newTile = this.data.tempTiles[y2][x2] === "" ? "" : `${this.data.tempTiles[y2][x2]}-`;
 
       //Push everything onward
       if (this.data.tempTiles[y1][x1].includes("push")) {
@@ -337,15 +368,48 @@ export default {
         //this.moveCats();
       }
     },
+    tileExists(y, x) {
+      return y >= 0 && x >= 0 && y < this.data.tiles.length && x < this.data.tiles[0].length;
+    },
     filterMoves(moves) {
       let allowedMoves = [];
       let badMoves = [];
+      let multiHits = [];
+      let multiHitStarts = [];
       let actualMoves = [];
       for (const m of moves) {
+        // Drop all moves that try to go out of bounds
+        if (!this.tileExists(m.y2, m.x2)) continue;
+
         const multipleMoves = moves.filter(x => x.x1 === m.x1 && x.y1 === m.y1);
+        const multipleMovesWithoutHit = multipleMoves.filter(x => !("type" in x) || ("type" in x && x.type != "hit"));
         // If cat can move to multiple boxes, do not move at all
-        if (multipleMoves.length === 1) actualMoves.push(m);
+        // If cat has one own move and x amount of hitpushes, do own move
+        if (multipleMovesWithoutHit.length === 1 && (!("type" in m) || ("type" in m && m.type != "hit"))) actualMoves.push(m);
+        else {
+          // Only move on hit if hit by one
+          const multipleMovesWithHit = multipleMoves.filter(x => "type" in x && x.type === "hit");
+          if (multipleMovesWithHit.length === 1 && "type" in m && m.type === "hit") actualMoves.push(m);
+          else if ("type" in m && m.type === "hit") multiHits.push(m);
+        }
       }
+
+      for (const m of multiHits) {
+        if (multiHitStarts.some(x => x.x1 === m.x1 && x.y1 === m.y1)) continue;
+        multiHitStarts.push({x1:m.x1,y1:m.y1});
+        const multipleMoves = multiHits.filter(x => x.x1 === m.x1 && x.y1 === m.y1);
+        let xForce = 0;
+        let yForce = 0;
+        for (const hit of multipleMoves) {
+          if (hit.x1 < hit.x2) xForce += 1;
+          else if (hit.x1 > hit.x2) xForce -= 1;
+          if (hit.y1 < hit.y2) yForce += 1;
+          else if (hit.y1 > hit.y2) yForce -= 1;
+        }
+        if (xForce === 0 && yForce === 0) continue;
+        actualMoves.push({x1: m.x1, x2:m.x1+xForce, y1:m.y1, y2:m.y1+yForce, cat:m.cat});
+      }
+
       for (const m of actualMoves) {
 
         if ("type" in m && m.type === "force") {

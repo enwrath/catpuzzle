@@ -82,7 +82,7 @@
     "name": "Testground",
     "boxes": 7,
     "message": "testing!",
-    "tiles": [["box","cat","pushdown-cat","pushleft-cat2"],["pushup-cat","","","cat2"],["pushright-cat2","","","pushup-cat"]]
+    "tiles": [["fish","cat","pushdown-cat","pushleft-cat2"],["pushup-cat","","","cat2"],["pushright-cat2","","","pushup-cat"]]
   },
   "13": {
     "id": "13",
@@ -110,5 +110,11 @@
     "name": "catstackpush",
     "boxes": 4,
     "tiles": [["pushright-cat2-cat-cat3","box",""],["","",""]]
+  },
+  "17": {
+    "id": "17",
+    "name": "violent cat",
+    "boxes": 4,
+    "tiles": [["","cat4","cat4",""],["cat4","cat2","","cat4"],["","","",""],["","cat4","cat4",""]]
   }
 }

@@ -29,7 +29,7 @@ export default {
   },
   data() {
     return {
-      tileTypes: ["eraser", "box", "fish", "block", "cat", "cat2", "cat3", "pushup", "pushright", "pushdown", "pushleft"]
+      tileTypes: ["eraser", "box", "fish", "block", "cat", "cat2", "cat3", "cat4", "pushup", "pushright", "pushdown", "pushleft"]
     }
   }
 }
