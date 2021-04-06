@@ -270,7 +270,7 @@ export default {
           this.setTile(m.y2, m.x2, newTile);
         }
         this.addAnimation(m.y1,m.x1,m.y2,m.x2, true);
-        if (m.cat === "cat2" && m.cat === "cat4") {
+        if (m.cat === "cat2" || m.cat === "cat4") {
           if (Math.abs(m.y2-m.y1) === 2 || Math.abs(m.x2-m.x1) === 2) {
             let newY, newX;
             if (m.y2 < m.y1) newY = m.y2+1;
