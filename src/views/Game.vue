@@ -199,21 +199,27 @@ export default {
           if (currentCat === "cat") {
             const n = this.neighbourTiles(y,x);
             for (const tile of n) {
-              if (this.goalTiles.includes(this.data.tempTiles[tile.y][tile.x])) {
+              const tilesplit = this.data.tempTiles[tile.y][tile.x].split("-");
+              const tiletop = tilesplit[tilesplit.length-1];
+              if (this.goalTiles.includes(tiletop)) {
                 moves.push({x1: x, x2:tile.x, y1:y, y2:tile.y, cat:"cat"});
               }
             }
           } else if (currentCat === "cat2") {
             const n = this.cat2MoveTiles(y,x);
             for (const tile of n) {
-              if (this.goalTiles.includes(this.data.tempTiles[tile.y][tile.x])) {
+              const tilesplit = this.data.tempTiles[tile.y][tile.x].split("-");
+              const tiletop = tilesplit[tilesplit.length-1];
+              if (this.goalTiles.includes(tiletop)) {
                 moves.push({x1: x, x2:tile.x, y1:y, y2:tile.y, cat:"cat2"});
               }
             }
           } else if (currentCat === "cat3") {
             const n = this.cat3MoveTiles(y,x);
             for (const tile of n) {
-              if (this.goalTiles.includes(this.data.tempTiles[tile.y][tile.x])) {
+              const tilesplit = this.data.tempTiles[tile.y][tile.x].split("-");
+              const tiletop = tilesplit[tilesplit.length-1];
+              if (this.goalTiles.includes(tiletop)) {
                 moves.push({x1: x, x2:tile.x, y1:y, y2:tile.y, cat:"cat3"});
               }
             }
@@ -221,7 +227,9 @@ export default {
             let actions = [];
             const n = this.cat2MoveTiles(y,x);
             for (const tile of n) {
-              if (this.goalTiles.includes(this.data.tempTiles[tile.y][tile.x])) {
+              const tilesplit = this.data.tempTiles[tile.y][tile.x].split("-");
+              const tiletop = tilesplit[tilesplit.length-1];
+              if (this.goalTiles.includes(tiletop)) {
                 actions.push({x1: x, x2:tile.x, y1:y, y2:tile.y, cat:"cat4"});
               }
             }
