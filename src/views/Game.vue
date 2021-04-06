@@ -387,14 +387,13 @@ export default {
         // If cat can move to multiple boxes, do not move at all
         // If cat has one own move and x amount of hitpushes, do own move
         if (multipleMovesWithoutHit.length === 1 && (!("type" in m) || ("type" in m && m.type != "hit"))) actualMoves.push(m);
-        else {
-          // Only move on hit if hit by one
+        else if (multipleMovesWithoutHit.length !== 1) {
           const multipleMovesWithHit = multipleMoves.filter(x => "type" in x && x.type === "hit");
           if (multipleMovesWithHit.length === 1 && "type" in m && m.type === "hit") actualMoves.push(m);
           else if ("type" in m && m.type === "hit") multiHits.push(m);
         }
       }
-
+      
       for (const m of multiHits) {
         if (multiHitStarts.some(x => x.x1 === m.x1 && x.y1 === m.y1)) continue;
         multiHitStarts.push({x1:m.x1,y1:m.y1});
