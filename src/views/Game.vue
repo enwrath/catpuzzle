@@ -229,14 +229,16 @@ export default {
             for (const tile of n2) {
               const topcat = this.data.tempTiles[tile.y][tile.x].split("-");
               const targetCat = topcat[topcat.length-1];
-              if (targetCat.includes("cat") && !targetCat.includes("broken") && targetCat != "cat4") {
-                let newX = tile.x;
-                if (x < tile.x) newX = tile.x+1;
-                else if (x > tile.x) newX = tile.x-1;
-                let newY = y;
-                if (y < tile.y) newY = tile.y+1;
-                else if (y > tile.y) newY = tile.y-1;
-                actions.push({x1: tile.x, x2:newX, y1:tile.y, y2:newY, cat:targetCat, type:"hit"});
+              if (targetCat.includes("cat") && targetCat != "cat4") {
+                if (!(topcat.length > 1 && topcat[topcat.length-2] == "box")) {
+                  let newX = tile.x;
+                  if (x < tile.x) newX = tile.x+1;
+                  else if (x > tile.x) newX = tile.x-1;
+                  let newY = y;
+                  if (y < tile.y) newY = tile.y+1;
+                  else if (y > tile.y) newY = tile.y-1;
+                  actions.push({x1: tile.x, x2:newX, y1:tile.y, y2:newY, cat:targetCat, type:"hit"});
+                }
               }
             }
             if (actions.length === 1) {
