@@ -89,6 +89,7 @@ export default {
       this.itemSelected = "box";
       this.data.fishUsed = 0;
       this.data.totalBoxes = this.levelData.boxes;
+      if (this.boxesLeft === 0 && this.fishLeft > 0) this.itemSelected = "fish";
       clearTimeout(this.data.timer);
       console.log("loading level ",this.$route.params.levelId);
       for (const row in this.levelData.tiles) {
@@ -393,7 +394,7 @@ export default {
           else if ("type" in m && m.type === "hit") multiHits.push(m);
         }
       }
-      
+
       for (const m of multiHits) {
         if (multiHitStarts.some(x => x.x1 === m.x1 && x.y1 === m.y1)) continue;
         multiHitStarts.push({x1:m.x1,y1:m.y1});
