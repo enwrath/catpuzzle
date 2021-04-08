@@ -89,12 +89,13 @@ export default {
       this.itemSelected = "box";
       this.data.fishUsed = 0;
       this.data.totalBoxes = this.levelData.boxes;
-      if (this.boxesLeft === 0 && this.fishLeft > 0) this.itemSelected = "fish";
       clearTimeout(this.data.timer);
       console.log("loading level ",this.$route.params.levelId);
       for (const row in this.levelData.tiles) {
         this.$set(this.data.tiles, row, [...this.levelData.tiles[row]]);
       }
+
+      if (this.boxesLeft === 0 && this.fishLeft > 0) this.itemSelected = "fish";
       //Resolve any cats-on-pushers situations
       //Animations don't happen if no timeout here
       this.data.timer = setTimeout(this.firstActionCheck, 100);
