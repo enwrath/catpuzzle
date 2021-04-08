@@ -74,7 +74,7 @@ export default {
         this.levelData = JSON.parse(d);
         if ("from" in this.levelData && this.levelData.from === "editor") this.fromEditor = true;
       } else {
-        this.levelData = this.levels[this.$route.params.levelId];
+        this.levelData = this.levels.levels[this.$route.params.levelId];
       }
       this.data.tiles = [];
       this.data.history = {
@@ -475,7 +475,7 @@ export default {
       return parseInt(this.$route.params.levelId)+1;
     },
     nextLevelExists: function () {
-      return this.nextLevel in this.levels;
+      return this.nextLevel in this.levels.levels;
     },
     canUndo: function () {
       return this.data.history.tileHistory.length > 0 && !this.victory;
