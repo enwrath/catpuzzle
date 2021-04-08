@@ -9,7 +9,7 @@
     <router-link v-if="!fromEditor" to="/levelselect" custom v-slot="{ navigate }">
       <button @click="navigate">Level selection</button>
     </router-link>
-    <router-link v-if="nextLevelExists && !fromEditor" :to="`/game/${nextLevel}`" custom v-slot="{ navigate }">
+    <router-link v-if="nextLevelExists && !fromEditor" :to="`/game/${worldId}-${nextLevel}`" custom v-slot="{ navigate }">
       <button @click="navigate">Next level</button>
     </router-link>
   </div>
@@ -22,6 +22,7 @@ export default {
   props: {
     nextLevelExists: Boolean,
     nextLevel: Number,
+    worldId: String,
     fromEditor: Boolean
   }
 }

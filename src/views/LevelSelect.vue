@@ -1,24 +1,17 @@
 <template>
   <div>
     <router-link to="/">Back to main menu</router-link>
-    <div v-if="worldSelected === '-1'">
+    <div v-if="worldSelected === ''">
       <h1>Select World</h1>
-      <div :key="`world-${i}`" v-for="(world, i) in levels.worlds" >
-        <button @click="worldSelected=i">{{world.name}}</button>
+      <div :key="`world-${world.id}`" v-for="world in levels" >
+        <button @click="worldSelected=world.id">{{world.name}}</button>
       </div>
-      <button @click="worldSelected='all'">All levels</button>
     </div>
-    <div v-if="worldSelected !== '-1' && worldSelected !== 'all'">
-      <button @click="worldSelected='-1'">Back to world selection</button>
+    <div v-else>
+      <button @click="worldSelected=''">Back to world selection</button>
       <h1>Select Level</h1>
-      <div :key="`level-${level}`" v-for="level in levels.worlds[worldSelected].levels" >
-        <router-link :to="`/game/${level}`">{{levels.levels[level].name}}</router-link>
-      </div>
-    </div>
-    <div v-if="worldSelected==='all'">
-      <button @click="worldSelected='-1'">Back to world selection</button>
-      <div :key="`level-all-${level.id}`" v-for="level in levels.levels" >
-        <router-link :to="`/game/${level.id}`">{{level.name}}</router-link>
+      <div :key="`level-${level.id}`" v-for="level in levels[worldSelected].levels" >
+        <router-link :to="`/game/${levels[worldSelected].id}-${level.id}`">{{level.name}}</router-link>
       </div>
     </div>
 
@@ -42,7 +35,7 @@ export default {
     return {
       levels: levelList,
       levelBase64: "",
-      worldSelected: "-1"
+      worldSelected: ""
     };
   },
 }

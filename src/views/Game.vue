@@ -6,7 +6,7 @@
         <button @click="navigate">Back to level editor</button>
       </router-link>
       <div v-if="victory">
-        <PuzzleCompleted @restartlevel="loadLevel" :nextLevel="nextLevel" :nextLevelExists="nextLevelExists" :fromEditor="fromEditor"></PuzzleCompleted>
+        <PuzzleCompleted @restartlevel="loadLevel" :nextLevel="nextLevel" :worldId="worldId" :nextLevelExists="nextLevelExists" :fromEditor="fromEditor"></PuzzleCompleted>
       </div>
 
       <div v-if="'message' in levelData">
@@ -74,7 +74,7 @@ export default {
         this.levelData = JSON.parse(d);
         if ("from" in this.levelData && this.levelData.from === "editor") this.fromEditor = true;
       } else {
-        this.levelData = this.levels.levels[this.$route.params.levelId];
+        this.levelData = this.levels[this.worldId].levels[this.levelId];
       }
       this.data.tiles = [];
       this.data.history = {
@@ -471,11 +471,22 @@ export default {
     boxesLeft: function () {
       return this.data.totalBoxes - this.boxesOnBoard;
     },
+    worldId: function () {
+      const split = this.$route.params.levelId.split("-");
+      if (split.length === 2) return split[0];
+      else return "";
+    },
+    levelId: function () {
+      const split = this.$route.params.levelId.split("-");
+      if (split.length === 2) return split[1];
+      else return split[0];
+    },
     nextLevel: function () {
-      return parseInt(this.$route.params.levelId)+1;
+      return parseInt(this.levelId)+1;
     },
     nextLevelExists: function () {
-      return this.nextLevel in this.levels.levels;
+      if (this.worldId === "custom") return false;
+      return this.nextLevel in this.levels[this.worldId].levels;
     },
     canUndo: function () {
       return this.data.history.tileHistory.length > 0 && !this.victory;
