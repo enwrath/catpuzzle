@@ -74,7 +74,13 @@ export default {
         this.levelData = JSON.parse(d);
         if ("from" in this.levelData && this.levelData.from === "editor") this.fromEditor = true;
       } else {
-        this.levelData = this.levels[this.worldId].levels[this.levelId];
+        if (this.worldId in this.levels && this.levelId in this.levels[this.worldId].levels) {
+          this.levelData = this.levels[this.worldId].levels[this.levelId];
+        } else {
+          // TODO: make something nicer
+          alert("Trying to load non-existing map! Returning to main menu")
+          window.location = '/';
+        }
       }
       this.data.tiles = [];
       this.data.history = {
