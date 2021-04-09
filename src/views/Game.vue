@@ -64,17 +64,28 @@ export default {
     }
   },
   methods: {
+    loadMapData(b64data, isCustom) {
+      const d = atob(b64data);
+      const data = JSON.parse(d);
+      const level = {boxes: data.boxes, fish: data.fish, tiles: data.tiles};
+      if (isCustom) {
+        if ("from" in data && data.from === "editor") this.fromEditor = true;
+        return level;
+      }
+      level.name = this.levels[this.worldId].levels[this.levelId].name;
+      if ("message" in this.levels[this.worldId].levels[this.levelId]) {
+        level.message = this.levels[this.worldId].levels[this.levelId].message;
+      }
+      return level;
+    },
     loadLevel() {
       //Set them empty to prevent problems when Game is not created from scratch
       console.log(this.$route.params.levelId)
       if (this.$route.params.levelId.includes("custom-")) {
-        // TODO: verify that data is good
-        const d = atob(this.$route.params.levelId.split("custom-")[1]);
-        this.levelData = JSON.parse(d);
-        if ("from" in this.levelData && this.levelData.from === "editor") this.fromEditor = true;
+        this.levelData = this.loadMapData(this.$route.params.levelId.split("custom-")[1], true);
       } else {
         if (this.worldId in this.levels && this.levelId in this.levels[this.worldId].levels) {
-          this.levelData = this.levels[this.worldId].levels[this.levelId];
+          this.levelData = this.loadMapData(this.levels[this.worldId].levels[this.levelId].data, false);
         } else {
           // TODO: make something nicer
           alert("Trying to load non-existing map! Returning to main menu")

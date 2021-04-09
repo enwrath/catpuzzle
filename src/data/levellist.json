@@ -6,127 +6,91 @@
       "1": {
         "id": "1",
         "name": "First level",
-        "boxes": 1,
         "message": "Cat moves into boxes right next to it! Click on an empty tile to place a box!",
-        "tiles": [["block","","block"],["","cat",""],["block","","block"]]
+        "data": "eyJib3hlcyI6MSwiZmlzaCI6MCwidGlsZXMiOltbImJsb2NrIiwiIiwiYmxvY2siXSxbIiIsImNhdCIsIiJdLFsiYmxvY2siLCIiLCJibG9jayJdXX0="
       },
       "2": {
         "id": "2",
         "name": "Second level",
-        "boxes": 3,
         "message": "Your goal is to get all cats inside boxes!",
-        "tiles": [["","cat","",""],["","","","cat"],["cat","","",""]]
+        "data": "eyJib3hlcyI6MywiZmlzaCI6MCwidGlsZXMiOltbIiIsImNhdCIsIiIsIiJdLFsiIiwiIiwiIiwiY2F0Il0sWyJjYXQiLCIiLCIiLCIiXV19"
       },
       "3": {
         "id": "3",
         "name": "New cat appears",
-        "boxes": 1,
         "message": "Not all cats are the same. Cooler cats can move to boxes that are two tiles from them!",
-        "tiles": [["","",""],["cat2","",""],["block","",""]]
+        "data": "eyJib3hlcyI6MSwiZmlzaCI6MSwidGlsZXMiOltbIiIsIiIsIiJdLFsiY2F0MiIsIiIsIiJdLFsiYmxvY2siLCIiLCIiXV19"
       },
       "4": {
         "id": "4",
         "name": "Boxes have limits",
-        "boxes": 3,
         "message": "Only one cat can fit into a box. Multiple cats trying to get inside at the same time will break the box!",
-        "tiles": [["","",""],["cat","","cat"],["","","block"]]
+        "data": "eyJib3hlcyI6MywiZmlzaCI6MCwidGlsZXMiOltbIiIsIiIsIiJdLFsiY2F0IiwiIiwiY2F0Il0sWyJibG9jayIsIiIsIiJdXX0="
       },
       "5": {
         "id": "5",
         "name": "Sacrificial box",
-        "boxes": 5,
         "message": "Sometimes you need to break a box to get all cats inside boxes.",
-        "tiles": [["","","cat","block"],["box","","","cat2"],["block","cat2","cat","block"],["block","block","block",""]]
+        "data": "eyJib3hlcyI6NSwiZmlzaCI6MCwidGlsZXMiOltbIiIsIiIsImNhdCIsImJsb2NrIl0sWyJib3giLCIiLCIiLCJjYXQyIl0sWyJibG9jayIsImNhdDIiLCJjYXQiLCJibG9jayJdLFsiYmxvY2siLCJibG9jayIsImJsb2NrIiwiIl1dfQ=="
       },
       "6": {
         "id": "6",
         "name": "Confused by choices",
-        "boxes": 5,
         "message": "Cats can't pick between multiple available boxes, making them unable to act.",
-        "tiles": [["cat","","",""],["","","",""],["","box","","box"],["cat2","cat2","box","cat2"]]
+        "data": "eyJib3hlcyI6NSwiZmlzaCI6MCwidGlsZXMiOltbImNhdCIsIiIsIiIsIiJdLFsiIiwiIiwiIiwiIl0sWyIiLCJib3giLCIiLCJib3giXSxbImNhdDIiLCJjYXQyIiwiYm94IiwiY2F0MiJdXX0="
       },
       "7": {
         "id": "7",
         "name": "Chain reaction",
-        "boxes": 12,
         "message": "A single box can cause large movements.",
-        "tiles": [["cat2","","cat2","box","cat2","box","cat2"],["","box","","","","","box"],["","cat","box","cat","box","box","cat2"],["","box","","","","","box"],["cat2","","cat2","box","cat2","box","cat2"]]
+        "data": "eyJib3hlcyI6MTIsImZpc2giOjAsInRpbGVzIjpbWyJjYXQyIiwiIiwiY2F0MiIsImJveCIsImNhdDIiLCJib3giLCJjYXQyIl0sWyIiLCJib3giLCIiLCIiLCIiLCIiLCJib3giXSxbIiIsImNhdCIsImJveCIsImNhdCIsImJveCIsImJveCIsImNhdDIiXSxbIiIsImJveCIsIiIsIiIsIiIsIiIsImJveCJdLFsiY2F0MiIsIiIsImNhdDIiLCJib3giLCJjYXQyIiwiYm94IiwiY2F0MiJdXX0="
       },
       "8": {
         "id": "8",
         "name": "Cutting corners",
-        "boxes": 1,
         "message": "Ninja cat moves diagonally. Being surrounded on all four directions is no challenge!",
-        "tiles": [["","block", ""],["block","cat3","block"],["","block",""]]
+        "data": "eyJib3hlcyI6MSwiZmlzaCI6MCwidGlsZXMiOltbIiIsImJsb2NrIiwiIl0sWyJibG9jayIsImNhdDMiLCJibG9jayJdLFsiIiwiYmxvY2siLCIiXV19"
       },
       "9": {
         "id": "9",
         "name": "Surrounded",
-        "boxes": 7,
         "message": "Center has cats aplenty. Spread out!",
-        "tiles": [["","","cat2",""],["","cat","cat",""],["","cat","cat","cat2"],["cat2","","",""]]
+        "data": "eyJib3hlcyI6NywiZmlzaCI6MCwidGlsZXMiOltbIiIsIiIsImNhdDIiLCIiXSxbIiIsImNhdCIsImNhdCIsIiJdLFsiIiwiY2F0IiwiY2F0IiwiY2F0MiJdLFsiY2F0MiIsIiIsIiIsIiJdXX0="
+      },
+      "10": {
+        "id": "10",
+        "name": "Conveyor belt",
+        "message": "Tiles with push symbol can be walked on, but boxes can't be put on them. Cats that stop on them will be pushed forward.",
+        "data": "eyJib3hlcyI6MywiZmlzaCI6MCwidGlsZXMiOltbImNhdDIiLCJwdXNoZG93biIsIiIsImNhdCJdLFsiYmxvY2siLCJwdXNoZG93biIsIiIsIiJdLFsiYmxvY2siLCJwdXNocmlnaHQiLCJwdXNocmlnaHQiLCJib3giXV19"
+      },
+      "11": {
+        "id": "11",
+        "name": "Traffic jam",
+        "message": "Cats can't be pushed through other cats. Cats are also unable to move themselves when on push tile, even if the pushing is blocked.",
+        "data": "eyJib3hlcyI6NCwiZmlzaCI6MCwidGlsZXMiOltbImJveCIsImJsb2NrIiwiIiwiIl0sWyJwdXNocmlnaHQtY2F0MyIsInB1c2hyaWdodC1jYXQiLCJjYXQyIiwiIl0sWyJibG9jayIsImJsb2NrIiwiIiwiIl1dfQ=="
       }
     }
   },
   "2": {
-    "name": "Test levels",
+    "name": "World 2",
     "id": "2",
     "levels": {
-      "10": {
-        "id": "10",
-        "name": "In progres",
-        "boxes": 10,
-        "fish": 3,
-        "message": "not compleeeteeed",
-        "tiles": [["cat","box","","","cat2","","",""],["box","","","","","","",""],["cat2","","","cat2","","","",""],["","cat3","cat3","","","","",""],["box","","box","","","","",""]]
+      "1": {
+        "id": "1",
+        "name": "Trapped in corner",
+        "data": "eyJib3hlcyI6OSwiZmlzaCI6MCwidGlsZXMiOltbImNhdCIsImJveCIsIiIsIiIsImNhdDIiLCIiXSxbImJveCIsIiIsIiIsIiIsIiIsImJsb2NrIl0sWyJjYXQyIiwiIiwiIiwiY2F0MiIsIiIsIiJdLFsiIiwiY2F0MyIsImNhdDMiLCIiLCIiLCIiXSxbImJveCIsIiIsImJveCIsIiIsIiIsIiJdXX0="
       },
-      "11": {
-        "id": "11",
-        "name": "Conveyor belt",
-        "boxes": 7,
-        "message": "Tiles with push symbol can be walked on, but boxes can't be put on them. Cats that stop on them will be pushed forward.",
-        "tiles": [["cat2","pushdown","","cat"],["pushdown","pushleft","",""],["pushright","pushright","pushright","box"]]
-      },
-      "12": {
-        "id": "12",
-        "name": "Testground",
-        "boxes": 7,
-        "message": "testing!",
-        "tiles": [["fish","cat","pushdown-cat","pushleft-cat2"],["pushup-cat","","","cat2"],["pushright-cat2","","","pushup-cat"]]
-      },
-      "13": {
-        "id": "13",
-        "name": "Traffic jam",
-        "boxes": 8,
-        "message": "Cats can't be pushed through other cats. Cats are also unable to move themselves when on push tile, even if the pushing is blocked.",
-        "tiles": [["box","box","block","",""],["pushright-cat3","pushright-cat","pushright-cat","cat2",""],["box","box","block","",""]]
-      },
-      "14": {
-        "id": "14",
-        "name": "ohno",
-        "boxes": 4,
-        "fish": 3,
-        "tiles": [["","","","",""],["","","pushdown-cat","",""],["","pushright-cat2","","pushleft-cat3",""],["","","pushup","",""],["","","cat2","",""]]
-      },
-      "15": {
-        "id": "15",
-        "name": "ohno2",
-        "boxes": 4,
-        "fish": 3,
-        "tiles": [["cat2","","box","cat",""],["","pushup-cat","","",""]]
-      },
-      "16": {
-        "id": "16",
-        "name": "catstackpush",
-        "boxes": 4,
-        "tiles": [["pushright-cat2-cat-cat3","box",""],["","",""]]
-      },
-      "17": {
-        "id": "17",
-        "name": "violent cat",
-        "boxes": 4,
-        "tiles": [["","cat4","cat4",""],["cat4","cat2","","cat4"],["","","",""],["","cat4","cat4",""]]
+      "2": {
+        "id": "2",
+        "name": "By fishes be baited",
+        "data": "eyJib3hlcyI6MywiZmlzaCI6MywidGlsZXMiOltbIiIsIiIsIiIsImJveCIsIiJdLFsiY2F0NCIsIiIsIiIsIiIsIiJdLFsiYmxvY2siLCJib3giLCJjYXQzIiwiIiwiIl0sWyIiLCIiLCIiLCIiLCJjYXQ0Il0sWyIiLCJib3giLCIiLCIiLCIiXV19"
       }
+    }
+  },
+  "3": {
+    "name": "Test levels",
+    "id": "3",
+    "levels": {
     }
   }
 }
