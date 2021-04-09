@@ -63,7 +63,6 @@ export default {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  justify-content: space-evenly;
   max-width: 30em;
   margin:auto;
 }
