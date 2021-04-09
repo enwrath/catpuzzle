@@ -4,7 +4,7 @@
     <div v-if="worldSelected === ''">
       <h1>Select World</h1>
       <div class="worldContainer">
-        <div :key="`world-${world.id}`" v-for="(world, i) in levels" class="worldSelect" :style="`margin-left: ${i * 2 + 1}em;`">
+        <div :key="`world-${world.id}`" v-for="world in levels" class="worldSelect" :style="`margin-left: ${world.id * 5}%;`">
           <button class="bigbutton" @click="worldSelected=world.id">{{world.name}}</button>
         </div>
       </div>
@@ -13,9 +13,9 @@
       <button @click="worldSelected=''">Back to world selection</button>
       <h1>Select Level</h1>
       <div class="levelContainer">
-        <div :key="`level-${level.id}`" v-for="(level, i) in levels[worldSelected].levels" class="levelSelect" >
+        <div :key="`level-${level.id}`" v-for="level in levels[worldSelected].levels" class="levelSelect" >
           <router-link :to="`/game/${levels[worldSelected].id}-${level.id}`" custom v-slot="{ navigate }">
-            <button class="bigbutton" @click="navigate">{{i}}</button>
+            <button class="bigbutton" @click="navigate">{{level.id}}</button>
           </router-link>
         </div>
       </div>
