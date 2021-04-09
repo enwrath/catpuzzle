@@ -1,17 +1,25 @@
 <template>
-  <div>
-    <p >PUZZLE COMPLETE! ALL CATS ARE IN BOXES.</p>
-    <button @click="$emit('restartlevel')">Replay level</button>
+  <div class="container">
+    <div class="subcontainer">
 
-    <router-link v-if="fromEditor" to="/leveledit" custom v-slot="{ navigate }">
-      <button @click="navigate">Back to level editor</button>
-    </router-link>
-    <router-link v-if="!fromEditor" to="/levelselect" custom v-slot="{ navigate }">
-      <button @click="navigate">Level selection</button>
-    </router-link>
-    <router-link v-if="nextLevelExists && !fromEditor" :to="`/game/${worldId}-${nextLevel}`" custom v-slot="{ navigate }">
-      <button @click="navigate">Next level</button>
-    </router-link>
+      <h1>Level Completed!</h1>
+      <br /><br /><br />
+      <button @click="$emit('restartlevel')">Replay level</button>
+
+      <router-link v-if="fromEditor" to="/leveledit" custom v-slot="{ navigate }">
+        <button @click="navigate">Back to level editor</button>
+      </router-link>
+      <router-link v-if="!fromEditor" to="/levelselect" custom v-slot="{ navigate }">
+        <button @click="navigate">Level selection</button>
+      </router-link>
+      <router-link v-if="nextLevelExists && !fromEditor" :to="`/game/${worldId}-${nextLevel}`" custom v-slot="{ navigate }">
+        <button @click="navigate">Next level</button>
+      </router-link>
+
+      <p>
+        TODO: add images here
+      </p>
+    </div>
   </div>
 </template>
 
@@ -30,12 +38,27 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-div {
-  background: green;
+.container {
   position: absolute;
-  left: 2em;
-  top: 2em;
-  padding: 5em;
   z-index: 50;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  backdrop-filter: blur(2px);
+}
+.subcontainer {
+  margin-top: -20%;
+  padding: 2em;
+  background: #ab7e5d;
+  width: 60%;
+  height: 40%;
+  border-style: solid;
+  border-color: #8c7228
+}
+button {
+  height: 3em;
+  margin: 0.25em;
 }
 </style>

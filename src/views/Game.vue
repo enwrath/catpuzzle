@@ -1,13 +1,12 @@
 <template>
   <div class="FlexRow">
+    <PuzzleCompleted v-if="victory" @restartlevel="loadLevel" :nextLevel="nextLevel" :worldId="worldId" :nextLevelExists="nextLevelExists" :fromEditor="fromEditor"></PuzzleCompleted>
+
     <Sidebar :boxesLeft="boxesLeft" :canUndo="canUndo" @undomove="undoMove" @selectfish="setItem('fish')" @selectbox="setItem('box')" :fishLeft="fishLeft" :itemSelected="itemSelected" @restartlevel="loadLevel"></Sidebar>
     <div class="FlexColumn">
       <router-link v-if="fromEditor" to="/leveledit" custom v-slot="{ navigate }">
         <button @click="navigate">Back to level editor</button>
       </router-link>
-      <div v-if="victory">
-        <PuzzleCompleted @restartlevel="loadLevel" :nextLevel="nextLevel" :worldId="worldId" :nextLevelExists="nextLevelExists" :fromEditor="fromEditor"></PuzzleCompleted>
-      </div>
 
       <div v-if="'message' in levelData">
         <LevelMessage :message="levelData.message"></LevelMessage>
