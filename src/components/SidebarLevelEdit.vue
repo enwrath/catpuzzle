@@ -44,6 +44,7 @@ export default {
   align-content: center;
   margin: auto;
   margin-top: 0;
+  margin-left: 0;
   color: white;
   flex-wrap: wrap;
 
@@ -51,7 +52,7 @@ export default {
 .ActiveItem {
   background: cyan;
 }
-@media only screen and (min-width: 700px) {
+@media (orientation: landscape) {
   .Sidebar {
     flex-direction: column;
   }
