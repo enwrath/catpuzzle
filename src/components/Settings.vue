@@ -4,7 +4,7 @@
       <button class="topright" @click="$emit('closesettings')">X</button>
       SETTINGS<br />
       <label for="animSpeed">Animation duration</label><br />
-      <input type="range" id="animSpeed" name="animSpeed" min="0" max="100" v-model.number="animationDuration" @change="updateSettings">
+      <input type="range" id="animSpeed" name="animSpeed" min="0" max="1000" v-model.number="animationDuration" @change="updateSettings">
     </div>
   </div>
 </template>
@@ -18,12 +18,12 @@ export default {
   },
   data() {
     return {
-      animationDuration: this.settings.animationDuration/10
+      animationDuration: this.settings.animationDuration
     }
   },
   methods: {
     updateSettings() {
-      const newSettings = {animationDuration: this.animationDuration*10};
+      const newSettings = {animationDuration: this.animationDuration};
       this.$emit("updateSettings", newSettings);
     }
   }

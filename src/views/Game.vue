@@ -50,7 +50,8 @@ export default {
       itemSelected: "box",
       passableTiles: ["","pushleft","pushright","pushup","pushdown","fish"],
       goalTiles: ["box", "fish"],
-      fromEditor: false
+      fromEditor: false,
+      animationDuration: 1000
     }
   },
   created() {
@@ -114,8 +115,12 @@ export default {
       if (this.boxesLeft === 0 && this.fishLeft > 0) this.itemSelected = "fish";
       //Resolve any cats-on-pushers situations
       //Animations don't happen if no timeout here
-      this.data.timer = setTimeout(this.firstActionCheck, 100);
+      this.data.timer = setTimeout(this.firstActionCheck, Math.max(this.animationDuration/10, 0));
 
+    },
+    updateSettings() {
+      this.animationDuration = document.getElementById("animSpeed").value;
+      console.log("new speed:",this.animationDuration);
     },
     firstActionCheck() {
       this.newTempTiles();
@@ -156,7 +161,7 @@ export default {
       for (const row in this.data.animations2) {
         this.$set(this.data.animations, row, this.data.animations2[row]);
       }
-      this.data.timer = setTimeout(this.afterAnimation, 950);
+      this.data.timer = setTimeout(this.afterAnimation, Math.max(this.animationDuration-50, 0));
     },
     newTempTiles() {
       for (const row in this.data.tiles) {
@@ -192,6 +197,7 @@ export default {
       this.$delete(this.data.history.fishHistory, this.data.history.fishHistory.length-1);
     },
     moveCats() {
+      this.updateSettings();
       let moves = [];
       for (let y = 0; y < this.data.tempTiles.length; y++){
         for (let x = 0; x < this.data.tempTiles[y].length; x++){
@@ -271,7 +277,7 @@ export default {
               if ("type" in actions[0]) {
                 const xdist = `${(actions[0].x1-x)*30}%`;
                 const ydist = `${(actions[0].y1-y)*30}%`;
-                this.data.animations.push({x:x, y:y, name:"hit", xdistance: xdist, ydistance: ydist});
+                this.data.animations.push({x:x, y:y, name:"hit", xdistance: xdist, ydistance: ydist, duration: this.animationDuration});
               }
             }
           }
@@ -315,12 +321,12 @@ export default {
       if (filteredMoves.allowed.length > 0 || filteredMoves.bad.length > 0) {
         this.animating = true;
         clearTimeout(this.data.timer);
-        this.data.timer = setTimeout(this.afterAnimation, 950);
+        this.data.timer = setTimeout(this.afterAnimation, Math.max(this.animationDuration-50, 0));
       } else {
         this.useTempTiles();
         this.animating = false;
         clearTimeout(this.data.timer);
-        this.data.timer = setTimeout(this.clearAnimations, 950, true);
+        this.data.timer = setTimeout(this.clearAnimations, Math.max(this.animationDuration-50, 0), true);
         this.checkVictory();
       }
     },
@@ -375,14 +381,14 @@ export default {
     addAnimation(y1, x1, y2, x2, badmove) {
       const xdist = `${(x2-x1)*100}%`;
       const ydist = `${(y2-y1)*100}%`;
-      this.data.animations.push({x:x1, y:y1, name:"move", xdistance: xdist, ydistance: ydist});
+      this.data.animations.push({x:x1, y:y1, name:"move", xdistance: xdist, ydistance: ydist, duration: this.animationDuration});
 
       if (badmove) {
         const xdir = (x2 < x1 ) ? -1 : 1;
         const ydir = (y2 < y1 ) ? -1 : 1;
         const badx = (x2 === x1) ? 0 : xdir;
         const bady = (y2 === y1) ? 0 : ydir;
-        this.data.animations2.push({x:x2-badx, y:y2-bady, name:"arrive", xdistance: `${badx*100}%`, ydistance: `${bady*100}%`});
+        this.data.animations2.push({x:x2-badx, y:y2-bady, name:"arrive", xdistance: `${badx*100}%`, ydistance: `${bady*100}%`, duration: this.animationDuration});
       }
     },
     afterAnimation() {
@@ -393,7 +399,7 @@ export default {
         this.clearAnimations(false);
       } else {
         //Some animations break if this isn't on timeout
-        this.data.timer = setTimeout(this.moveCats, 100);
+        this.data.timer = setTimeout(this.moveCats, Math.max(this.animationDuration/10, 0));
         //this.moveCats();
       }
     },

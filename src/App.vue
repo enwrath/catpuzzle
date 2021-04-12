@@ -6,8 +6,9 @@
       <router-view v-if="$route.meta.keepAlive"></router-view>
     </keep-alive>
     <router-view v-if="!$route.meta.keepAlive"></router-view>
-    <div >
-      <img hidden :src="`${img}`" :key="`preloadimage-${key}`" v-for="(img, key) in images">
+    <div hidden>
+      <input id="animSpeed" type="number" disabled v-model="settings.animationDuration" />
+      <img :src="`${img}`" :key="`preloadimage-${key}`" v-for="(img, key) in images">
     </div>
   </div>
 </template>

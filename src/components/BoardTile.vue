@@ -1,6 +1,6 @@
 <template>
   <div @click="placeBox()" :style="`width: ${tileSize}px; height: ${tileSize}px`">
-    <img v-if="img1!==''" :class="{[animationName]: isAnimated}" :style="`--xdistance: ${xDistance}; --ydistance: ${yDistance}; z-index: ${ownZ}`" :src="require(`@/assets/${img1}.png`)" />
+    <img v-if="img1!==''" :class="{[animationName]: isAnimated}" :style="`--xdistance: ${xDistance}; --ydistance: ${yDistance}; --duration: ${animDuration}; z-index: ${ownZ}`" :src="require(`@/assets/${img1}.png`)" />
     <p v-else>
       Tile {{x}}, {{y}}
     </p>
@@ -23,6 +23,7 @@ export default {
       animationName: "idleAnimation",
       xDistance: "0",
       yDistance: "0",
+      animDuration: "1s"
     }
   },
   watch: {
@@ -73,6 +74,7 @@ export default {
         this.animationName = selfanim[0].name;
         this.xDistance = selfanim[0].xdistance;
         this.yDistance = selfanim[0].ydistance;
+        this.animDuration = `${selfanim[0].duration/1000}s`
       }
     }
   }
@@ -95,6 +97,7 @@ img {
   height: 100%;
   --ydistance: 0;
   --xdistance: 0;
+  --duration: 1s;
 }
 .belowimage {
   position: absolute;
@@ -104,7 +107,7 @@ img {
   z-index: 4;
 }
 .move {
-  animation-duration: 1s;
+  animation-duration: var(--duration);
   animation-name: move;
 }
 @keyframes move {
@@ -112,7 +115,7 @@ img {
   100% { transform: translate3d(var(--xdistance), var(--ydistance), 0); }
 }
 .arrive {
-  animation-duration: 1s;
+  animation-duration: var(--duration);
   animation-name: arrive;
 }
 @keyframes arrive {
@@ -120,7 +123,7 @@ img {
   100% { transform: translate3d(0, 0, 0); }
 }
 .hit {
-  animation-duration: 1s;
+  animation-duration: var(--duration);
   animation-name: hit;
 }
 @keyframes hit {
@@ -129,7 +132,7 @@ img {
   100% { transform: translate3d(0, 0, 0); }
 }
 .idleAnimation {
-  animation-duration: 1s;
+  animation-duration: 2s;
   animation-name: moveidle;
   animation-iteration-count: infinite;
 }
