@@ -1,5 +1,7 @@
 <template>
   <div id="app">
+    <button id="opensettings" @click="showSettings = true">SETTINGS</button>
+    <Settings v-if="showSettings" @closesettings="showSettings = false" :settings="settings" @updateSettings="updateSettings"></Settings>
     <keep-alive>
       <router-view v-if="$route.meta.keepAlive"></router-view>
     </keep-alive>
@@ -11,10 +13,19 @@
 </template>
 
 <script>
+import Settings from '@/components/Settings.vue';
+
 export default {
+  components: {
+    Settings
+  },
   data() {
     return {
-      images: {}
+      images: {},
+      settings: {
+        animationDuration: 1000
+      },
+      showSettings: false
     }
   },
   mounted() {
@@ -25,6 +36,9 @@ export default {
       var imgs = {};
       r.keys().forEach(key => (imgs[key] = r(key)));
       this.images = imgs;
+    },
+    updateSettings (e) {
+      this.settings = e;
     }
   }
 }
@@ -57,5 +71,12 @@ body {
 
 #nav a.router-link-exact-active {
   color: #42b983;
+}
+
+#opensettings {
+  position: absolute;
+  right: 0;
+  top: 0;
+  z-index: 100;
 }
 </style>
