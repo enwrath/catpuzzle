@@ -3,7 +3,7 @@
     <div class="subcontainer">
       <button class="topright" @click="$emit('closesettings')">X</button>
       SETTINGS<br />
-      <label for="animSpeed">Animation duration</label><br />
+      <label for="animSpeed">Game Speed</label><br />
       <input type="range" id="animSpeed" name="animSpeed" min="0" max="1000" v-model.number="animationDuration" @change="updateSettings">
     </div>
   </div>
