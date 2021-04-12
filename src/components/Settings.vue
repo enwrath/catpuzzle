@@ -3,8 +3,12 @@
     <div class="subcontainer">
       <button class="topright" @click="$emit('closesettings')">X</button>
       SETTINGS<br />
-      <label for="animSpeed">Game Speed</label><br />
-      <input type="range" id="animSpeed" name="animSpeed" min="0" max="1000" v-model.number="animationDuration" @change="updateSettings">
+      <h4>Animation Speed</h4>
+      <button @click="changeSpeed(1000)" :class="{selectedBtn : animationDuration===1000}">Normal</button>
+      <button @click="changeSpeed(500)" :class="{selectedBtn : animationDuration===500}">Fast</button>
+      <button @click="changeSpeed(200)" :class="{selectedBtn : animationDuration===200}">Very fast</button>
+      <button @click="changeSpeed(0)" :class="{selectedBtn : animationDuration===0}">No animations</button>
+
     </div>
   </div>
 </template>
@@ -25,6 +29,10 @@ export default {
     updateSettings() {
       const newSettings = {animationDuration: this.animationDuration};
       this.$emit("updateSettings", newSettings);
+    },
+    changeSpeed(e) {
+      this.animationDuration = e;
+      this.updateSettings();
     }
   }
 }
@@ -57,5 +65,8 @@ export default {
   position: absolute;
   top: 0;
   right: 0;
+}
+.selectedBtn {
+  background: cyan;
 }
 </style>
