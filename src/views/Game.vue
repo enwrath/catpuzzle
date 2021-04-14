@@ -1,6 +1,6 @@
 <template>
   <div class="FlexRow">
-    <PuzzleCompleted v-if="victory" @restartlevel="loadLevel" :nextLevel="nextLevel" :worldId="worldId" :nextLevelExists="nextLevelExists" :fromEditor="fromEditor"></PuzzleCompleted>
+    <PuzzleCompleted v-if="victory" @restartlevel="loadLevel" :currentLevel="levelId" :nextLevel="nextLevel" :worldId="worldId" :nextLevelExists="nextLevelExists" :fromEditor="fromEditor"></PuzzleCompleted>
 
     <Sidebar :boxesLeft="boxesLeft" :canUndo="canUndo" @undomove="undoMove" @selectfish="setItem('fish')" @selectbox="setItem('box')" :fishLeft="fishLeft" :itemSelected="itemSelected" @restartlevel="loadLevel"></Sidebar>
     <div class="FlexColumn">

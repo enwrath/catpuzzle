@@ -31,7 +31,25 @@ export default {
     nextLevelExists: Boolean,
     nextLevel: Number,
     worldId: String,
-    fromEditor: Boolean
+    fromEditor: Boolean,
+    currentLevel: String
+  },
+  mounted() {
+    if (this.worldId !== "custom") this.markCompleted();
+  },
+  methods: {
+    markCompleted() {
+      const keystring = `world-${this.worldId}`;
+      const data = localStorage.getItem(keystring);
+      if (data === null) localStorage.setItem(keystring, JSON.stringify([this.currentLevel]));
+      else {
+        const parsed = JSON.parse(data);
+        if (!parsed.includes(this.currentLevel)) {
+          parsed.push(this.currentLevel);
+          localStorage.setItem(keystring, JSON.stringify(parsed));
+        }
+      }
+    }
   }
 }
 </script>
