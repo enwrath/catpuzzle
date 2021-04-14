@@ -1,5 +1,5 @@
 <template>
-  <div @click="placeBox()" :style="`width: ${tileSize}px; height: ${tileSize}px`">
+  <div @contextmenu.prevent="rightClick" @click="placeBox()" :style="`width: ${tileSize}px; height: ${tileSize}px`">
     <img v-if="img1!==''" :class="{[animationName]: isAnimated}" :style="`--xdistance: ${xDistance}; --ydistance: ${yDistance}; --duration: ${animDuration}; z-index: ${ownZ}`" :src="require(`@/assets/${img1}.png`)" />
     <p v-else>
       Tile {{x}}, {{y}}
@@ -63,6 +63,9 @@ export default {
   methods: {
     placeBox() {
       this.$emit("placebox", {x:this.x, y:this.y})
+    },
+    rightClick() {
+      this.$emit("rightclick", {x:this.x, y:this.y})
     },
     checkAnimation() {
       const selfanim =  this.animations.filter(x => x.x === this.x && x.y === this.y);

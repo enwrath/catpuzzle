@@ -1,7 +1,7 @@
 <template>
   <div class="Board">
     <div class="TileRow" :key="`row-${y}`" v-for="(row, y) in data.tiles">
-      <BoardTile :tileSize="tileSize" @placebox="placeBox" :inside="tile" :x="x" :y="y" :animations="data.animations" :key="`tile-${x}-${y}`" v-for="(tile, x) in row" />
+      <BoardTile :tileSize="tileSize" @placebox="placeBox" @rightclick="rightClick" :inside="tile" :x="x" :y="y" :animations="data.animations" :key="`tile-${x}-${y}`" v-for="(tile, x) in row" />
     </div>
 
   </div>
@@ -28,6 +28,9 @@ export default {
   methods: {
     placeBox (e) {
       this.$emit("placebox", e);
+    },
+    rightClick (e) {
+      this.$emit("rightclick", e);
     },
     getWidthHeight() {
       this.width = this.$el.clientWidth - 48;

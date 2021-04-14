@@ -16,7 +16,7 @@
       </div>
 
 
-      <Board @placebox="mouseClick" :data="data"></Board>
+      <Board @placebox="mouseClick" @rightclick="rightClick" :data="data"></Board>
     </div>
   </div>
 </template>
@@ -50,6 +50,9 @@ export default {
       else this.addToTile(e.y, e.x, this.itemSelected);
       this.exportInput.value = this.levelToBase64;
     },
+    rightClick(e) {
+      this.deleteTopItem(e.y, e.x);
+    },
     itemChange(e) {
       this.itemSelected = e;
     },
@@ -59,8 +62,16 @@ export default {
       if (this.amounts[e.item] < 0) this.amounts[e.item] = 0;
       this.exportInput.value = this.levelToBase64;
     },
+    deleteTopItem(y, x) {
+      let newTile = this.data.tiles[y][x];
+      const splitTile = newTile.split("-");
+      if (splitTile.length <= 1) this.setTile(y,x,"");
+      else {
+        const tile = splitTile.slice(0,-1).join("-");
+        this.setTile(y,x,tile);
+      }
+    },
     addToTile(y, x, stuff) {
-      console.log("adding",stuff)
       let newTile = this.data.tiles[y][x];
       const splitTile = newTile.split("-");
       // Can't stack above boxes
@@ -100,7 +111,6 @@ export default {
     },
     deleteLastColumn() {
       if (this.data.tiles[0].length <= 1) return;
-      console.log("teat")
       for (const row of this.data.tiles) row.pop();
     },
     exportLevel() {
