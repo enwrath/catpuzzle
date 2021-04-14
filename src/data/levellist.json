@@ -68,6 +68,12 @@
         "name": "Traffic jam",
         "message": "Cats can't be pushed through other cats. Cats are also unable to move themselves when on push tile, even if the pushing is blocked.",
         "data": "eyJib3hlcyI6NCwiZmlzaCI6MCwidGlsZXMiOltbImJveCIsImJsb2NrIiwiIiwiIl0sWyJwdXNocmlnaHQtY2F0MyIsInB1c2hyaWdodC1jYXQiLCJjYXQyIiwiIl0sWyJibG9jayIsImJsb2NrIiwiIiwiIl1dfQ=="
+      },
+      "12": {
+        "id": "12",
+        "name": "Stack of cats",
+        "message": "Cats avoid going to same tile. In some cases they still end up on top of each other. When that happens, only the topmost cat is active.",
+        "data": "eyJib3hlcyI6NSwiZmlzaCI6MCwidGlsZXMiOltbIiIsInB1c2hkb3duIiwiY2F0MiIsImJsb2NrIl0sWyJwdXNocmlnaHQiLCIiLCJjYXQiLCJibG9jayJdLFsiY2F0MiIsImNhdCIsImJsb2NrIiwiIl0sWyJibG9jayIsImJsb2NrIiwiIiwiIl1dfQ=="
       }
     }
   },
@@ -96,6 +102,11 @@
     "name": "Test levels",
     "id": "3",
     "levels": {
+      "1": {
+        "id": "1",
+        "name": "Trapped in corner",
+        "data": "eyJib3hlcyI6OSwiZmlzaCI6MCwidGlsZXMiOltbImNhdCIsImJveCIsIiIsIiIsImNhdDIiLCIiXSxbImJveCIsIiIsIiIsIiIsIiIsImJsb2NrIl0sWyJjYXQyIiwiIiwiIiwiY2F0MiIsIiIsIiJdLFsiIiwiY2F0MyIsImNhdDMiLCIiLCIiLCIiXSxbImJveCIsIiIsImJveCIsIiIsIiIsIiJdXX0="
+      }
     }
   }
 }
