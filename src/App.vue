@@ -31,6 +31,7 @@ export default {
   },
   mounted() {
     this.importAll(require.context("./assets/", true, /\.png$/));
+    this.loadSettings();
   },
   methods: {
     importAll(r) {
@@ -38,8 +39,16 @@ export default {
       r.keys().forEach(key => (imgs[key] = r(key)));
       this.images = imgs;
     },
-    updateSettings (e) {
+    updateSettings(e) {
       this.settings = e;
+      this.saveSettings();
+    },
+    loadSettings() {
+      const a = localStorage.getItem("animSpeed");
+      if (a !== null) this.settings.animationDuration = parseInt(a);
+    },
+    saveSettings() {
+      localStorage.setItem("animSpeed", this.settings.animationDuration);
     }
   }
 }
