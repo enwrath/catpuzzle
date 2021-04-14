@@ -120,7 +120,6 @@ export default {
     },
     updateSettings() {
       this.animationDuration = document.getElementById("animSpeed").value;
-      console.log("new speed:",this.animationDuration);
     },
     firstActionCheck() {
       this.newTempTiles();
