@@ -62,6 +62,7 @@ export default {
           newData[world] = parsed;
           newData.totals[world] = `${parsed.length}/${Object.keys(this.levels[world].levels).length}`;
         } else {
+          newData[world] = [];
           newData.totals[world] = `0/${Object.keys(this.levels[world].levels).length}`;
         }
       }
