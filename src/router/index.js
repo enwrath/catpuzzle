@@ -21,7 +21,10 @@ const routes = [
   {
     path: '/levelselect',
     name: 'LevelSelect',
-    component: LevelSelect
+    component: LevelSelect,
+    meta: {
+      keepAlive: true // Need to be cached
+    }
   },
   {
     path: '/leveledit',
