@@ -74,6 +74,30 @@
         "name": "Stack of cats",
         "message": "Cats avoid going to same tile. In some cases they still end up on top of each other. When that happens, only the topmost cat is active.",
         "data": "eyJib3hlcyI6NSwiZmlzaCI6MCwidGlsZXMiOltbIiIsInB1c2hkb3duIiwiY2F0MiIsImJsb2NrIl0sWyJwdXNocmlnaHQiLCIiLCJjYXQiLCJibG9jayJdLFsiY2F0MiIsImNhdCIsImJsb2NrIiwiIl0sWyJibG9jayIsImJsb2NrIiwiIiwiIl1dfQ=="
+      },
+      "13": {
+        "id": "13",
+        "name": "Lured by fish",
+        "message": "Sometimes you can place fishes instead of boxes on board. Cats try to move to fishes just like boxes.",
+        "data": "eyJib3hlcyI6MSwiZmlzaCI6MiwidGlsZXMiOltbImNhdDIiLCJibG9jayIsImJveCJdLFsiIiwiYmxvY2siLCIiXSxbIiIsIiIsIiJdXX0="
+      },
+      "14": {
+        "id": "14",
+        "name": "Fish and boxes",
+        "message": "Some levels allow you to place both boxes and fish. Select what to place by clicking the icons on top-left!",
+        "data": "eyJib3hlcyI6MSwiZmlzaCI6MiwidGlsZXMiOltbImNhdDIiLCJibG9jayIsImJveCJdLFsiIiwiYmxvY2siLCIiXSxbIiIsIiIsIiJdXX0="
+      },
+      "15": {
+        "id": "15",
+        "name": "Cat on cat violence",
+        "message": "Not all cats like each other. Gang cats push other cats away, even onto tiles they wouldn't normally move to!",
+        "data": "eyJib3hlcyI6MiwiZmlzaCI6MiwidGlsZXMiOltbImJveCIsIiIsIiIsIiIsIiJdLFsiIiwiIiwiY2F0MyIsImJsb2NrIiwiIl0sWyIiLCJjYXQ0IiwiYmxvY2siLCIiLCJib3giXV19"
+      },
+      "16": {
+        "id": "16",
+        "name": "Still confused by choices",
+        "message": "Eating fish or gang cats pushing other cats is a pleasure on par with fitting inside boxes. Cats are unable to pick if multiple choices are available.",
+        "data": "eyJib3hlcyI6MywiZmlzaCI6MiwidGlsZXMiOltbIiIsImJveCIsImJsb2NrIiwiIl0sWyJib3giLCJjYXQiLCIiLCJjYXQyIl0sWyIiLCJjYXQ0IiwiIiwiIl0sWyIiLCJib3giLCIiLCIiXV19"
       }
     }
   },
@@ -95,6 +119,11 @@
         "id": "3",
         "name": "Dodging ninjacats",
         "data": "eyJib3hlcyI6NywiZmlzaCI6MCwidGlsZXMiOltbIiIsIiIsImNhdDQiLCIiLCIiLCJib3giXSxbIiIsImNhdDMiLCIiLCJjYXQyIiwiIiwiIl0sWyIiLCJjYXQzIiwiIiwiY2F0MyIsIiIsIiJdLFsiYm94IiwiIiwiYm94IiwiIiwiYm94IiwiIl1dfQ=="
+      },
+      "4": {
+        "id": "4",
+        "name": "Four cats, four boxes",
+        "data": "eyJib3hlcyI6NCwiZmlzaCI6NCwidGlsZXMiOltbImJveCIsIiIsImNhdCIsIiIsImJveCJdLFsiIiwiY2F0NCIsIiIsIiIsIiJdLFsiIiwiIiwiY2F0MyIsImNhdDIiLCIiXSxbImJveCIsIiIsIiIsIiIsImJveCJdXX0="
       }
     }
   },
