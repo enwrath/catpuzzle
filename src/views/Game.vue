@@ -1,7 +1,7 @@
 <template>
   <div class="FlexRow">
     <router-link to="/levelselect" custom v-slot="{ navigate }">
-      <button class="backbutton" @click="navigate"><br />Back</button>
+      <button class="backbutton" @click="navigate">Back</button>
     </router-link>
 
     <PuzzleCompleted v-if="victory" @restartlevel="loadLevel" :currentLevel="levelId" :nextLevel="nextLevel" :worldId="worldId" :nextLevelExists="nextLevelExists" :fromEditor="fromEditor"></PuzzleCompleted>
@@ -550,11 +550,10 @@ export default {
 .backbutton {
   position: absolute;
   right: 0;
-  top: 4rem;
+  top: 2rem;
   font-weight: 800;
   width: 4rem;
-  height: 4rem;
-  background-image: url('~@/assets/undo.png');
+  height: 2rem;
   background-size: contain;
   z-index: 60;
 }

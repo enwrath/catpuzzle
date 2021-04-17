@@ -91,9 +91,9 @@ h1 {
   top: 0;
   z-index: 100;
   max-width: 4rem;
-  height: 4rem;
-  max-height: 4rem;
-  font-size: 2.5rem;
+  height: 2rem;
+  max-height: 2rem;
+  font-size: 1.5rem;
   width: 4rem;
   line-height: 0;
 }

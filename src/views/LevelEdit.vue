@@ -2,7 +2,7 @@
   <div class="FlexRow">
     <SidebarLevelEdit @changeamount="amountChange" :levelBase64="levelToBase64Editor" :itemSelected="itemSelected" @selectitem="itemChange" @sizechange="changeSize" :amounts="amounts"></SidebarLevelEdit>
     <router-link to="/" custom v-slot="{ navigate }">
-      <button class="backbutton" @click="navigate"><br />Back</button>
+      <button class="backbutton" @click="navigate">Back</button>
     </router-link>
     <div class="FlexColumn">
       <div class="itemRow">

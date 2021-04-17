@@ -3,7 +3,7 @@
     <div v-if="worldSelected === ''">
 
       <router-link to="/" custom v-slot="{ navigate }">
-        <button class="backbutton" @click="navigate"><br />Back</button>
+        <button class="backbutton" @click="navigate">Back</button>
       </router-link>
       <h1>Select World</h1>
       <div class="worldContainer">
@@ -15,7 +15,7 @@
       </div>
     </div>
     <div v-else>
-      <button class="backbutton" @click="worldSelected=''"><br />Back</button>
+      <button class="backbutton" @click="worldSelected=''">Back</button>
       <h1>Select Level</h1>
       <div class="levelContainer">
         <div :key="`level-${level.id}`" v-for="level in levels[worldSelected].levels" class="levelSelect" >
