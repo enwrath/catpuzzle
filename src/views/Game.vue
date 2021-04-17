@@ -1,6 +1,9 @@
 <template>
   <div class="FlexRow">
-    <router-link to="/levelselect" custom v-slot="{ navigate }">
+    <router-link  v-if="fromEditor" to="/leveledit" custom v-slot="{ navigate }">
+      <button class="backbutton" @click="navigate">Back</button>
+    </router-link>
+    <router-link  v-else to="/levelselect" custom v-slot="{ navigate }">
       <button class="backbutton" @click="navigate">Back</button>
     </router-link>
 
