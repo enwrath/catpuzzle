@@ -1,12 +1,12 @@
 <template>
   <div class="Sidebar">
     <button class="BoxLeft" :class="{ActiveItem: itemSelected==='box'}" @click="$emit('selectbox')">
-        <img :src="require(`@/assets/box.png`)" />
-        <span>X</span><span class="BigText">{{boxesLeft}}</span>
+      <img :src="require(`@/assets/box.png`)" />
+      <p>X{{boxesLeft}}</p>
     </button>
     <button v-if="fishLeft !== -1" @click="$emit('selectfish')" class="BoxLeft" :class="{ActiveItem: itemSelected==='fish'}">
       <img :src="require(`@/assets/fish.png`)" />
-      <span>X</span><span class="BigText">{{fishLeft}}</span>
+      <p>X{{fishLeft}}</p>
     </button>
     <button :disabled="!canUndo" @click="$emit('undomove')">
       <img v-if="canUndo" :src="require(`@/assets/undo.png`)" />
@@ -59,11 +59,19 @@ export default {
   align-items: center;
   align-content: center;
 }
-img {
-  width: 4em;
-  height: 4em;
+button {
+  width: 5em;
+  height: 5em;
+  padding: 0;
 }
-.BigText = {
-  font-size: xxx-large;
+img {
+  width: 100%;
+  height: 100%;
+}
+p {
+  margin-left: -75%;
+  font-size: 1.5em;
+  font-weight: bold;
+  text-shadow: -1px 1px 0 #FFFFFF,1px 1px 0 #FFFFFF,1px -1px 0 #FFFFFF,-1px -1px 0 #FFFFFF;
 }
 </style>
