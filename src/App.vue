@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <button id="opensettings" @click="showSettings = true">SETTINGS</button>
+    <button id="opensettings" @click="showSettings = true">⚙️</button>
     <Settings v-if="showSettings" @closesettings="showSettings = false" :settings="settings" @updateSettings="updateSettings"></Settings>
     <keep-alive>
       <router-view v-if="$route.meta.keepAlive"></router-view>
@@ -73,7 +73,9 @@ body {
 #nav {
   padding: 30px;
 }
-
+h1 {
+  margin-top: 0;
+}
 #nav a {
   font-weight: bold;
   color: #2c3e50;
@@ -88,5 +90,11 @@ body {
   right: 0;
   top: 0;
   z-index: 100;
+  max-width: 4rem;
+  height: 4rem;
+  max-height: 4rem;
+  font-size: 2.5rem;
+  width: 4rem;
+  line-height: 0;
 }
 </style>

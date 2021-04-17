@@ -1,7 +1,10 @@
 <template>
   <div>
-    <router-link to="/">Back to main menu</router-link>
     <div v-if="worldSelected === ''">
+
+      <router-link to="/" custom v-slot="{ navigate }">
+        <button class="backbutton" @click="navigate"><br />Back</button>
+      </router-link>
       <h1>Select World</h1>
       <div class="worldContainer">
         <div :key="`world-${world.id}`" v-for="world in levels" class="worldSelect" :style="`margin-left: ${world.id * 5}%;`">
@@ -12,7 +15,7 @@
       </div>
     </div>
     <div v-else>
-      <button @click="worldSelected=''">Back to world selection</button>
+      <button class="backbutton" @click="worldSelected=''"><br />Back</button>
       <h1>Select Level</h1>
       <div class="levelContainer">
         <div :key="`level-${level.id}`" v-for="level in levels[worldSelected].levels" class="levelSelect" >
@@ -54,7 +57,6 @@ export default {
     checkLevelCompletions() {
       const newData = {totals: {}};
       for (const world of Object.keys(this.levels)) {
-        console.log(world)
         const keystring = `world-${world}`;
         const data = localStorage.getItem(keystring);
         if (data !== null) {
@@ -79,6 +81,8 @@ export default {
   display: flex;
   flex-direction: column;
   margin: auto;
+
+  height: 100%;
 }
 .worldSelect {
   width: 60%;

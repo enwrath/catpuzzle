@@ -1,8 +1,10 @@
 <template>
   <div class="FlexRow">
     <SidebarLevelEdit @changeamount="amountChange" :levelBase64="levelToBase64Editor" :itemSelected="itemSelected" @selectitem="itemChange" @sizechange="changeSize" :amounts="amounts"></SidebarLevelEdit>
+    <router-link to="/" custom v-slot="{ navigate }">
+      <button class="backbutton" @click="navigate"><br />Back</button>
+    </router-link>
     <div class="FlexColumn">
-      <router-link to="/">Back to main menu</router-link>
       <div class="itemRow">
         <div class="itemColumn">
           <span>Export code:</span>

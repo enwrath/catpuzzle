@@ -1,5 +1,9 @@
 <template>
   <div class="FlexRow">
+    <router-link to="/levelselect" custom v-slot="{ navigate }">
+      <button class="backbutton" @click="navigate"><br />Back</button>
+    </router-link>
+
     <PuzzleCompleted v-if="victory" @restartlevel="loadLevel" :currentLevel="levelId" :nextLevel="nextLevel" :worldId="worldId" :nextLevelExists="nextLevelExists" :fromEditor="fromEditor"></PuzzleCompleted>
 
     <Sidebar :boxesLeft="boxesLeft" :canUndo="canUndo" @undomove="undoMove" @selectfish="setItem('fish')" @selectbox="setItem('box')" :fishLeft="fishLeft" :itemSelected="itemSelected" @restartlevel="loadLevel"></Sidebar>
@@ -542,5 +546,16 @@ export default {
   flex-direction: column;
   align-content: center;
   flex-grow: 1;
+}
+.backbutton {
+  position: absolute;
+  right: 0;
+  top: 4rem;
+  font-weight: 800;
+  width: 4rem;
+  height: 4rem;
+  background-image: url('~@/assets/undo.png');
+  background-size: contain;
+  z-index: 60;
 }
 </style>

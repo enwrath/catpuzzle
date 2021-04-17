@@ -25,6 +25,7 @@ export default {
   padding-right: 1em;
   justify-content: center;
   align-items: center;
+  margin-right: 4rem;
 }
 .bubble {
   position: relative;
