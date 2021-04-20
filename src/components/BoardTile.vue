@@ -1,10 +1,10 @@
 <template>
-  <div @contextmenu.prevent="rightClick" @click="placeBox()" :style="`width: ${tileSize}px; height: ${tileSize}px`">
-    <img v-if="img1!==''" :class="{[animationName]: isAnimated}" :style="`--xdistance: ${xDistance}; --ydistance: ${yDistance}; --duration: ${animDuration}; z-index: ${ownZ}`" :src="require(`@/assets/${img1}.png`)" />
-    <p v-else>
-      Tile {{x}}, {{y}}
-    </p>
-    <img :key="`${x}${y}-img-${i}`" v-for="(img, i) in btmImages" :class="{[animationName]: btmImagesAnimate && i !== 0}" class="belowimage" :style="`--xdistance: ${xDistance}; --ydistance: ${yDistance}; <-index: ${ownZ-i}`" :src="require(`@/assets/${img}.png`)"  />
+  <div class="topdiv" @contextmenu.prevent="rightClick" @click="placeBox()">
+    <img v-if="floorImage!==''" class="floorimg" :src="require(`@/assets/${floorImage}.png`)" />
+    <div :class="{[animationName]: isAnimated && btmImagesAnimate }" :style="`width: ${tileSize}px; height: ${tileSize}px; --xdistance: ${xDistance}; --ydistance: ${yDistance}; --duration: ${animDuration};`">
+      <img v-if="img1!==''" :class="{[animationName]: isAnimated && !btmImagesAnimate }" :style="`--xdistance: ${xDistance}; --ydistance: ${yDistance}; --duration: ${animDuration}; z-index: 3;`" :src="require(`@/assets/${img1}.png`)" />
+      <img :key="`${x}${y}-img-${i}`" v-for="(img, i) in btmImages" class="belowimage" :style="`--xdistance: ${xDistance}; --ydistance: ${yDistance}; margin-left: -${95-i*30}%; z-index: 2;`" :src="require(`@/assets/${img}.png`)"  />
+    </div>
   </div>
 </template>
 
@@ -44,7 +44,7 @@ export default {
       let topImages = 1;
       if (this.img1.includes("-")) topImages = 2;
       if (splitTile.length <= topImages) return [];
-      else return splitTile.slice(0, -topImages);
+      else return splitTile.slice(0, -topImages).reverse().slice(0,3).filter(x => x.includes("cat")); //max 3 shown
     },
     hasActiveCat: function() {
       return this.img1.includes("cat") && (!this.img1.includes("box") || this.img1.includes("broken"));
@@ -58,6 +58,11 @@ export default {
     },
     btmImagesAnimate: function() {
       return this.inside.includes("push") && this.animationName !== "idleAnimation";
+    },
+    floorImage: function() {
+      const splitTile = this.inside.split("-").filter(x => !x.includes("cat"));
+      if (splitTile.length === 0) return "";
+      else return splitTile[0];
     }
   },
   methods: {
@@ -86,12 +91,13 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-div {
+.topdiv {
   display: inline-block;
   background: gray;
   position: relative;
+  outline: 1px solid black;
 }
-div:hover {
+.topdiv:hover {
   background: cyan;
 }
 img {
@@ -104,10 +110,16 @@ img {
 }
 .belowimage {
   position: absolute;
+  width: 30%;
+  height: 30%;
+  z-index: 4;
+}
+.floorimg {
+  position: absolute;
   width: 100%;
   height: 100%;
-  margin-left: -100%;
-  z-index: 4;
+  left: 0;
+  top: 0;
 }
 .move {
   animation-duration: var(--duration);
@@ -137,7 +149,7 @@ img {
 .idleAnimation {
   animation-duration: 2s;
   animation-name: moveidle;
-  animation-iteration-count: infinite;
+  animation-iteration-count: 0;
 }
 
 @keyframes moveidle {
