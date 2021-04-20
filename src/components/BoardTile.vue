@@ -1,9 +1,9 @@
 <template>
   <div class="topdiv" @contextmenu.prevent="rightClick" @click="placeBox()">
     <img v-if="floorImage!==''" class="floorimg" :src="require(`@/assets/${floorImage}.png`)" />
-    <div :class="{[animationName]: isAnimated && btmImagesAnimate }" :style="`width: ${tileSize}px; height: ${tileSize}px; --xdistance: ${xDistance}; --ydistance: ${yDistance}; --duration: ${animDuration};`">
-      <img v-if="img1!==''" :class="{[animationName]: isAnimated && !btmImagesAnimate }" :style="`--xdistance: ${xDistance}; --ydistance: ${yDistance}; --duration: ${animDuration}; z-index: 3;`" :src="require(`@/assets/${img1}.png`)" />
-      <img :key="`${x}${y}-img-${i}`" v-for="(img, i) in btmImages" class="belowimage" :style="`--xdistance: ${xDistance}; --ydistance: ${yDistance}; margin-left: -${95-i*30}%; z-index: 2;`" :src="require(`@/assets/${img}.png`)"  />
+    <div :class="{[animationName]: isAnimated && btmImagesAnimate }" :style="`width: ${tileSize}px; height: ${tileSize}px; --xdistance: ${xDistance}; --ydistance: ${yDistance}; --duration: ${animDuration}; z-index: ${zIndex};`">
+      <img v-if="img1!==''" :class="{[animationName]: isAnimated && !btmImagesAnimate }" :style="`--xdistance: ${xDistance}; --ydistance: ${yDistance}; --duration: ${animDuration}; z-index: ${zIndex};`" :src="require(`@/assets/${img1}.png`)" />
+      <img :key="`${x}${y}-img-${i}`" v-for="(img, i) in btmImages" class="belowimage" :style="`--xdistance: ${xDistance}; --ydistance: ${yDistance}; margin-left: -${95-i*30}%; z-index: ${zIndex-1};`" :src="require(`@/assets/${img}.png`)"  />
     </div>
   </div>
 </template>
@@ -50,11 +50,7 @@ export default {
       return this.img1.includes("cat") && (!this.img1.includes("box") || this.img1.includes("broken"));
     },
     isAnimated: function() {
-      return this.hasActiveCat || this.animationName !== "idleAnimation";
-    },
-    ownZ: function () {
-      if (this.hasActiveCat) return 10;
-      else return 5;
+      return this.animationName !== "idleAnimation";
     },
     btmImagesAnimate: function() {
       return this.inside.includes("push") && this.animationName !== "idleAnimation";
@@ -63,6 +59,10 @@ export default {
       const splitTile = this.inside.split("-").filter(x => !x.includes("cat"));
       if (splitTile.length === 0) return "";
       else return splitTile[0];
+    },
+    zIndex: function() {
+      if (this.isAnimated) return 10;
+      return 5;
     }
   },
   methods: {
