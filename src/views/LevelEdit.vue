@@ -43,7 +43,8 @@ export default {
       },
       itemSelected: "box",
       importInput: "",
-      exportInput: ""
+      exportInput: "",
+      floorTiles: ["pushup","pushdown","pushleft","pushright","box","block"]
     }
   },
   methods: {
@@ -74,17 +75,21 @@ export default {
       }
     },
     addToTile(y, x, stuff) {
-      let newTile = this.data.tiles[y][x];
-      const splitTile = newTile.split("-");
-      // Can't stack above boxes
-      if (splitTile[splitTile.length-1] === "box" && !stuff.includes("cat")) return;
-      // Can't stack non-cats above cats
-      if (splitTile[splitTile.length-1].includes("cat") && !stuff.includes("cat")) return;
-      // Can't stack anything above box-cat
-      if (splitTile.length >= 2 && splitTile[splitTile.length-1].includes("cat") && splitTile[splitTile.length-2] === "box") return;
-      if (newTile === "") newTile = stuff;
-      else newTile = newTile + "-" + stuff;
-      this.setTile(y, x, newTile);
+      //Floortiles can't be stacked on top of others, remove old stuff when placing
+      if (this.floorTiles.includes(stuff)) this.setTile(y,x,stuff);
+      else {
+        let newTile = this.data.tiles[y][x];
+        const splitTile = newTile.split("-");
+        // Can't stack above boxes (except cat to box)
+        if (splitTile[splitTile.length-1] === "box" && !stuff.includes("cat")) return;
+        // Can't stack non-cats above cats
+        if (splitTile[splitTile.length-1].includes("cat") && !stuff.includes("cat")) return;
+        // Can't stack anything above box-cat
+        if (splitTile.length >= 2 && splitTile[splitTile.length-1].includes("cat") && splitTile[splitTile.length-2] === "box") return;
+        if (newTile === "") newTile = stuff;
+        else newTile = newTile + "-" + stuff;
+        this.setTile(y, x, newTile);
+      }
     },
     setTile(y, x, stuff) {
       const newRow = this.data.tiles[y].slice(0);
