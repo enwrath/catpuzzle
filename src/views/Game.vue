@@ -281,8 +281,8 @@ export default {
             if (actions.length === 1) {
               moves.push(actions[0]);
               if ("type" in actions[0]) {
-                const xdist = `${(actions[0].x1-x)*30}%`;
-                const ydist = `${(actions[0].y1-y)*30}%`;
+                const xdist = `${(actions[0].x1-x)*30}`;
+                const ydist = `${(actions[0].y1-y)*30}`;
                 this.data.animations.push({x:x, y:y, name:"hit", xdistance: xdist, ydistance: ydist, duration: this.animationDuration});
               }
             }
@@ -385,8 +385,8 @@ export default {
       this.setTile(y1, x1, oldTile);
     },
     addAnimation(y1, x1, y2, x2, badmove) {
-      const xdist = `${(x2-x1)*100}%`;
-      const ydist = `${(y2-y1)*100}%`;
+      const xdist = `${(x2-x1)*100}`;
+      const ydist = `${(y2-y1)*100}`;
       this.data.animations.push({x:x1, y:y1, name:"move", xdistance: xdist, ydistance: ydist, duration: this.animationDuration});
 
       if (badmove) {
@@ -394,7 +394,7 @@ export default {
         const ydir = (y2 < y1 ) ? -1 : 1;
         const badx = (x2 === x1) ? 0 : xdir;
         const bady = (y2 === y1) ? 0 : ydir;
-        this.data.animations2.push({x:x2-badx, y:y2-bady, name:"arrive", xdistance: `${badx*100}%`, ydistance: `${bady*100}%`, duration: this.animationDuration});
+        this.data.animations2.push({x:x2-badx, y:y2-bady, name:"arrive", xdistance: `${badx*100}`, ydistance: `${bady*100}`, duration: this.animationDuration});
       }
     },
     afterAnimation() {

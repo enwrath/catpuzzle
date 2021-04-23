@@ -1,9 +1,9 @@
 <template>
   <div class="topdiv" @contextmenu.prevent="rightClick" @click="placeBox()">
     <img v-if="floorImage!==''" class="floorimg" :src="require(`@/assets/${floorImage}.png`)" />
-    <div :class="{[animationName]: isAnimated && btmImagesAnimate }" :style="`width: ${tileSize}px; height: ${tileSize}px; --xdistance: ${xDistance}; --ydistance: ${yDistance}; --duration: ${animDuration}; z-index: ${zIndex};`">
-      <img v-if="img1!==''" :class="{[animationName]: isAnimated && !btmImagesAnimate }" :style="`--xdistance: ${xDistance}; --ydistance: ${yDistance}; --duration: ${animDuration}; z-index: ${zIndex};`" :src="require(`@/assets/${img1}.png`)" />
-      <img :key="`${x}${y}-img-${i}`" v-for="(img, i) in btmImages" class="belowimage" :style="`--xdistance: ${xDistance}; --ydistance: ${yDistance}; margin-left: -${95-i*30}%; z-index: ${zIndex-1};`" :src="require(`@/assets/${img}.png`)"  />
+    <div :style="`width: ${tileSize}px; height: ${tileSize}px;`">
+      <img v-if="img1!==''" :class="{[animationName]: isAnimated }" :style="`--xdistance: ${xDistance}%; --ydistance: ${yDistance}%; --duration: ${animDuration}; z-index: ${zIndex};`" :src="require(`@/assets/${img1}.png`)" />
+      <img :key="`${x}${y}-img-${i}`" v-for="(img, i) in btmImages" :class="{[animationName]: isAnimated && btmImagesAnimate }" class="belowimage" :style="`--xdistance: ${xDistance*4}%; --ydistance: ${yDistance*4}%; margin-left: -${87.5-i*25}%; z-index: ${zIndex-1};`" :src="require(`@/assets/${img}.png`)"  />
     </div>
   </div>
 </template>
@@ -95,10 +95,7 @@ export default {
   display: inline-block;
   background: gray;
   position: relative;
-  outline: 1px solid black;
-}
-.topdiv:hover {
-  background: cyan;
+  background-image: url('~@/assets/tilebg.png');
 }
 img {
   position: relative;
@@ -110,9 +107,8 @@ img {
 }
 .belowimage {
   position: absolute;
-  width: 30%;
-  height: 30%;
-  z-index: 4;
+  width: 25%;
+  height: 25%;
 }
 .floorimg {
   position: absolute;
