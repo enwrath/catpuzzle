@@ -49,7 +49,7 @@ export default {
   },
   methods: {
     mouseClick(e) {
-      if (this.itemSelected === "eraser") this.setTile(e.y, e.x, "");
+      if (this.itemSelected === "tilebg") this.setTile(e.y, e.x, "");
       else this.addToTile(e.y, e.x, this.itemSelected);
       this.exportInput.value = this.levelToBase64;
     },

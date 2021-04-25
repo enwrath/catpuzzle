@@ -1,6 +1,6 @@
 <template>
   <div class="main">
-    <img :src="require(`@/assets/cat.png`)" />
+    <img :src="require(`@/assets/cat.webp`)" />
     <div class="bubble">
       <span>{{ message }}</span>
     </div>

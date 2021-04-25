@@ -1,19 +1,18 @@
 <template>
   <div class="Sidebar">
-    <button class="BoxLeft" :class="{ActiveItem: itemSelected==='box'}" @click="$emit('selectbox')">
-      <img :src="require(`@/assets/box.png`)" />
-      <p>X{{boxesLeft}}</p>
+    <button :class="{ActiveItem: itemSelected==='box'}" @click="$emit('selectbox')">
+      House<br />
+      X{{boxesLeft}}
     </button>
-    <button v-if="fishLeft !== -1" @click="$emit('selectfish')" class="BoxLeft" :class="{ActiveItem: itemSelected==='fish'}">
-      <img :src="require(`@/assets/fish.png`)" />
-      <p>X{{fishLeft}}</p>
+    <button v-if="fishLeft !== -1" @click="$emit('selectfish')" :class="{ActiveItem: itemSelected==='fish'}">
+      Fish<br />
+      X{{fishLeft}}
     </button>
     <button :disabled="!canUndo" @click="$emit('undomove')">
-      <img v-if="canUndo" :src="require(`@/assets/undo.png`)" />
-      <img v-else :src="require(`@/assets/undodisabled.png`)" />
+      UNDO
     </button>
     <button @click="$emit('restartlevel')">
-      <img :src="require(`@/assets/restart.png`)" /></button>
+      RESTART</button>
   </div>
 </template>
 
@@ -61,7 +60,7 @@ export default {
 }
 button {
   width: 5em;
-  height: 5em;
+  height: 3em;
   padding: 0;
 }
 img {

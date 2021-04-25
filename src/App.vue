@@ -30,7 +30,7 @@ export default {
     }
   },
   mounted() {
-    this.importAll(require.context("./assets/", true, /\.png$/));
+    this.importAll(require.context("./assets/", true, /\.webp$/));
     this.loadSettings();
   },
   methods: {

@@ -13,7 +13,7 @@
     <button @click="$emit('sizechange', {row: true, grow: false})">Remove last row</button>
     <button @click="$emit('sizechange', {row: false, grow: false})">Remove last column</button>
     <button :key="`${item}-button`" v-for="item in tileTypes" :class="{ActiveItem: itemSelected===item}" @click="$emit('selectitem', item)">
-        <img :src="require(`@/assets/${item}.png`)" />
+        <img :src="require(`@/assets/${item}.webp`)" />
     </button>
   </div>
 </template>
@@ -29,7 +29,7 @@ export default {
   },
   data() {
     return {
-      tileTypes: ["eraser", "box", "fish", "block", "cat", "cat2", "cat3", "cat4", "pushup", "pushright", "pushdown", "pushleft"]
+      tileTypes: ["tilebg","box", "fish", "block", "cat", "cat2", "cat3", "cat4", "pushup", "pushright", "pushdown", "pushleft"]
     }
   }
 }

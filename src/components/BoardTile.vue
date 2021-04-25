@@ -1,9 +1,9 @@
 <template>
   <div class="topdiv" @contextmenu.prevent="rightClick" @click="placeBox()">
-    <img v-if="floorImage!==''" class="floorimg" :src="require(`@/assets/${floorImage}.png`)" />
+    <img v-if="floorImage!==''" class="floorimg" :src="require(`@/assets/${floorImage}.webp`)" />
     <div :style="`width: ${tileSize}px; height: ${tileSize}px;`">
-      <img v-if="img1!==''" :class="{[animationName]: isAnimated }" :style="`--xdistance: ${xDistance}%; --ydistance: ${yDistance}%; --duration: ${animDuration}; z-index: ${zIndex};`" :src="require(`@/assets/${img1}.png`)" />
-      <img :key="`${x}${y}-img-${i}`" v-for="(img, i) in btmImages" :class="{[animationName]: isAnimated && btmImagesAnimate }" class="belowimage" :style="`--xdistance: ${xDistance*4}%; --ydistance: ${yDistance*4}%; margin-left: -${87.5-i*25}%; z-index: ${zIndex-1};`" :src="require(`@/assets/${img}.png`)"  />
+      <img v-if="img1!==''" :class="{[animationName]: isAnimated }" :style="`--xdistance: ${xDistance}%; --ydistance: ${yDistance}%; --duration: ${animDuration}; z-index: ${zIndex};`" :src="require(`@/assets/${img1}.webp`)" />
+      <img :key="`${x}${y}-img-${i}`" v-for="(img, i) in btmImages" :class="{[animationName]: isAnimated && btmImagesAnimate }" class="belowimage" :style="`--xdistance: ${xDistance*4}%; --ydistance: ${yDistance*4}%; margin-left: -${87.5-i*25}%; z-index: ${zIndex-1};`" :src="require(`@/assets/${img}.webp`)"  />
     </div>
   </div>
 </template>
@@ -95,7 +95,7 @@ export default {
   display: inline-block;
   background: gray;
   position: relative;
-  background-image: url('~@/assets/tilebg.png');
+  background-image: url('~@/assets/tilebg.webp');
 }
 img {
   position: relative;
