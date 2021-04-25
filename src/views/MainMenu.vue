@@ -18,6 +18,9 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+h1 {
+  margin-top: 2rem;
+}
 div {
   display: flex;
   flex-direction: column;
@@ -25,8 +28,18 @@ div {
 }
 button {
   width: 30%;
-  min-width: 12em;
-  height: 4em;
-  margin-bottom: 2em;
+  min-width: 8em;
+  height: 2em;
+  margin-bottom: 1em;
+  border-radius: 1em;
+  background-color: #8abcd2;
+  font-size: xx-large;
+  font-weight: bold;
+  text-shadow: -1px 1px 0 #000000,1px 1px 0 #000000,1px -1px 0 #000000,-1px -1px 0 #000000;
+  color: #FFFFFF;
+  box-shadow: 1px 4px #888888;
+}
+button:hover {
+  background-color: #9fe2ff;
 }
 </style>
