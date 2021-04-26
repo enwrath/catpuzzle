@@ -68,6 +68,7 @@ body {
   color: #2c3e50;
   user-select: none;
   height: 100%;
+  background-color: #cce2c6;
 }
 
 #nav {
@@ -90,11 +91,17 @@ h1 {
   right: 0;
   top: 0;
   z-index: 100;
-  max-width: 4rem;
+  max-width: 3.5rem;
   height: 2rem;
   max-height: 2rem;
   font-size: 1.5rem;
   width: 4rem;
   line-height: 0;
+  border-radius: 10%;
+  background-color: #8abcd2;
+  margin: 2px;
+}
+#opensettings:hover {
+  background-color: #9fe2ff;
 }
 </style>

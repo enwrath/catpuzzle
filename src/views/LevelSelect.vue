@@ -7,10 +7,9 @@
       </router-link>
       <h1>Select World</h1>
       <div class="worldContainer">
-        <div :key="`world-${world.id}`" v-for="world in levels" class="worldSelect" :style="`margin-left: ${world.id * 5}%;`">
+        <div :key="`world-${world.id}`" v-for="world in levels" class="worldSelect">
           <button class="bigbutton" @click="worldSelected=world.id">{{world.name}}<br />
-            Levels completed:
-            {{completionData.totals[world.id]}}</button>
+            {{completionData.totals[world.id]}} complete</button>
         </div>
       </div>
     </div>
@@ -26,13 +25,16 @@
       </div>
     </div>
 
-    <div>
-      <h1>Custom level</h1>
-      <input type="text" v-model="levelBase64" id="customLevel" placeholder="Paste level code here">
-
-      <router-link :to="`/game/custom-${levelBase64}`" custom v-slot="{ navigate }">
-        <button @click="navigate" :disabled="levelBase64 === ''">Testplay</button>
-      </router-link>
+    <div class="customlevel">
+      <h2>Custom level</h2>
+      <div class="customcontainer">
+        <input type="text" v-model="levelBase64" id="customLevel" placeholder="Paste level code here">
+        <br /><br />
+        <router-link :to="`/game/custom-${levelBase64}`" custom v-slot="{ navigate }">
+          <button class="bigbutton smallerbutton" @click="navigate" :disabled="levelBase64 === ''">Start</button>
+        </router-link>
+        <button class="bigbutton smallerbutton" @click="levelBase64=''" :disabled="levelBase64 === ''">Clear</button>
+      </div>
     </div>
   </div>
 </template>
@@ -62,10 +64,10 @@ export default {
         if (data !== null) {
           const parsed = JSON.parse(data);
           newData[world] = parsed;
-          newData.totals[world] = `${parsed.length}/${Object.keys(this.levels[world].levels).length}`;
+          newData.totals[world] = `${(100*parsed.length/Object.keys(this.levels[world].levels).length).toString().split(".")[0]}%`;
         } else {
           newData[world] = [];
-          newData.totals[world] = `0/${Object.keys(this.levels[world].levels).length}`;
+          newData.totals[world] = "0%";
         }
       }
       this.completionData = newData;
@@ -81,13 +83,14 @@ export default {
   display: flex;
   flex-direction: column;
   margin: auto;
-
+  align-items: center;
   height: 100%;
 }
 .worldSelect {
   width: 60%;
   height: 4em;
-  margin-bottom: 0.25em;
+  min-width: 15em;
+  margin-bottom: 0.5em;
 }
 .levelContainer {
   display: flex;
@@ -104,9 +107,37 @@ export default {
 .bigbutton {
   width: 100%;
   height: 100%;
+  border-radius: 1em;
+  background-color: #8abcd2;
+  font-size: x-large;
+  text-shadow: -1px 1px 0 #000000,1px 1px 0 #000000,1px -1px 0 #000000,-1px -1px 0 #000000;
+  color: #FFFFFF;
+  box-shadow: 1px 2px #888888;
+}
+.bigbutton:hover {
+  background-color: #9fe2ff;
+}
+.smallerbutton {
+  width: 4em;
+}
+.smallerbutton:disabled {
+  background-color: #b59191
 }
 .completed {
   border-style: solid;
   border-color: gold;
+  border-width: 0.2em;
+}
+.customcontainer {
+  margin: auto;
+  width: 60%;
+  min-width: 15em;
+}
+.customlevel {
+  padding: 2em;
+  border-top: 1px dashed #9eb797;
+}
+h1 {
+  padding-top: 2rem;
 }
 </style>

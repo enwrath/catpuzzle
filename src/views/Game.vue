@@ -553,11 +553,17 @@ export default {
 .backbutton {
   position: absolute;
   right: 0;
-  top: 2rem;
+  top: 2.05rem;
   font-weight: 800;
-  width: 4rem;
+  width: 3.5rem;
   height: 2rem;
   background-size: contain;
   z-index: 60;
+  border-radius: 10%;
+  background-color: #8abcd2;
+  margin: 2px;
+}
+.backbutton:hover {
+  background-color: #9fe2ff;
 }
 </style>
