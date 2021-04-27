@@ -32,16 +32,12 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 .Sidebar {
+  padding-top: 0;
   display: flex;
   flex-direction: row;
-  align-items: center;
-  align-content: center;
-  margin: auto;
-  margin-top: 0;
-  margin-left: 0;
   color: white;
   flex-wrap: wrap;
-  margin-right: 4em;
+  margin-right: 3rem;
 }
 .ActiveItem {
   background-color: #b3ffd7;
@@ -52,7 +48,8 @@ export default {
 @media (orientation: landscape) {
   .Sidebar {
     flex-direction: column;
-    margin-right: 0em;
+    padding-top: 5em;
+    margin-right: 0;
   }
 }
 .BoxLeft {
