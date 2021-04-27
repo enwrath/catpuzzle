@@ -85,6 +85,7 @@ export default {
   margin: auto;
   align-items: center;
   height: 100%;
+  padding-bottom: 2em;
 }
 .worldSelect {
   width: 60%;
@@ -98,6 +99,7 @@ export default {
   flex-wrap: wrap;
   max-width: 30em;
   margin:auto;
+  padding-bottom: 2em;
 }
 .levelSelect {
   width: 4em;
@@ -134,7 +136,7 @@ export default {
   min-width: 15em;
 }
 .customlevel {
-  padding: 2em;
+  padding: 1em;
   border-top: 1px dashed #9eb797;
 }
 h1 {
