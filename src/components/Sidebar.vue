@@ -44,7 +44,10 @@ export default {
   margin-right: 4em;
 }
 .ActiveItem {
-  background: cyan;
+  background-color: #b3ffd7;
+}
+.ActiveItem:hover {
+  background-color: #b3ffd7;
 }
 @media (orientation: landscape) {
   .Sidebar {
@@ -62,6 +65,12 @@ button {
   width: 5em;
   height: 3em;
   padding: 0;
+  border-radius: 10%;
+  background-color: #8abcd2;
+  margin: 2px;
+}
+button:hover {
+  background-color: #9fe2ff;
 }
 img {
   width: 100%;
