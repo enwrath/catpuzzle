@@ -1,5 +1,5 @@
 <template>
-  <div class="Board">
+  <div class="Board" :style="`margin-top: ${topMargin}px`">
     <div class="TileRow" :key="`row-${y}`" v-for="(row, y) in data.tiles">
       <BoardTile :tileSize="tileSize" @placebox="placeBox" @rightclick="rightClick" :inside="tile" :x="x" :y="y" :animations="data.animations" :key="`tile-${x}-${y}`" v-for="(tile, x) in row" />
     </div>
@@ -49,6 +49,10 @@ export default {
       if (tileW < tileH) size = tileW;
       if (size > this.maxTileSize) return this.maxTileSize
       else return size;
+    },
+    topMargin: function () {
+      const extraheight = this.height - this.tileSize * this.data.tiles.length;
+      return extraheight / 2;
     }
   }
 }
