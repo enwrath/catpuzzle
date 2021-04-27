@@ -530,14 +530,14 @@ export default {
 .FlexRow {
   display: flex;
   flex-direction: column;
-  background: #353558;
+  background: rgb(117,148,126);
+  background: linear-gradient(180deg, rgba(117,148,126,1) 10%, rgba(112,193,137,1) 50%, rgba(117,148,126,1) 90%);
   height: 100%;
 }
 @media (orientation: landscape) {
   .FlexRow {
     display: flex;
     flex-direction: row;
-    background: #353558;
     height: 100%;
   }
 }
