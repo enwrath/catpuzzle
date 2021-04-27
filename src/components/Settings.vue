@@ -2,13 +2,12 @@
   <div class="container">
     <div class="subcontainer">
       <button class="topright" @click="$emit('closesettings')">X</button>
-      SETTINGS<br />
+      <h3>Settings</h3>
       <h4>Animation Speed</h4>
       <button @click="changeSpeed(1000)" :class="{selectedBtn : animationDuration===1000}">Normal</button>
       <button @click="changeSpeed(500)" :class="{selectedBtn : animationDuration===500}">Fast</button>
       <button @click="changeSpeed(200)" :class="{selectedBtn : animationDuration===200}">Very fast</button>
       <button @click="changeSpeed(0)" :class="{selectedBtn : animationDuration===0}">No animations</button>
-
     </div>
   </div>
 </template>
@@ -55,9 +54,7 @@ export default {
   position: relative;
   margin-top: -20%;
   padding: 2em;
-  background: #ab7e5d;
-  width: 60%;
-  height: 40%;
+  background: #b59191;
   border-style: solid;
   border-color: #8c7228
 }
@@ -67,6 +64,19 @@ export default {
   right: 0;
 }
 .selectedBtn {
-  background: cyan;
+  background-color: #b3ffd7;
+}
+.selectedBtn:hover {
+  background-color: #b3ffd7;
+}
+button {
+  border-radius: 10%;
+  background-color: #8abcd2;
+}
+button:hover {
+  background-color: #9fe2ff;
+}
+h3 {
+  margin-top: -1em;
 }
 </style>
