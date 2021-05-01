@@ -4,9 +4,9 @@
       House<br />
       X{{boxesLeft}}
     </button>
-    <button v-if="fishLeft !== -1" @click="$emit('selectfish')" :class="{ActiveItem: itemSelected==='fish'}">
+    <button :disabled="fishLeft === -1" @click="$emit('selectfish')" :class="{ActiveItem: itemSelected==='fish'}">
       Fish<br />
-      X{{fishLeft}}
+      X{{fishLeft > 0 ? fishLeft : 0}}
     </button>
     <button :disabled="!canUndo" @click="$emit('undomove')">
       UNDO
