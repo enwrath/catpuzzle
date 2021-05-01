@@ -3,22 +3,22 @@
     <div class="subcontainer">
 
       <h1>Level Completed!</h1>
-      <br /><br /><br />
-      <button @click="$emit('restartlevel')">Replay level</button>
+      <br />
+      <div class="btncontainer">
+        <button @click="$emit('restartlevel')">Replay level</button>
 
-      <router-link v-if="fromEditor" to="/leveledit" custom v-slot="{ navigate }">
-        <button @click="navigate">Back to level editor</button>
-      </router-link>
-      <router-link v-if="!fromEditor" to="/levelselect" custom v-slot="{ navigate }">
-        <button @click="navigate">Level selection</button>
-      </router-link>
-      <router-link v-if="nextLevelExists && !fromEditor" :to="`/game/${worldId}-${nextLevel}`" custom v-slot="{ navigate }">
-        <button @click="navigate">Next level</button>
-      </router-link>
+        <router-link v-if="fromEditor" to="/leveledit" custom v-slot="{ navigate }">
+          <button @click="navigate">Back to level editor</button>
+        </router-link>
 
-      <p>
-        TODO: add images here
-      </p>
+        <router-link v-if="!fromEditor" to="/levelselect" custom v-slot="{ navigate }">
+          <button @click="navigate">Level selection</button>
+        </router-link>
+
+        <router-link v-if="nextLevelExists && !fromEditor" :to="`/game/${worldId}-${nextLevel}`" custom v-slot="{ navigate }">
+          <button @click="navigate">Next level</button>
+        </router-link>
+      </div>
     </div>
   </div>
 </template>
@@ -70,13 +70,32 @@ export default {
   margin-top: -20%;
   padding: 2em;
   background: #ab7e5d;
-  width: 60%;
-  height: 40%;
   border-style: solid;
   border-color: #8c7228
 }
+.btncontainer {
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  align-items: center;
+}
+@media (orientation: landscape) {
+  .btncontainer {
+    flex-direction: row;
+    justify-content: center;
+  }
+}
 button {
+  width: 6em;
   height: 3em;
-  margin: 0.25em;
+  padding: 0;
+  border-radius: 10%;
+  background-color: #8abcd2;
+  margin: 2px;
+  font-weight: bold;
+  border-style: ridge;
+}
+button:hover {
+  background-color: #9fe2ff;
 }
 </style>
