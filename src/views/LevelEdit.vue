@@ -201,6 +201,9 @@ a,h1 {
   width: 33%;
   align-items: baseline;
 }
+.itemColumn:first-child {
+  width: 25%;
+}
 .topbutton {
   width: 5em;
   height: 3em;
