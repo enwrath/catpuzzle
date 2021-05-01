@@ -1,24 +1,46 @@
 <template>
-  <div class="FlexRow">
-    <SidebarLevelEdit @changeamount="amountChange" :levelBase64="levelToBase64Editor" :itemSelected="itemSelected" @selectitem="itemChange" @sizechange="changeSize" :amounts="amounts"></SidebarLevelEdit>
-    <router-link to="/" custom v-slot="{ navigate }">
-      <button class="backbutton" @click="navigate">Back</button>
-    </router-link>
-    <div class="FlexColumn">
-      <div class="itemRow">
-        <div class="itemColumn">
-          <span>Export code:</span>
-          <input type="text" value="" id="levelExport" readonly>
-          <button @click="exportLevel">Copy level code</button>
-        </div><div class="itemColumn">
-          <span>Import code:</span>
-          <input type="text" value="" id="levelImport" placeholder="Paste level code here">
-          <button @click="importLevel">Load level</button>
+  <div class="FlexColumn bg">
+    <div class="Topbar">
+      <router-link :to="`/game/custom-${levelToBase64Editor}`" custom v-slot="{ navigate }">
+        <button class="topbutton" @click="navigate">Testplay</button>
+      </router-link>
+      <button class="topbutton" @click="amountChange('box', true)">House +</button>
+      <button class="topbutton" @click="amountChange('box', false)">House -</button>
+      <button class="topbutton" @click="amountChange('fish', true)">Fish +</button>
+      <button class="topbutton" @click="amountChange('fish', false)">Fish -</button>
+      <button class="topbutton" @click="changeSize(true, true)">Add row</button>
+      <button class="topbutton" @click="changeSize(true, false)">Remove row</button>
+      <button class="topbutton" @click="changeSize(false, true)">Add column</button>
+      <button class="topbutton" @click="changeSize(false, false)">Remove column</button>
+    </div>
+
+    <div class="FlexRow">
+      <SidebarLevelEdit :levelBase64="levelToBase64Editor" :itemSelected="itemSelected" @selectitem="itemChange" :amounts="amounts"></SidebarLevelEdit>
+      <router-link to="/" custom v-slot="{ navigate }">
+        <button class="backbutton" @click="navigate">Back</button>
+      </router-link>
+      <div class="FlexColumn">
+        <div class="itemRow">
+          <div class="itemColumn">
+            <span>Items:</span>
+            <span>House: {{ amounts.box }}</span>
+            <span>Fish: {{ amounts.fish }}</span>
+          </div>
+          <div class="itemColumn">
+            <span>Export:</span>
+            <input type="text" value="" id="levelExport" readonly>
+            <button class="topbutton slim" @click="exportLevel">Copy level</button>
+          </div>
+          <div class="itemColumn">
+            <span>Import:</span>
+            <input type="text" value="" id="levelImport" placeholder="Paste level code here">
+            <button class="topbutton slim" @click="importLevel">Load level</button>
+          </div>
         </div>
+
+
+        <Board @placebox="mouseClick" @rightclick="rightClick" :data="data"></Board>
       </div>
-
-
-      <Board @placebox="mouseClick" @rightclick="rightClick" :data="data"></Board>
     </div>
   </div>
 </template>
@@ -59,10 +81,10 @@ export default {
     itemChange(e) {
       this.itemSelected = e;
     },
-    amountChange(e) {
-      const c = e.increase ? 1 : -1;
-      this.amounts[e.item] += c;
-      if (this.amounts[e.item] < 0) this.amounts[e.item] = 0;
+    amountChange(item, increase) {
+      const c = increase ? 1 : -1;
+      this.amounts[item] += c;
+      if (this.amounts[item] < 0) this.amounts[item] = 0;
       this.exportInput.value = this.levelToBase64;
     },
     deleteTopItem(y, x) {
@@ -96,11 +118,11 @@ export default {
       newRow[x] = stuff;
       this.$set(this.data.tiles, y, newRow);
     },
-    changeSize(e) {
-      if (e.row && e.grow) this.addNewRow();
-      else if (e.row && !e.grow) this.deleteLastRow();
-      if (!e.row && e.grow) this.addNewColumn();
-      else if (!e.row && !e.grow) this.deleteLastColumn();
+    changeSize(row, grow) {
+      if (row && grow) this.addNewRow();
+      else if (row && !grow) this.deleteLastRow();
+      if (!row && grow) this.addNewColumn();
+      else if (!row && !grow) this.deleteLastColumn();
     },
     addNewRow() {
       let newRow = [];
@@ -157,6 +179,7 @@ export default {
   mounted() {
     this.exportInput = document.getElementById("levelExport");
     this.importInput = document.getElementById("levelImport");
+    this.exportInput.value = this.levelToBase64;
   }
 }
 </script>
@@ -175,5 +198,43 @@ a,h1 {
   display: flex;
   flex-direction: column;
   color: white;
+}
+.topbutton {
+  width: 5em;
+  height: 3em;
+  padding: 0;
+  border-radius: 10%;
+  background-color: #8abcd2;
+  margin: 2px;
+  font-weight: bold;
+  border-style: ridge;
+}
+.topbutton:hover {
+  background-color: #9fe2ff;
+}
+.Topbar {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  align-content: center;
+  margin: auto;
+  margin-top: 0;
+  margin-left: 0;
+  color: white;
+  flex-wrap: wrap;
+  margin-right: 4em;
+}
+.slim {
+  height: 1.5em;
+  width: auto;
+  padding: 0 5px;
+  margin: 0;
+}
+span {
+  font-weight: bold;
+  height: 1.5em;
+}
+input {
+  width: 5em;
 }
 </style>
