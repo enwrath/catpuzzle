@@ -1,5 +1,5 @@
 <template>
-  <div class="FlexRow">
+  <div class="FlexRow bg">
     <router-link  v-if="fromEditor" to="/leveledit" custom v-slot="{ navigate }">
       <button class="backbutton" @click="navigate">Back</button>
     </router-link>
@@ -527,11 +527,13 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style>
+.bg {
+  background: rgb(117,148,126);
+  background: linear-gradient(180deg, rgba(117,148,126,1) 10%, rgba(112,193,137,1) 50%, rgba(117,148,126,1) 90%);
+}
 .FlexRow {
   display: flex;
   flex-direction: column;
-  background: rgb(117,148,126);
-  background: linear-gradient(180deg, rgba(117,148,126,1) 10%, rgba(112,193,137,1) 50%, rgba(117,148,126,1) 90%);
   height: 100%;
 }
 @media (orientation: landscape) {
@@ -546,6 +548,7 @@ export default {
   flex-direction: column;
   align-content: center;
   flex-grow: 1;
+  height: 100%;
 }
 .backbutton {
   position: absolute;
