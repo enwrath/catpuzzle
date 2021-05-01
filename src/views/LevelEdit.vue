@@ -2,7 +2,7 @@
   <div class="FlexColumn bg">
     <div class="Topbar">
       <router-link :to="`/game/custom-${levelToBase64Editor}`" custom v-slot="{ navigate }">
-        <button class="topbutton" @click="navigate">Testplay</button>
+        <button class="topbutton" @click="navigate">Play</button>
       </router-link>
       <button class="topbutton" @click="amountChange('box', true)">House +</button>
       <button class="topbutton" @click="amountChange('box', false)">House -</button>
