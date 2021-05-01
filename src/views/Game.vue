@@ -517,7 +517,7 @@ export default {
       return this.data.history.tileHistory.length > 0 && !this.victory;
     },
     fishLeft: function () {
-      if ("fish" in this.levelData) return this.levelData.fish - this.data.fishUsed;
+      if ("fish" in this.levelData && this.levelData.fish !== 0) return this.levelData.fish - this.data.fishUsed;
       else return -1;
     }
   }
