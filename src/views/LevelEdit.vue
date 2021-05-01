@@ -22,9 +22,9 @@
       <div class="FlexColumn">
         <div class="itemRow">
           <div class="itemColumn">
-            <span>Items:</span>
-            <span>House: {{ amounts.box }}</span>
-            <span>Fish: {{ amounts.fish }}</span>
+            <span class="spanleftpad">Items:</span>
+            <span class="spanleftpad">House: {{ amounts.box }}</span>
+            <span class="spanleftpad">Fish: {{ amounts.fish }}</span>
           </div>
           <div class="itemColumn">
             <span>Export:</span>
@@ -198,6 +198,8 @@ a,h1 {
   display: flex;
   flex-direction: column;
   color: white;
+  width: 33%;
+  align-items: baseline;
 }
 .topbutton {
   width: 5em;
@@ -226,15 +228,17 @@ a,h1 {
 }
 .slim {
   height: 1.5em;
-  width: auto;
-  padding: 0 5px;
+  width: 80%;
   margin: 0;
 }
 span {
   font-weight: bold;
-  height: 1.5em;
+}
+.spanleftpad {
+    padding-left: 10%;
 }
 input {
-  width: 5em;
+  padding: 0;
+  width: 80%;
 }
 </style>
