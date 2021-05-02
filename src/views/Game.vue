@@ -55,7 +55,11 @@ export default {
       passableTiles: ["","pushleft","pushright","pushup","pushdown","fish"],
       goalTiles: ["box", "fish"],
       fromEditor: false,
-      animationDuration: 1000
+      animationDuration: 1000,
+      sounds: {
+        good: false,
+        bad: false
+      }
     }
   },
   created() {
@@ -200,6 +204,7 @@ export default {
       this.$delete(this.data.history.fishHistory, this.data.history.fishHistory.length-1);
     },
     moveCats() {
+      this.resetSounds();
       this.updateSettings();
       let moves = [];
       for (let y = 0; y < this.data.tempTiles.length; y++){
@@ -293,6 +298,7 @@ export default {
         this.addAnimation(m.y1,m.x1,m.y2,m.x2, false);
       }
       for (const m of filteredMoves.bad) {
+        this.sounds.bad = true;
         if (this.data.tempTiles[m.y2][m.x2].includes("box")) {
           // Multiple cats will attempt this!
           if (!this.data.tempTiles[m.y2][m.x2].includes("brokenbox")) {
@@ -377,7 +383,9 @@ export default {
       // Can there be more things than boxes on tile?
       if (newTile.includes("box") && move.cat.includes("-")) {
         newTile = "brokenbox-";
+        this.sounds.bad = true;
       }
+      if (`${newTile}${move.cat}`.includes('box-cat')) this.sounds.good = true;
       this.setTile(y2, x2, `${newTile}${move.cat}`);
       this.setTile(y1, x1, oldTile);
     },
@@ -396,6 +404,7 @@ export default {
     },
     afterAnimation() {
       this.useTempTiles();
+      this.playSounds();
       this.clearAnimations(true);
       if (this.data.animations2.length !== 0) {
         this.animations2Start();
@@ -405,6 +414,16 @@ export default {
         this.data.timer = setTimeout(this.moveCats, Math.max(this.animationDuration/10, 0));
         //this.moveCats();
       }
+    },
+    resetSounds() {
+      this.sounds = {
+        good: false,
+        bad: false
+      }
+    },
+    playSounds() {
+      if (this.sounds.good) this.$emit('playsound', 'good');
+      if (this.sounds.bad) this.$emit('playsound', 'bad');
     },
     tileExists(y, x) {
       return y >= 0 && x >= 0 && y < this.data.tiles.length && x < this.data.tiles[0].length;

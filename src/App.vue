@@ -3,9 +3,9 @@
     <button id="opensettings" @click="showSettings = true">⚙️</button>
     <Settings v-if="showSettings" @closesettings="showSettings = false" :settings="settings" @updateSettings="updateSettings"></Settings>
     <keep-alive>
-      <router-view v-if="$route.meta.keepAlive"></router-view>
+      <router-view v-if="$route.meta.keepAlive" @playsound="playSound"></router-view>
     </keep-alive>
-    <router-view v-if="!$route.meta.keepAlive"></router-view>
+    <router-view v-if="!$route.meta.keepAlive" @playsound="playSound"></router-view>
     <div hidden>
       <input id="animSpeed" type="number" disabled v-model="settings.animationDuration" />
       <img :src="`${img}`" :key="`preloadimage-${key}`" v-for="(img, key) in images">
@@ -26,7 +26,11 @@ export default {
       settings: {
         animationDuration: 1000
       },
-      showSettings: false
+      showSettings: false,
+      sounds: {
+        good: require('@/assets/good.ogg'),
+        bad: require('@/assets/bad.ogg')
+      }
     }
   },
   mounted() {
@@ -49,6 +53,17 @@ export default {
     },
     saveSettings() {
       localStorage.setItem("animSpeed", this.settings.animationDuration);
+    },
+    playSound(e){
+      console.log(e)
+      var audio = document.createElement('audio');
+      audio.src = this.sounds[e];
+      document.body.appendChild(audio);
+      audio.play();
+
+      audio.onended = function () {
+        this.parentNode.removeChild(this);
+      }
     }
   }
 }
