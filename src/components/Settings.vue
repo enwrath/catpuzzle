@@ -88,4 +88,95 @@ button:hover {
 h3 {
   margin-top: -1em;
 }
+
+/* Generated with some online tool */
+input[type=range] {
+  width: 100%;
+  margin: 8px 0;
+  background-color: transparent;
+  -webkit-appearance: none;
+}
+input[type=range]:focus {
+  outline: none;
+}
+input[type=range]::-webkit-slider-runnable-track {
+  background: #8abcd2;
+  border: 0;
+  border-radius: 6px;
+  width: 100%;
+  height: 16px;
+  cursor: pointer;
+}
+input[type=range]::-webkit-slider-thumb {
+  margin-top: -8px;
+  width: 16px;
+  height: 32px;
+  background: #b3ffd7;
+  border: 2px solid #000000;
+  border-radius: 4px;
+  cursor: pointer;
+  -webkit-appearance: none;
+}
+input[type=range]:focus::-webkit-slider-runnable-track {
+  background: #9cc7d9;
+}
+input[type=range]::-moz-range-track {
+  background: #8abcd2;
+  border: 0;
+  border-radius: 6px;
+  width: 100%;
+  height: 16px;
+  cursor: pointer;
+}
+input[type=range]::-moz-range-thumb {
+  width: 16px;
+  height: 32px;
+  background: #b3ffd7;
+  border: 2px solid #000000;
+  border-radius: 4px;
+  cursor: pointer;
+}
+input[type=range]::-ms-track {
+  background: transparent;
+  border-color: transparent;
+  border-width: 8px 0;
+  color: transparent;
+  width: 100%;
+  height: 16px;
+  cursor: pointer;
+}
+input[type=range]::-ms-fill-lower {
+  background: #78b1cb;
+  border: 0;
+  border-radius: 12px;
+}
+input[type=range]::-ms-fill-upper {
+  background: #8abcd2;
+  border: 0;
+  border-radius: 12px;
+}
+input[type=range]::-ms-thumb {
+  width: 16px;
+  height: 32px;
+  background: #b3ffd7;
+  border: 2px solid #000000;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-top: 0px;
+  /*Needed to keep the Edge thumb centred*/
+}
+input[type=range]:focus::-ms-fill-lower {
+  background: #8abcd2;
+}
+input[type=range]:focus::-ms-fill-upper {
+  background: #9cc7d9;
+}
+@supports (-ms-ime-align:auto) {
+  /* Pre-Chromium Edge only styles, selector taken from hhttps://stackoverflow.com/a/32202953/7077589 */
+  input[type=range] {
+    margin: 0;
+    /*Edge starts the margin from the thumb, not the track as other browsers do*/
+  }
+}
+
 </style>
