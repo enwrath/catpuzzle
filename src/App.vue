@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <button id="opensettings" @click="showSettings = true">⚙️</button>
-    <Settings v-if="showSettings" @closesettings="showSettings = false" :settings="settings" @updateSettings="updateSettings"></Settings>
+    <Settings v-if="showSettings" @closesettings="showSettings = false" :settings="settings" @playsound="playSound" @updateSettings="updateSettings"></Settings>
     <keep-alive>
       <router-view v-if="$route.meta.keepAlive" @playsound="playSound"></router-view>
     </keep-alive>
@@ -24,7 +24,8 @@ export default {
     return {
       images: {},
       settings: {
-        animationDuration: 1000
+        animationDuration: 1000,
+        volume: 0.3
       },
       showSettings: false,
       sounds: {
@@ -50,15 +51,21 @@ export default {
     loadSettings() {
       const a = localStorage.getItem("animSpeed");
       if (a !== null) this.settings.animationDuration = parseInt(a);
+
+
+      const b = localStorage.getItem("volume");
+      if (b !== null) this.settings.volume = parseFloat(b);
     },
     saveSettings() {
       localStorage.setItem("animSpeed", this.settings.animationDuration);
+      localStorage.setItem("volume", this.settings.volume);
     },
     playSound(e){
       console.log(e)
       var audio = document.createElement('audio');
       audio.src = this.sounds[e];
       document.body.appendChild(audio);
+      audio.volume = this.settings.volume;
       audio.play();
 
       audio.onended = function () {

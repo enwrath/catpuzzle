@@ -3,6 +3,10 @@
     <div class="subcontainer">
       <button class="topright" @click="$emit('closesettings')">X</button>
       <h3>Settings</h3>
+
+      <h4>Volume</h4>
+      <input type="range" id="volume" name="volume" min="0" max="1" step="0.01" v-model.number="volume" @change="volumeChange">
+
       <h4>Animation Speed</h4>
       <button @click="changeSpeed(1000)" :class="{selectedBtn : animationDuration===1000}">Normal</button>
       <button @click="changeSpeed(500)" :class="{selectedBtn : animationDuration===500}">Fast</button>
@@ -15,18 +19,23 @@
 <script>
 
 export default {
-  name: 'PuzzleCompleted',
+  name: 'Settings',
   props: {
     settings: Object
   },
   data() {
     return {
-      animationDuration: this.settings.animationDuration
+      animationDuration: this.settings.animationDuration,
+      volume: this.settings.volume
     }
   },
   methods: {
+    volumeChange() {
+      this.updateSettings();
+      this.$emit('playsound', 'good');
+    },
     updateSettings() {
-      const newSettings = {animationDuration: this.animationDuration};
+      const newSettings = {animationDuration: this.animationDuration, volume: this.volume};
       this.$emit("updateSettings", newSettings);
     },
     changeSpeed(e) {
