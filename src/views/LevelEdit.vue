@@ -1,5 +1,5 @@
 <template>
-  <div class="FlexColumn bg">
+  <div class="FlexColumn">
     <div class="Topbar">
       <router-link :to="`/game/custom-${levelToBase64Editor}`" custom v-slot="{ navigate }">
         <button class="topbutton" @click="navigate">Play</button>

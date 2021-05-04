@@ -90,7 +90,8 @@ body {
   color: #2c3e50;
   user-select: none;
   height: 100%;
-  background-color: #cce2c6;
+  background: rgb(117,148,126);
+  background: linear-gradient(180deg, rgba(117,148,126,1) 10%, rgba(112,193,137,1) 50%, rgba(117,148,126,1) 90%);
 }
 
 #nav {
