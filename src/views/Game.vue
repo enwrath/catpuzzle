@@ -204,7 +204,6 @@ export default {
       this.$delete(this.data.history.fishHistory, this.data.history.fishHistory.length-1);
     },
     moveCats() {
-      this.resetSounds();
       this.updateSettings();
       let moves = [];
       for (let y = 0; y < this.data.tempTiles.length; y++){
@@ -422,8 +421,10 @@ export default {
       }
     },
     playSounds() {
+      console.log("play sounds")
       if (this.sounds.good) this.$emit('playsound', 'good');
       if (this.sounds.bad) this.$emit('playsound', 'bad');
+      this.resetSounds()
     },
     tileExists(y, x) {
       return y >= 0 && x >= 0 && y < this.data.tiles.length && x < this.data.tiles[0].length;
