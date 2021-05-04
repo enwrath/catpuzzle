@@ -74,18 +74,24 @@ export default {
   },
   methods: {
     loadMapData(b64data, isCustom) {
-      const d = atob(b64data);
-      const data = JSON.parse(d);
-      const level = {boxes: data.boxes, fish: data.fish, tiles: data.tiles};
-      if (isCustom) {
-        if ("from" in data && data.from === "editor") this.fromEditor = true;
+      try {
+        const d = atob(b64data);
+        const data = JSON.parse(d);
+        const level = {boxes: data.boxes, fish: data.fish, tiles: data.tiles};
+        if (isCustom) {
+          if ("from" in data && data.from === "editor") this.fromEditor = true;
+          return level;
+        }
+        level.name = this.levels[this.worldId].levels[this.levelId].name;
+        if ("message" in this.levels[this.worldId].levels[this.levelId]) {
+          level.message = this.levels[this.worldId].levels[this.levelId].message;
+        }
         return level;
+      } catch(e) {
+        console.log(e);
+        alert("Bad map data! Returning to level selection")
+        window.location = '/levelselect';
       }
-      level.name = this.levels[this.worldId].levels[this.levelId].name;
-      if ("message" in this.levels[this.worldId].levels[this.levelId]) {
-        level.message = this.levels[this.worldId].levels[this.levelId].message;
-      }
-      return level;
     },
     loadLevel() {
       //Set them empty to prevent problems when Game is not created from scratch
