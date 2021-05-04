@@ -137,7 +137,7 @@ export default {
 }
 .customlevel {
   padding: 1em;
-  border-top: 1px dashed #9eb797;
+  border-top: 2px dashed #8abcd1
 }
 h1 {
   padding-top: 2rem;
