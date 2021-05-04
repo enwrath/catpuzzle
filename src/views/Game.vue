@@ -82,7 +82,6 @@ export default {
           if ("from" in data && data.from === "editor") this.fromEditor = true;
           return level;
         }
-        level.name = this.levels[this.worldId].levels[this.levelId].name;
         if ("message" in this.levels[this.worldId].levels[this.levelId]) {
           level.message = this.levels[this.worldId].levels[this.levelId].message;
         }
