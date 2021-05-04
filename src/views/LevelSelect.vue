@@ -141,5 +141,11 @@ export default {
 }
 h1 {
   padding-top: 2rem;
+  text-shadow: -1px 1px 0 #000000,1px 1px 0 #000000,1px -1px 0 #000000,-1px -1px 0 #000000;
+  color: #FFFFFF;
+}
+h2 {
+  text-shadow: -1px 1px 0 #000000,1px 1px 0 #000000,1px -1px 0 #000000,-1px -1px 0 #000000;
+  color: #FFFFFF;
 }
 </style>
