@@ -1,6 +1,10 @@
 <template>
   <div>
-    <h1>CAT PUZZLE BOX GAME</h1>
+    <br />
+    <img :src="require(`@/assets/cat.webp`)" />
+    <h1>Kittzzles</h1>
+    <h3>Kitten Puzzles</h3>
+    <br /><br />
     <router-link to="/levelselect" custom v-slot="{ navigate }">
       <button @click="navigate">Play</button>
     </router-link>
@@ -19,7 +23,16 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 h1 {
-  margin-top: 2rem;
+  font-size: 3em;
+  text-shadow: -1px 1px 0 #000000,1px 1px 0 #000000,1px -1px 0 #000000,-1px -1px 0 #000000;
+  color: #FFFFFF;
+  margin-bottom: 0;
+  text-decoration: underline;
+}
+h3 {
+  margin-top: 0;
+  text-shadow: -1px 1px 0 #000000,1px 1px 0 #000000,1px -1px 0 #000000,-1px -1px 0 #000000;
+  color: #FFFFFF;
 }
 div {
   display: flex;
@@ -41,5 +54,8 @@ button {
 }
 button:hover {
   background-color: #9fe2ff;
+}
+img {
+  width: 8em;
 }
 </style>
