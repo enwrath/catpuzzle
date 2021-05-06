@@ -11,6 +11,9 @@
     <router-link to="/leveledit" custom v-slot="{ navigate }">
       <button @click="navigate">Level editor</button>
     </router-link>
+    <router-link to="/about" custom v-slot="{ navigate }">
+      <button @click="navigate">About</button>
+    </router-link>
   </div>
 </template>
 

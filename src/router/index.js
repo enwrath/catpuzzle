@@ -4,6 +4,7 @@ import MainMenu from '../views/MainMenu.vue'
 import Game from '../views/Game.vue'
 import LevelSelect from '../views/LevelSelect.vue'
 import LevelEdit from '../views/LevelEdit.vue'
+import About from '../views/About.vue'
 
 Vue.use(VueRouter)
 
@@ -12,6 +13,11 @@ const routes = [
     path: '/',
     name: 'MainMenu',
     component: MainMenu
+  },
+  {
+    path: '/about',
+    name: 'About',
+    component: About
   },
   {
     path: '/game/:levelId',
