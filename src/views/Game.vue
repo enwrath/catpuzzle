@@ -366,14 +366,29 @@ export default {
       return this.data.tempTiles[y] !== undefined && this.data.tempTiles[y][x] !== undefined && (this.passableTiles.includes(this.data.tempTiles[y][x]) || this.goalTiles.includes(this.data.tempTiles[y][x]));
     },
     setCatPosition(move, y1, x1, y2, x2) {
-      const oldSplit = this.data.tempTiles[y1][x1].split("-");
-      let oldTile = this.data.tempTiles[y1][x1].includes("-") ? oldSplit.slice(0,oldSplit.length-1).join("-") : "";
+      let oldTile = "";
+      // Remove the cat that moved from this tile.
+      // Might not be the top cat since other stuff can be moved into the tile!
+      //... actually if pile of cats is pushed to the tile, this doesn't work...
+      // TODO: See above
+      if (this.data.tempTiles[y1][x1].includes("-")) {
+        const split2 = this.data.tempTiles[y1][x1].split("-");
+        for (let i = split2.length-1; i >= 0; i--) {
+          if (split2[i] === move.cat) {
+            split2.splice(i, 1);
+            oldTile = split2.join("-");
+            //console.log(move.cat,"moves",split2,"result",oldTile);
+            break;
+          }
+        }
+      }
+
       const newSplit = this.data.tempTiles[y2][x2].split("-");
-      let newTile = this.data.tempTiles[y2][x2] === "" ? "" : `${this.data.tempTiles[y2][x2]}-`;
+      let newTile = this.data.tempTiles[y2][x2];
 
       //Push everything onward
       if (this.data.tempTiles[y1][x1].includes("push")) {
-        oldTile = oldSplit[0];
+        oldTile = this.data.tempTiles[y1][x1].split("-")[0];
       }
       //Fish just gets eaten
       if (newTile.includes("fish")) {
@@ -384,9 +399,12 @@ export default {
         newTile = "brokenbox-";
         this.sounds.bad = true;
       }
-      if (`${newTile}${move.cat}`.includes('box-cat')) this.sounds.good = true;
-      this.setTile(y2, x2, `${newTile}${move.cat}`);
+      newTile = newTile === "" ? move.cat : `${newTile}-${move.cat}`;
+
+      if (newTile.includes('box-cat')) this.sounds.good = true;
+      this.setTile(y2, x2, newTile);
       this.setTile(y1, x1, oldTile);
+      console.log("old tile is",oldTile,"new tile is",newTile)
     },
     addAnimation(y1, x1, y2, x2, badmove) {
       const xdist = `${(x2-x1)*100}`;
