@@ -1,10 +1,10 @@
 <template>
   <div class="Sidebar">
-    <button :class="{ActiveItem: itemSelected==='box'}" @click="$emit('selectbox')">
+    <button :disabled="boxesLeft <= 0" :class="{ActiveItem: itemSelected==='box'}" @click="$emit('selectbox')">
       House<br />
       X{{boxesLeft}}
     </button>
-    <button :disabled="fishLeft === -1" @click="$emit('selectfish')" :class="{ActiveItem: itemSelected==='fish'}">
+    <button :disabled="fishLeft <= 0" @click="$emit('selectfish')" :class="{ActiveItem: itemSelected==='fish'}">
       Fish<br />
       X{{fishLeft > 0 ? fishLeft : 0}}
     </button>
