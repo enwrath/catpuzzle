@@ -4,7 +4,10 @@
       <button class="topright" @click="$emit('closesettings')">X</button>
       <h3>Settings</h3>
 
-      <h4>Volume</h4>
+      <h4>Music volume</h4>
+      <input type="range" id="volumemusic" name="volume" min="0" max="1" step="0.01" v-model.number="volumemusic" @change="volumeChangeMusic">
+
+      <h4>Sound Volume</h4>
       <input type="range" id="volume" name="volume" min="0" max="1" step="0.01" v-model.number="volume" @change="volumeChange">
 
       <h4>Animation Speed</h4>
@@ -26,7 +29,8 @@ export default {
   data() {
     return {
       animationDuration: this.settings.animationDuration,
-      volume: this.settings.volume
+      volume: this.settings.volume,
+      volumemusic: this.settings.volumemusic
     }
   },
   methods: {
@@ -34,8 +38,11 @@ export default {
       this.updateSettings();
       this.$emit('playsound', 'good');
     },
+    volumeChangeMusic() {
+      this.updateSettings();
+    },
     updateSettings() {
-      const newSettings = {animationDuration: this.animationDuration, volume: this.volume};
+      const newSettings = {animationDuration: this.animationDuration, volume: this.volume, volumemusic: this.volumemusic};
       this.$emit("updateSettings", newSettings);
     },
     changeSpeed(e) {

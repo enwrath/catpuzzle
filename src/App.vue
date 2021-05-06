@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <div id="app" @click="startMusic">
     <button id="opensettings" @click="showSettings = true">⚙️</button>
     <Settings v-if="showSettings" @closesettings="showSettings = false" :settings="settings" @playsound="playSound" @updateSettings="updateSettings"></Settings>
     <keep-alive>
@@ -7,6 +7,8 @@
     </keep-alive>
     <router-view v-if="!$route.meta.keepAlive" @playsound="playSound"></router-view>
     <div hidden>
+      <audio id="music" preload="auto" loop :src="require(`@/assets/music.ogg`)">
+      </audio>
       <input id="animSpeed" type="number" disabled v-model="settings.animationDuration" />
       <img :src="`${img}`" :key="`preloadimage-${key}`" v-for="(img, key) in images">
     </div>
@@ -25,7 +27,8 @@ export default {
       images: {},
       settings: {
         animationDuration: 1000,
-        volume: 0.3
+        volume: 0.3,
+        volumemusic: 0.3
       },
       showSettings: false,
       sounds: {
@@ -46,19 +49,32 @@ export default {
     },
     updateSettings(e) {
       this.settings = e;
+      document.getElementById("music").volume = this.settings.volumemusic;
       this.saveSettings();
+    },
+    startMusic() {
+      document.getElementById("music").volume = this.settings.volumemusic;
+      document.getElementById("music").play();
     },
     loadSettings() {
       const a = localStorage.getItem("animSpeed");
       if (a !== null) this.settings.animationDuration = parseInt(a);
 
-
       const b = localStorage.getItem("volume");
-      if (b !== null) this.settings.volume = parseFloat(b);
+      if (b !== null) {
+        this.settings.volume = parseFloat(b);
+      }
+
+      const c = localStorage.getItem("volumemusic");
+      if (c !== null) {
+        this.settings.volumemusic = parseFloat(c);
+        document.getElementById("music").volume = this.settings.volumemusic;
+      }
     },
     saveSettings() {
       localStorage.setItem("animSpeed", this.settings.animationDuration);
       localStorage.setItem("volume", this.settings.volume);
+      localStorage.setItem("volumemusic", this.settings.volumemusic);
     },
     playSound(e){
       console.log(e)
