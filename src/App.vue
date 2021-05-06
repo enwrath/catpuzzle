@@ -77,7 +77,6 @@ export default {
       localStorage.setItem("volumemusic", this.settings.volumemusic);
     },
     playSound(e){
-      console.log(e)
       var audio = document.createElement('audio');
       audio.src = this.sounds[e];
       document.body.appendChild(audio);

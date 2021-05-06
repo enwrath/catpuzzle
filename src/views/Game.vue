@@ -63,12 +63,10 @@ export default {
     }
   },
   created() {
-    console.log("created level id:",this.$route.params.levelId);
     this.loadLevel();
   },
   watch: {
     $route() {
-      console.log("watched levelid: ",this.$route.params.levelId);
       this.loadLevel();
     }
   },
@@ -87,14 +85,12 @@ export default {
         }
         return level;
       } catch(e) {
-        console.log(e);
         alert("Bad map data! Returning to level selection")
         window.location = '/levelselect';
       }
     },
     loadLevel() {
       //Set them empty to prevent problems when Game is not created from scratch
-      console.log(this.$route.params.levelId)
       if (this.$route.params.levelId.includes("custom-")) {
         this.levelData = this.loadMapData(this.$route.params.levelId.split("custom-")[1], true);
       } else {
@@ -120,7 +116,6 @@ export default {
       this.data.fishUsed = 0;
       this.data.totalBoxes = this.levelData.boxes;
       clearTimeout(this.data.timer);
-      console.log("loading level ",this.$route.params.levelId);
       for (const row in this.levelData.tiles) {
         this.$set(this.data.tiles, row, [...this.levelData.tiles[row]]);
       }
@@ -426,7 +421,6 @@ export default {
       }
     },
     playSounds() {
-      console.log("play sounds")
       if (this.sounds.good) this.$emit('playsound', 'good');
       if (this.sounds.bad) this.$emit('playsound', 'bad');
       this.resetSounds()
