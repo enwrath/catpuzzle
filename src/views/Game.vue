@@ -394,17 +394,19 @@ export default {
       if (newTile.includes("fish")) {
         newTile = newSplit.slice(0,newSplit.length-1).join("-");
       }
-      // Can there be more things than boxes on tile?
-      if (newTile.includes("box") && move.cat.includes("-")) {
-        newTile = "brokenbox-";
+
+      // Multiple things pushed to box breaks it
+      // Cat walking on occupied cat home breaks it
+      if (newSplit.includes("box") && (move.cat.includes("-") || newSplit.join("-").includes("cat"))) {
+        newTile = newTile.replace("box", "brokenbox");
         this.sounds.bad = true;
       }
+
       newTile = newTile === "" ? move.cat : `${newTile}-${move.cat}`;
 
-      if (newTile.includes('box-cat')) this.sounds.good = true;
+      if (newTile.includes('box-cat') && !newTile.includes('broken')) this.sounds.good = true;
       this.setTile(y2, x2, newTile);
       this.setTile(y1, x1, oldTile);
-      console.log("old tile is",oldTile,"new tile is",newTile)
     },
     addAnimation(y1, x1, y2, x2, badmove) {
       const xdist = `${(x2-x1)*100}`;
