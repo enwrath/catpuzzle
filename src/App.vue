@@ -57,24 +57,28 @@ export default {
       document.getElementById("music").play();
     },
     loadSettings() {
-      const a = localStorage.getItem("animSpeed");
-      if (a !== null) this.settings.animationDuration = parseInt(a);
+      try {
+        const a = localStorage.getItem("animSpeed");
+        if (a !== null) this.settings.animationDuration = parseInt(a);
 
-      const b = localStorage.getItem("volume");
-      if (b !== null) {
-        this.settings.volume = parseFloat(b);
-      }
+        const b = localStorage.getItem("volume");
+        if (b !== null) {
+          this.settings.volume = parseFloat(b);
+        }
 
-      const c = localStorage.getItem("volumemusic");
-      if (c !== null) {
-        this.settings.volumemusic = parseFloat(c);
-        document.getElementById("music").volume = this.settings.volumemusic;
-      }
+        const c = localStorage.getItem("volumemusic");
+        if (c !== null) {
+          this.settings.volumemusic = parseFloat(c);
+          document.getElementById("music").volume = this.settings.volumemusic;
+        }
+      } catch (exception) { console.log("localstorage not available"); }
     },
     saveSettings() {
-      localStorage.setItem("animSpeed", this.settings.animationDuration);
-      localStorage.setItem("volume", this.settings.volume);
-      localStorage.setItem("volumemusic", this.settings.volumemusic);
+      try {
+        localStorage.setItem("animSpeed", this.settings.animationDuration);
+        localStorage.setItem("volume", this.settings.volume);
+        localStorage.setItem("volumemusic", this.settings.volumemusic);
+      } catch (exception) { console.log("localstorage not available"); }
     },
     playSound(e){
       var audio = document.createElement('audio');

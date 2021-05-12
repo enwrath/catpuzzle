@@ -60,7 +60,10 @@ export default {
       const newData = {totals: {}};
       for (const world of Object.keys(this.levels)) {
         const keystring = `world-${world}`;
-        const data = localStorage.getItem(keystring);
+        let data = null;
+        try {
+          data = localStorage.getItem(keystring);
+        } catch (exception) { console.log("localstorage not available"); }
         if (data !== null) {
           const parsed = JSON.parse(data);
           newData[world] = parsed;

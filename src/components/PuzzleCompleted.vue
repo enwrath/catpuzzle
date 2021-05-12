@@ -39,16 +39,18 @@ export default {
   },
   methods: {
     markCompleted() {
-      const keystring = `world-${this.worldId}`;
-      const data = localStorage.getItem(keystring);
-      if (data === null) localStorage.setItem(keystring, JSON.stringify([this.currentLevel]));
-      else {
-        const parsed = JSON.parse(data);
-        if (!parsed.includes(this.currentLevel)) {
-          parsed.push(this.currentLevel);
-          localStorage.setItem(keystring, JSON.stringify(parsed));
+      try {
+        const keystring = `world-${this.worldId}`;
+        const data = localStorage.getItem(keystring);
+        if (data === null) localStorage.setItem(keystring, JSON.stringify([this.currentLevel]));
+        else {
+          const parsed = JSON.parse(data);
+          if (!parsed.includes(this.currentLevel)) {
+            parsed.push(this.currentLevel);
+            localStorage.setItem(keystring, JSON.stringify(parsed));
+          }
         }
-      }
+      } catch (exception) { console.log("localstorage not available"); }
     }
   }
 }
