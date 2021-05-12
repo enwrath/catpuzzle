@@ -40,12 +40,14 @@ export default {
         tempTiles: [],
         history: {
           tileHistory: [],
-          fishHistory: []
+          fishHistory: [],
+          confusedHistory: []
         },
         animations: [],
         animations2: [],
         timer: '',
-        fishUsed: 0
+        fishUsed: 0,
+        confusedCats: []
       },
       levels: levelList,
       animating: false,
@@ -105,11 +107,13 @@ export default {
       this.data.tiles = [];
       this.data.history = {
         tileHistory: [],
-        fishHistory: []
+        fishHistory: [],
+        confusedHistory: []
       },
       this.data.tempTiles = [];
       this.data.animations = [];
       this.data.animations2 = [];
+      this.data.confusedCats = [];
       this.animating = true;
       this.victory = false;
       this.itemSelected = "box";
@@ -188,6 +192,7 @@ export default {
     addToHistory() {
       this.$set(this.data.history.tileHistory, this.data.history.tileHistory.length, [...this.data.tiles]);
       this.$set(this.data.history.fishHistory, this.data.history.fishHistory.length, this.data.fishUsed);
+      this.$set(this.data.history.confusedHistory, this.data.history.confusedHistory.length, [...this.data.confusedCats]);
       //this.history.push([...this.tiles]);
     },
     undoMove() {
@@ -200,12 +205,17 @@ export default {
         this.$set(this.data.tiles, row, this.data.history.tileHistory[this.data.history.tileHistory.length-1][row]);
       }
       this.data.fishUsed = this.data.history.fishHistory[this.data.history.fishHistory.length-1];
+      this.data.confusedCats = this.data.history.confusedHistory[this.data.history.confusedHistory.length-1];
+
       this.$delete(this.data.history.tileHistory, this.data.history.tileHistory.length-1);
       this.$delete(this.data.history.fishHistory, this.data.history.fishHistory.length-1);
+      this.$delete(this.data.history.fishHistory, this.data.history.confusedHistory.length-1);
     },
     moveCats() {
       this.updateSettings();
       let moves = [];
+      this.data.confusedCats = [];
+
       for (let y = 0; y < this.data.tempTiles.length; y++){
         for (let x = 0; x < this.data.tempTiles[y].length; x++){
           let currentCat = this.data.tempTiles[y][x];
@@ -467,6 +477,9 @@ export default {
           const multipleMovesWithHit = multipleMoves.filter(x => "type" in x && x.type === "hit");
           if (multipleMovesWithHit.length === 1 && "type" in m && m.type === "hit") actualMoves.push(m);
           else if ("type" in m && m.type === "hit") multiHits.push(m);
+          else {
+            this.data.confusedCats.push({x: m.x1, y: m.y1, xdist: m.x2-m.x1, ydist: m.y2-m.y1});
+          }
         }
       }
 

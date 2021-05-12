@@ -1,5 +1,8 @@
 <template>
   <div class="topdiv" @contextmenu.prevent="rightClick" @click="placeBox()">
+    <p style="position:absolute; z-index:500; font-weight:bold; font-size:x-large;" v-if="isConfused">
+      CONFUSED!!!!!
+    </p>
     <img v-if="floorImage!==''" class="floorimg" :src="require(`@/assets/${floorImage}.webp`)" />
     <div :style="`width: ${tileSize}px; height: ${tileSize}px;`">
       <img v-if="img1!==''" :class="{[animationName]: isAnimated }" :style="`--xdistance: ${xDistance}%; --ydistance: ${yDistance}%; --duration: ${animDuration}; z-index: ${zIndex};`" :src="require(`@/assets/${img1}.webp`)" />
@@ -16,7 +19,8 @@ export default {
     x: Number,
     y: Number,
     animations: Array,
-    tileSize: Number
+    tileSize: Number,
+    confusedCats: Array
   },
   data() {
     return {
@@ -63,6 +67,9 @@ export default {
     zIndex: function() {
       if (this.isAnimated) return 10;
       return 5;
+    },
+    isConfused: function() {
+      return this.hasActiveCat && this.confusedCats.some(x => x.x === this.x && x.y === this.y);
     }
   },
   methods: {
