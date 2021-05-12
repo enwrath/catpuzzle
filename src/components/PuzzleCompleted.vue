@@ -50,7 +50,18 @@ export default {
             localStorage.setItem(keystring, JSON.stringify(parsed));
           }
         }
-      } catch (exception) { console.log("localstorage not available"); }
+      } catch (exception) {
+        console.log("localstorage not available");
+        const worldLevels = document.getElementById(`world-${this.worldId}`);
+        if (worldLevels === null) {
+          let s = document.createElement("SPAN");
+          s.id = `world-${this.worldId}`;
+          s.innerHTML = this.currentLevel;
+          document.getElementById("completedLevelsNoLocalStorage").appendChild(s);
+        } else {
+          worldLevels.innerHTML = `${worldLevels.innerHTML}-${this.currentLevel}`;
+        }
+      }
     }
   }
 }

@@ -62,12 +62,18 @@ export default {
         const keystring = `world-${world}`;
         let data = null;
         try {
-          data = localStorage.getItem(keystring);
-        } catch (exception) { console.log("localstorage not available"); }
+          data = JSON.parse(localStorage.getItem(keystring));
+
+        } catch (exception) {
+          const worldLevels = document.getElementById(keystring);
+          if (worldLevels !== null) {
+            data = worldLevels.innerHTML.split("-");
+          }
+          console.log("localstorage not available");
+        }
         if (data !== null) {
-          const parsed = JSON.parse(data);
-          newData[world] = parsed;
-          newData.totals[world] = `${(100*parsed.length/Object.keys(this.levels[world].levels).length).toString().split(".")[0]}%`;
+          newData[world] = data;
+          newData.totals[world] = `${(100*data.length/Object.keys(this.levels[world].levels).length).toString().split(".")[0]}%`;
         } else {
           newData[world] = [];
           newData.totals[world] = "0%";
