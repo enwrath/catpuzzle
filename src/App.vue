@@ -11,6 +11,8 @@
       </audio>
       <input id="animSpeed" type="number" disabled v-model="settings.animationDuration" />
       <img :src="`${img}`" :key="`preloadimage-${key}`" v-for="(img, key) in images">
+      <div id="completedLevelsNoLocalStorage">
+      </div>
     </div>
   </div>
 </template>

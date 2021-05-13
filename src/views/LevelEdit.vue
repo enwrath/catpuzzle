@@ -57,7 +57,8 @@ export default {
   data() {
     return {
       data: {
-        tiles: [["","",""],["","",""],["","",""]]
+        tiles: [["","",""],["","",""],["","",""]],
+        confusedCats: []
       },
       amounts: {
         box: 1,
