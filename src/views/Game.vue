@@ -72,6 +72,21 @@ export default {
       this.loadLevel();
     }
   },
+  mounted() {
+    this._keyListener = function(e) {
+        if (e.key === "r") {
+            this.loadLevel();
+        } else if (e.key === " ") {
+          this.undoMove();
+        } else if (e.key === "1") {
+          this.setItem("box");
+        } else if (e.key === "2") {
+          this.setItem("fish");
+        }
+    };
+
+    document.addEventListener('keydown', this._keyListener.bind(this));
+  },
   methods: {
     loadMapData(b64data, isCustom) {
       try {
