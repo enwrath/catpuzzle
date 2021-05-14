@@ -61,7 +61,8 @@ export default {
       sounds: {
         good: false,
         bad: false
-      }
+      },
+      skipAnimations: false
     }
   },
   created() {
@@ -161,6 +162,13 @@ export default {
           this.placeItem(e.y, e.x);
           this.data.fishUsed += 1;
         }
+      } else if (this.animating) {
+        this.clearAnimations(true);
+        this.clearAnimations(false);
+        this.animating = false;
+        clearTimeout(this.data.timer);
+        this.skipAnimations = true;
+        this.moveCats();
       }
     },
     placeItem(y, x) {
@@ -227,7 +235,9 @@ export default {
       this.$delete(this.data.history.fishHistory, this.data.history.confusedHistory.length-1);
     },
     moveCats() {
-      this.updateSettings();
+      if (this.skipAnimations) this.animationDuration = 0;
+      else this.updateSettings();
+
       let moves = [];
       this.data.confusedCats = [];
 
@@ -365,6 +375,7 @@ export default {
         clearTimeout(this.data.timer);
         this.data.timer = setTimeout(this.clearAnimations, Math.max(this.animationDuration-50, 0), true);
         this.checkVictory();
+        this.skipAnimations = false;
       }
     },
     pushCat(y, x) {
