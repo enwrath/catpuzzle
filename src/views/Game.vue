@@ -296,6 +296,10 @@ export default {
                 const ydist = `${(actions[0].y1-y)*30}`;
                 this.data.animations.push({x:x, y:y, name:"hit", xdistance: xdist, ydistance: ydist, duration: this.animationDuration});
               }
+            } else {
+              for (const m of actions) {
+                this.data.confusedCats.push({x: x, y: y, xdist: m.x2-x, ydist: m.y2-y});
+              }
             }
           }
         }
