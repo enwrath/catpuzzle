@@ -80,8 +80,8 @@ export default {
   backdrop-filter: blur(2px);
 }
 .subcontainer {
-  margin-top: -20%;
-  padding: 2em;
+  font-size: 3vw;
+  padding: 10vh 10vw;
   background: #ab7e5d;
   border-style: solid;
   border-color: #8c7228
@@ -99,12 +99,13 @@ export default {
   }
 }
 button {
-  width: 6em;
-  height: 3em;
+  width: 10vw;
+  height: 6vw;
+  font-size: 2vw;
   padding: 0;
   border-radius: 10%;
   background-color: #8abcd2;
-  margin: 2px;
+  margin-left: 1vw;
   font-weight: bold;
   border-style: ridge;
 }

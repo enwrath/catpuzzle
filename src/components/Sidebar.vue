@@ -37,7 +37,7 @@ export default {
   flex-direction: row;
   color: white;
   flex-wrap: wrap;
-  margin-right: 3rem;
+  margin-right: 8vw;
 }
 .ActiveItem {
   background-color: #b3ffd7;
@@ -48,7 +48,7 @@ export default {
 @media (orientation: landscape) {
   .Sidebar {
     flex-direction: column;
-    padding-top: 5em;
+    padding-top: 10vh;
     margin-right: 0;
   }
 }
@@ -59,8 +59,9 @@ export default {
   align-content: center;
 }
 button {
-  width: 5em;
-  height: 3em;
+  height: 10vh;
+  font-size: 2vw;
+  width: 10vw;
   padding: 0;
   border-radius: 10%;
   background-color: #8abcd2;
@@ -77,7 +78,7 @@ img {
 }
 p {
   margin-left: -75%;
-  font-size: 1.5em;
+  font-size: 1.5rem;
   font-weight: bold;
   text-shadow: -1px 1px 0 #FFFFFF,1px 1px 0 #FFFFFF,1px -1px 0 #FFFFFF,-1px -1px 0 #FFFFFF;
 }

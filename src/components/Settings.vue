@@ -68,13 +68,15 @@ export default {
 }
 .subcontainer {
   position: relative;
-  margin-top: -20%;
-  padding: 2em;
+  font-size: 3vw;
+  padding: 10vh 10vw;
   background: #b59191;
   border-style: solid;
   border-color: #8c7228
 }
 .topright {
+  font-size: 3vw;
+  font-weight: bold;
   position: absolute;
   top: 0;
   right: 0;
@@ -86,6 +88,10 @@ export default {
   background-color: #b3ffd7;
 }
 button {
+  vertical-align: top;
+  width: 10vw;
+  height: 6vw;
+  font-size: 1.5vw;
   border-radius: 10%;
   background-color: #8abcd2;
 }

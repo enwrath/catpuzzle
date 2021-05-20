@@ -22,7 +22,8 @@ export default {
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  padding-right: 4rem;
+  padding-right: 9vw;
+  font-size: 2vw;
 }
 .bubble {
   position: relative;

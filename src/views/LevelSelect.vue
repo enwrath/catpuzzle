@@ -94,33 +94,32 @@ export default {
   margin: auto;
   align-items: center;
   height: 100%;
-  padding-bottom: 2em;
+  padding-bottom: 3vh;
 }
 .worldSelect {
-  width: 60%;
-  height: 4em;
-  min-width: 15em;
-  margin-bottom: 0.5em;
+  width: 60vw;
+  height: 10vh;
+  margin-bottom: 2vh;
 }
 .levelContainer {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  max-width: 30em;
-  margin:auto;
-  padding-bottom: 2em;
+  width: 60vw;
+  margin: auto;
+  padding-bottom: 3vh;
 }
 .levelSelect {
-  width: 4em;
-  height: 4em;
-  margin: 0.25em;
+  width: 8vw;
+  height: 8vh;
+  margin: 0.5vw;
 }
 .bigbutton {
   width: 100%;
   height: 100%;
-  border-radius: 1em;
+  border-radius: 4vw;
   background-color: #8abcd2;
-  font-size: x-large;
+  font-size: 3vw;
   text-shadow: -1px 1px 0 #000000,1px 1px 0 #000000,1px -1px 0 #000000,-1px -1px 0 #000000;
   color: #FFFFFF;
   box-shadow: 1px 2px #888888;
@@ -149,11 +148,13 @@ export default {
   border-top: 2px dashed #8abcd1
 }
 h1 {
-  padding-top: 2rem;
+  font-size: 5.5vw;
+  padding-top: 5vh;
   text-shadow: -1px 1px 0 #000000,1px 1px 0 #000000,1px -1px 0 #000000,-1px -1px 0 #000000;
   color: #FFFFFF;
 }
 h2 {
+  font-size: 3vw;
   text-shadow: -1px 1px 0 #000000,1px 1px 0 #000000,1px -1px 0 #000000,-1px -1px 0 #000000;
   color: #FFFFFF;
 }
