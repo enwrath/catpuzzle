@@ -1,8 +1,9 @@
 <template>
   <div class="topdiv" @contextmenu.prevent="rightClick" @click="placeBox()">
-    <p style="position:absolute; z-index:500; font-weight:bold; font-size:x-large;" v-if="isConfused">
-      CONFUSED!!!!!
-    </p>
+    <div v-if="isConfused" class="confusedDiv">
+      <img :key="`${x}${y}-confused-${i}`" v-for="i in confusedAngles" :style="`transform: rotate(${i}deg);`" :src="require(`@/assets/arrowright.webp`)"  />
+      <img :src="require(`@/assets/qmark.webp`)" />
+    </div>
     <img v-if="floorImage!==''" class="floorimg" :src="require(`@/assets/${floorImage}.webp`)" />
     <div :style="`width: ${tileSize}px; height: ${tileSize}px;`">
       <img v-if="img1!==''" :class="{[animationName]: isAnimated }" :style="`--xdistance: ${xDistance}%; --ydistance: ${yDistance}%; --duration: ${animDuration}; z-index: ${zIndex};`" :src="require(`@/assets/${img1}.webp`)" />
@@ -69,7 +70,27 @@ export default {
       return 5;
     },
     isConfused: function() {
-      return this.hasActiveCat && this.confusedCats.some(x => x.x === this.x && x.y === this.y);
+      return !this.isAnimated && this.hasActiveCat && this.confusedCats.some(x => x.x === this.x && x.y === this.y);
+    },
+    confusedAngles: function() {
+      if (!this.isConfused) return [];
+      let angles = [];
+      let confusions = this.confusedCats.filter(x => x.x === this.x && x.y === this.y);
+      for (const c of confusions) {
+        let angle = 0;
+        if (c.xdist === 0 || c.ydist === 0) {
+          if (c.xdist < 0) angle = 180;
+          else if (c.ydist < 0) angle = 270;
+          else if (c.ydist > 0) angle = 90;
+        } else {
+          if (c.xdist < 0 && c.ydist < 0) angle = 225;
+          else if (c.xdist < 0 && c.ydist > 0) angle = 135;
+          else if (c.xdist > 0 && c.ydist > 0) angle = 45;
+          else if (c.xdist > 0 && c.ydist < 0) angle = 315;
+        }
+        angles.push(angle);
+      }
+      return angles;
     }
   },
   methods: {
@@ -123,6 +144,19 @@ img {
   height: 100%;
   left: 0;
   top: 0;
+}
+.confusedDiv {
+  position: absolute;
+  width: 30%;
+  height: 30%;
+  left: 0;
+  bottom: 0;
+  z-index: 45;
+}
+.confusedDiv > img {
+  position: absolute;
+  left: 0;
+  right: 0;
 }
 .move {
   animation-duration: var(--duration);
