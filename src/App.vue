@@ -135,15 +135,12 @@ h1 {
   right: 0;
   top: 0;
   z-index: 100;
-  max-width: 3.5rem;
-  height: 2rem;
-  max-height: 2rem;
-  font-size: 1.5rem;
-  width: 4rem;
+  height: 6vh;
+  font-size: 3.5vw;
+  width: 8vw;
   line-height: 0;
   border-radius: 10%;
   background-color: #8abcd2;
-  margin: 2px;
 }
 #opensettings:hover {
   background-color: #9fe2ff;
