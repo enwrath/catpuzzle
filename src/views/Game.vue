@@ -75,15 +75,16 @@ export default {
   },
   mounted() {
     this._keyListener = function(e) {
-        if (e.key === "r") {
-            this.loadLevel();
-        } else if (e.key === " ") {
-          this.undoMove();
-        } else if (e.key === "1") {
-          this.setItem("box");
-        } else if (e.key === "2") {
-          this.setItem("fish");
-        }
+      if (this.victory) return;
+      if (e.key === "r") {
+          this.loadLevel();
+      } else if (e.key === " ") {
+        this.undoMove();
+      } else if (e.key === "1") {
+        this.setItem("box");
+      } else if (e.key === "2") {
+        this.setItem("fish");
+      }
     };
 
     document.addEventListener('keydown', this._keyListener.bind(this));
@@ -631,15 +632,15 @@ export default {
 .backbutton {
   position: absolute;
   right: 0;
-  top: 2.05rem;
+  top: 6.05vh;
   font-weight: 800;
-  width: 3.5rem;
-  height: 2rem;
+  height: 6vh;
+  font-size: 2vw;
+  width: 8vw;
   background-size: contain;
   z-index: 60;
   border-radius: 10%;
   background-color: #8abcd2;
-  margin: 2px;
 }
 .backbutton:hover {
   background-color: #9fe2ff;
