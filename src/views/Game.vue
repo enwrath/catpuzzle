@@ -635,7 +635,7 @@ export default {
   top: 6.05vh;
   font-weight: 800;
   height: 6vh;
-  font-size: 2vw;
+  font-size: 3vmin;
   width: 8vw;
   background-size: contain;
   z-index: 60;

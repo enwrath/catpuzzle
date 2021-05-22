@@ -24,14 +24,14 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 h1 {
-  font-size: 5.5vw;
+  font-size: 6.5vmin;
   text-shadow: -1px 1px 0 #000000,1px 1px 0 #000000,1px -1px 0 #000000,-1px -1px 0 #000000;
   color: #FFFFFF;
   margin-bottom: 0;
   text-decoration: underline;
 }
 h3 {
-  font-size: 2.5vw;
+  font-size: 3.5vmin;
   margin-top: 0;
   text-shadow: -1px 1px 0 #000000,1px 1px 0 #000000,1px -1px 0 #000000,-1px -1px 0 #000000;
   color: #FFFFFF;
@@ -42,12 +42,12 @@ div {
   align-items: center;
 }
 button {
-  width: 40vw;
-  height: 10vh;
+  width: 50vw;
+  height: 15vh;
   margin-bottom: 5vh;
   border-radius: 5vw;
   background-color: #8abcd2;
-  font-size: xx-large;
+  font-size: 4vmin;
   font-weight: bold;
   text-shadow: -1px 1px 0 #000000,1px 1px 0 #000000,1px -1px 0 #000000,-1px -1px 0 #000000;
   color: #FFFFFF;
@@ -57,7 +57,8 @@ button:hover {
   background-color: #9fe2ff;
 }
 img {
-  width: 17vw;
+  height: 17vh;
   max-width: 240px;
+  max-height: 240px;
 }
 </style>

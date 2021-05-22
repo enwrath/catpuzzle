@@ -129,6 +129,7 @@ export default {
 }
 .smallerbutton {
   width: 30vw;
+  height: 10vh;
 }
 .smallerbutton:disabled {
   background-color: #b59191
@@ -136,7 +137,7 @@ export default {
 .completed {
   border-style: solid;
   border-color: gold;
-  border-width: 0.2em;
+  border-width: 0.2vmin;
 }
 .customcontainer {
   margin: auto;
@@ -146,16 +147,18 @@ export default {
   border-top: 2px dashed #8abcd1
 }
 input {
+  font-size: 4vh;
   width: 60vw;
+  height: 5vh;
 }
 h1 {
-  font-size: 5.5vw;
+  font-size: 6.5vmin;
   padding-top: 5vh;
   text-shadow: -1px 1px 0 #000000,1px 1px 0 #000000,1px -1px 0 #000000,-1px -1px 0 #000000;
   color: #FFFFFF;
 }
 h2 {
-  font-size: 3vw;
+  font-size: 3.5vmin;
   text-shadow: -1px 1px 0 #000000,1px 1px 0 #000000,1px -1px 0 #000000,-1px -1px 0 #000000;
   color: #FFFFFF;
 }

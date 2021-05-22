@@ -11,7 +11,7 @@
     <button :disabled="!canUndo" @click="$emit('undomove')">
       UNDO
     </button>
-    <button @click="$emit('restartlevel')">
+    <button class="restart" @click="$emit('restartlevel')">
       RESTART</button>
   </div>
 </template>
@@ -58,9 +58,12 @@ export default {
   align-items: center;
   align-content: center;
 }
+.restart {
+  font-size: 2vmin;
+}
 button {
   height: 10vh;
-  font-size: 2vw;
+  font-size: 3vmin;
   width: 10vw;
   padding: 0;
   border-radius: 10%;
