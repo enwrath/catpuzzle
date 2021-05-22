@@ -68,7 +68,7 @@ export default {
 }
 .subcontainer {
   position: relative;
-  font-size: 3vw;
+  font-size: 3vmin;
   padding: 10vh 10vw;
   background: #b59191;
   border-style: solid;
@@ -99,7 +99,7 @@ button:hover {
   background-color: #9fe2ff;
 }
 h3 {
-  margin-top: -1em;
+  margin-top: -5vh;
 }
 
 /* Generated with some online tool */

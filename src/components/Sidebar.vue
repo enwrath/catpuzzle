@@ -34,23 +34,16 @@ export default {
 .Sidebar {
   padding-top: 0;
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
+  padding-top: 10vh;
   color: white;
   flex-wrap: wrap;
-  margin-right: 8vw;
 }
 .ActiveItem {
   background-color: #b3ffd7;
 }
 .ActiveItem:hover {
   background-color: #b3ffd7;
-}
-@media (orientation: landscape) {
-  .Sidebar {
-    flex-direction: column;
-    padding-top: 10vh;
-    margin-right: 0;
-  }
 }
 .BoxLeft {
   display: flex;

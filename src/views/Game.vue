@@ -612,15 +612,8 @@ export default {
 <style>
 .FlexRow {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   height: 100%;
-}
-@media (orientation: landscape) {
-  .FlexRow {
-    display: flex;
-    flex-direction: row;
-    height: 100%;
-  }
 }
 .FlexColumn {
   display: flex;
@@ -635,7 +628,7 @@ export default {
   top: 6.05vh;
   font-weight: 800;
   height: 6vh;
-  font-size: 3vmin;
+  font-size: 2vmin;
   width: 8vw;
   background-size: contain;
   z-index: 60;

@@ -88,15 +88,9 @@ export default {
 }
 .btncontainer {
   display: flex;
-  flex-direction: column;
-  align-content: center;
+  flex-direction: row;
+  justify-content: center;
   align-items: center;
-}
-@media (orientation: landscape) {
-  .btncontainer {
-    flex-direction: row;
-    justify-content: center;
-  }
 }
 button {
   width: 15vw;
