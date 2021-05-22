@@ -119,7 +119,7 @@ export default {
   height: 100%;
   border-radius: 4vw;
   background-color: #8abcd2;
-  font-size: 3vw;
+  font-size: 3vmin;
   text-shadow: -1px 1px 0 #000000,1px 1px 0 #000000,1px -1px 0 #000000,-1px -1px 0 #000000;
   color: #FFFFFF;
   box-shadow: 1px 2px #888888;
