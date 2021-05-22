@@ -33,8 +33,8 @@ export default {
       this.$emit("rightclick", e);
     },
     getWidthHeight() {
-      this.width = this.$el.clientWidth - 48;
-      this.height = this.$el.clientHeight - 48;
+      this.width = 0.9 * this.$el.clientWidth;
+      this.height = 0.9 * this.$el.clientHeight;
     }
   },
   mounted() {
@@ -48,7 +48,7 @@ export default {
       let size = tileH;
       if (tileW < tileH) size = tileW;
       if (size > this.maxTileSize) return this.maxTileSize
-      else return size;
+      return size;
     },
     topMargin: function () {
       const extraheight = this.height - this.tileSize * this.data.tiles.length;
