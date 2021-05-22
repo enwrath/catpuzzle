@@ -128,7 +128,7 @@ export default {
   background-color: #9fe2ff;
 }
 .smallerbutton {
-  width: 4em;
+  width: 30vw;
 }
 .smallerbutton:disabled {
   background-color: #b59191
@@ -140,12 +140,13 @@ export default {
 }
 .customcontainer {
   margin: auto;
-  width: 60%;
-  min-width: 15em;
 }
 .customlevel {
-  padding: 1em;
+  padding: 1vmin;
   border-top: 2px dashed #8abcd1
+}
+input {
+  width: 60vw;
 }
 h1 {
   font-size: 5.5vw;
