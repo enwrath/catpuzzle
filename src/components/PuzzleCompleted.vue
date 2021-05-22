@@ -99,9 +99,9 @@ export default {
   }
 }
 button {
-  width: 10vw;
-  height: 6vw;
-  font-size: 2vw;
+  width: 15vw;
+  height: 15vh;
+  font-size: 3vmin;
   padding: 0;
   border-radius: 10%;
   background-color: #8abcd2;
