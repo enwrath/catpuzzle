@@ -136,7 +136,7 @@ h1 {
   top: 0;
   z-index: 100;
   height: 6vh;
-  font-size: 3.5vw;
+  font-size: 3.5vmin;
   width: 8vw;
   line-height: 0;
   border-radius: 10%;
