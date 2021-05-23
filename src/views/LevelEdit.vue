@@ -200,18 +200,20 @@ a,h1 {
   flex-direction: column;
   color: white;
   width: 33%;
+  font-size: 2vmin;
   align-items: baseline;
+  margin-left: -1vw;
 }
 .itemColumn:first-child {
   width: 25%;
 }
 .topbutton {
-  width: 5em;
-  height: 3em;
+  width: 10vw;
+  height: 7vh;
   padding: 0;
   border-radius: 10%;
+  font-size: 2vmin;
   background-color: #8abcd2;
-  margin: 2px;
   font-weight: bold;
   border-style: ridge;
 }
@@ -228,10 +230,10 @@ a,h1 {
   margin-left: 0;
   color: white;
   flex-wrap: wrap;
-  margin-right: 4em;
+  margin-right: 8vw;
 }
 .slim {
-  height: 1.5em;
+  height: 3vh;
   width: 80%;
   margin: 0;
 }

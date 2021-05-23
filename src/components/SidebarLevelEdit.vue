@@ -28,7 +28,7 @@ export default {
 <style scoped>
 .Sidebar {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   align-items: center;
   align-content: center;
   margin: auto;
@@ -45,21 +45,17 @@ export default {
 .ActiveItem:hover {
   background-color: #b3ffd7;
 }
-@media (orientation: landscape) {
-  .Sidebar {
-    flex-direction: column;
-  }
-}
 img {
   height: 100%;
+  width: 100%;
+  object-fit: contain;
 }
 button {
-  width: 5em;
-  height: 3em;
+  width: 10vw;
+  height: 7vh;
   padding: 0;
   border-radius: 10%;
   background-color: #8abcd2;
-  margin: 2px;
   font-weight: bold;
   border-style: ridge;
 }
