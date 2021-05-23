@@ -1,7 +1,7 @@
 <template>
   <div class="Board" :style="`margin-top: ${topMargin}px`">
     <div class="TileRow" :key="`row-${y}`" v-for="(row, y) in data.tiles">
-      <BoardTile :confusedCats="data.confusedCats" :tileSize="tileSize" @placebox="placeBox" @rightclick="rightClick" :inside="tile" :x="x" :y="y" :animations="data.animations" :key="`tile-${x}-${y}`" v-for="(tile, x) in row" />
+      <BoardTile :confusedCats="data.confusedCats" :tileSize="tileSize" @placebox="placeBox" @rightclick="rightClick" :inside="tile" :itemInfo="itemInfo" :x="x" :y="y" :animations="data.animations" :key="`tile-${x}-${y}`" v-for="(tile, x) in row" />
     </div>
 
   </div>
@@ -23,7 +23,8 @@ export default {
     }
   },
   props: {
-    data: Object
+    data: Object,
+    itemInfo: Object
   },
   methods: {
     placeBox (e) {

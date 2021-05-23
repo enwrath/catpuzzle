@@ -1,5 +1,6 @@
 <template>
-  <div class="topdiv" @contextmenu.prevent="rightClick" @click="placeBox()">
+  <div class="topdiv" @contextmenu.prevent="rightClick" @click="placeBox()" @mouseover="hovering=true" @mouseleave="hovering=false">
+    <img v-if="showHoverItem" class="hoverImg" :src="require(`@/assets/${itemInfo.item}.webp`)" />
     <div v-if="isConfused" class="confusedDiv">
       <img :key="`${x}${y}-confused-${i}`" v-for="i in confusedAngles" :style="`transform: rotate(${i}deg);`" :src="require(`@/assets/arrowright.webp`)"  />
       <img :src="require(`@/assets/qmark.webp`)" />
@@ -21,14 +22,16 @@ export default {
     y: Number,
     animations: Array,
     tileSize: Number,
-    confusedCats: Array
+    confusedCats: Array,
+    itemInfo: Object
   },
   data() {
     return {
       animationName: "idleAnimation",
       xDistance: "0",
       yDistance: "0",
-      animDuration: "1s"
+      animDuration: "1s",
+      hovering: false
     }
   },
   watch: {
@@ -53,6 +56,9 @@ export default {
     },
     hasActiveCat: function() {
       return this.img1.includes("cat") && (!this.img1.includes("box") || this.img1.includes("broken"));
+    },
+    showHoverItem: function() {
+      return this.hovering && this.inside === "" && this.itemInfo.canUse;
     },
     isAnimated: function() {
       return this.animationName !== "idleAnimation";
@@ -157,6 +163,14 @@ img {
   position: absolute;
   left: 0;
   right: 0;
+}
+.hoverImg {
+  position: absolute;
+  left: 0;
+  top: 0;
+  opacity: 50%;
+  width: 100%;
+  height: 100%;
 }
 .move {
   animation-duration: var(--duration);

@@ -15,7 +15,7 @@
       <div v-if="'message' in levelData">
         <LevelMessage :message="levelData.message"></LevelMessage>
       </div>
-      <Board @placebox="mouseClick" :data="data"></Board>
+      <Board @placebox="mouseClick" :data="data" :itemInfo="itemInfo"></Board>
     </div>
   </div>
 </template>
@@ -602,6 +602,11 @@ export default {
     fishLeft: function () {
       if ("fish" in this.levelData && this.levelData.fish !== 0) return this.levelData.fish - this.data.fishUsed;
       else return -1;
+    },
+    itemInfo: function () {
+      if (this.itemSelected === "box") return {item: "box", canUse: this.boxesLeft > 0};
+      if (this.itemSelected === "fish") return {item: "fish", canUse: this.fishLeft > 0};
+      return {item: "none", canUse: false};
     }
   }
 }
