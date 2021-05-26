@@ -1,5 +1,6 @@
 <template>
-  <div class="topdiv" @contextmenu.prevent="rightClick" @click="placeBox()" @mouseover="hovering=true" @mouseleave="hovering=false">
+  <div class="topdiv" @contextmenu.prevent="rightClick" @click="placeBox()" @mouseover="hoverTile" @mouseleave="hoverTileEnd">
+    <div v-if="isHighlighted" class="highlight"></div>
     <img v-if="showHoverItem" class="hoverImg" :src="require(`@/assets/${itemInfo.item}.webp`)" />
     <div v-if="isConfused" class="confusedDiv">
       <img :key="`${x}${y}-confused-${i}`" v-for="i in confusedAngles" :style="`transform: rotate(${i}deg);`" :src="require(`@/assets/arrowright.webp`)"  />
@@ -23,7 +24,9 @@ export default {
     animations: Array,
     tileSize: Number,
     confusedCats: Array,
-    itemInfo: Object
+    itemInfo: Object,
+    highlights: Array,
+    showHighlight: Boolean
   },
   data() {
     return {
@@ -58,7 +61,7 @@ export default {
       return this.img1.includes("cat") && (!this.img1.includes("box") || this.img1.includes("broken"));
     },
     showHoverItem: function() {
-      return this.hovering && this.inside === "" && this.itemInfo.canUse;
+      return this.itemInfo.canUse && this.hovering && this.inside === "";
     },
     isAnimated: function() {
       return this.animationName !== "idleAnimation";
@@ -77,6 +80,9 @@ export default {
     },
     isConfused: function() {
       return !this.isAnimated && this.hasActiveCat && this.confusedCats.some(x => x.x === this.x && x.y === this.y);
+    },
+    isHighlighted: function() {
+      return this.showHighlight && this.highlights.some(x => x.x === this.x && x.y === this.y);
     },
     confusedAngles: function() {
       if (!this.isConfused) return [];
@@ -101,10 +107,18 @@ export default {
   },
   methods: {
     placeBox() {
-      this.$emit("placebox", {x:this.x, y:this.y})
+      this.$emit("placebox", {x:this.x, y:this.y});
+    },
+    hoverTile() {
+      this.hovering = true;
+      this.$emit("hover", {start: true, x:this.x, y:this.y});
+    },
+    hoverTileEnd() {
+      this.hovering = false;
+      this.$emit("hover", {start: false, x:this.x, y:this.y});
     },
     rightClick() {
-      this.$emit("rightclick", {x:this.x, y:this.y})
+      this.$emit("rightclick", {x:this.x, y:this.y});
     },
     checkAnimation() {
       const selfanim =  this.animations.filter(x => x.x === this.x && x.y === this.y);
@@ -163,6 +177,16 @@ img {
   position: absolute;
   left: 0;
   right: 0;
+}
+.highlight {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+  z-index: 46;
+  background-color: white;
+  opacity: 0.4;
 }
 .hoverImg {
   position: absolute;

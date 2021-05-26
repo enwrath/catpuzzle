@@ -39,7 +39,7 @@
         </div>
 
 
-        <Board @placebox="mouseClick" @rightclick="rightClick" :data="data"></Board>
+        <Board @placebox="mouseClick" @rightclick="rightClick" :data="data" :itemInfo="{canUse: false}"></Board>
       </div>
     </div>
   </div>
@@ -58,7 +58,10 @@ export default {
     return {
       data: {
         tiles: [["","",""],["","",""],["","",""]],
-        confusedCats: []
+        confusedCats: [],
+        highlightedTiles: [],
+        hoverTile: {x: -1, y: -1},
+        showHighlight: false
       },
       amounts: {
         box: 1,

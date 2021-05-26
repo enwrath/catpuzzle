@@ -1,7 +1,7 @@
 <template>
   <div class="Board" :style="`margin-top: ${topMargin}px`">
     <div class="TileRow" :key="`row-${y}`" v-for="(row, y) in data.tiles">
-      <BoardTile :confusedCats="data.confusedCats" :tileSize="tileSize" @placebox="placeBox" @rightclick="rightClick" :inside="tile" :itemInfo="itemInfo" :x="x" :y="y" :animations="data.animations" :key="`tile-${x}-${y}`" v-for="(tile, x) in row" />
+      <BoardTile :confusedCats="data.confusedCats" :tileSize="tileSize" @placebox="placeBox" @rightclick="rightClick" @hover="hoverEvent" :inside="tile" :itemInfo="itemInfo" :showHighlight="data.showHighlight" :highlights="data.highlightedTiles" :x="x" :y="y" :animations="data.animations" :key="`tile-${x}-${y}`" v-for="(tile, x) in row" />
     </div>
 
   </div>
@@ -29,6 +29,9 @@ export default {
   methods: {
     placeBox (e) {
       this.$emit("placebox", e);
+    },
+    hoverEvent (e) {
+      this.$emit("hover", e);
     },
     rightClick (e) {
       this.$emit("rightclick", e);

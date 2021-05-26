@@ -15,7 +15,7 @@
       <div v-if="'message' in levelData">
         <LevelMessage :message="levelData.message"></LevelMessage>
       </div>
-      <Board @placebox="mouseClick" :data="data" :itemInfo="itemInfo"></Board>
+      <Board @placebox="mouseClick" @hover="updateHighlightTiles" :data="data" :itemInfo="itemInfo"></Board>
     </div>
   </div>
 </template>
@@ -41,13 +41,16 @@ export default {
         history: {
           tileHistory: [],
           fishHistory: [],
-          confusedHistory: []
+          confusedHistory: [],
         },
         animations: [],
         animations2: [],
         timer: '',
         fishUsed: 0,
-        confusedCats: []
+        confusedCats: [],
+        highlightedTiles: [],
+        hoverTile: {x: -1, y: -1},
+        showHighlight: true
       },
       levels: levelList,
       animating: false,
@@ -131,6 +134,9 @@ export default {
       this.data.animations = [];
       this.data.animations2 = [];
       this.data.confusedCats = [];
+      this.data.highlightedTiles = [];
+      this.data.hoverTile = {x: -1, y: -1};
+      this.data.showHighlight = true;
       this.animating = true;
       this.victory = false;
       this.itemSelected = "box";
@@ -185,8 +191,39 @@ export default {
     setItem(name) {
       this.itemSelected = name;
     },
+    refreshHighlightTiles() {
+      const x = this.data.hoverTile.x;
+      const y = this.data.hoverTile.y;
+      this.updateHighlightTiles({x: x, y: y, start: false});
+      this.updateHighlightTiles({x: x, y: y, start: true});
+      this.data.showHighlight = true;
+    },
+    updateHighlightTiles(e) {
+      const x = e.x;
+      const y = e.y;
+      if (!e.start && this.data.hoverTile.x === x && this.data.hoverTile.y === y) {
+        this.data.hoverTile = {x: -1, y: -1};
+        this.data.highlightedTiles = [];
+      }
+      else if (e.start && (this.data.hoverTile.x !== x || this.data.hoverTile.y !== y)) {
+        this.data.hoverTile = {x: x, y: y};
+        const tileSplit = this.data.tiles[y][x].split("-");
+        const topItem = tileSplit[tileSplit.length-1];
+
+        if (topItem === "cat") {
+          this.data.highlightedTiles = this.neighbourTiles(y,x);
+        } else if (topItem === "cat2") {
+          this.data.highlightedTiles = this.cat2MoveTiles(y,x);
+        } else if (topItem === "cat3") {
+          this.data.highlightedTiles = this.cat3MoveTiles(y,x);
+        } else if (topItem === "cat4") {
+          this.data.highlightedTiles = this.cat2MoveTiles(y,x);
+        }
+        else this.data.highlightedTiles = [];
+      }
+    },
     checkVictory() {
-        if (this.data.tiles.flat().every(x => !x.includes("cat") || (x.includes("cat") && x.includes("box") && !x.includes("broken")))) this.victory = true;
+      if (this.data.tiles.flat().every(x => !x.includes("cat") || (x.includes("cat") && x.includes("box") && !x.includes("broken")))) this.victory = true;
     },
     clearAnimations(first) {
       if (first) this.data.animations.splice(0);
@@ -238,7 +275,7 @@ export default {
     moveCats() {
       if (this.skipAnimations) this.animationDuration = 0;
       else this.updateSettings();
-
+      this.data.showHighlight = false;
       let moves = [];
       this.data.confusedCats = [];
 
@@ -377,6 +414,7 @@ export default {
         this.data.timer = setTimeout(this.clearAnimations, Math.max(this.animationDuration-50, 0), true);
         this.checkVictory();
         this.skipAnimations = false;
+        this.refreshHighlightTiles();
       }
     },
     pushCat(y, x) {
