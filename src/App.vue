@@ -51,11 +51,11 @@ export default {
     },
     updateSettings(e) {
       this.settings = e;
-      document.getElementById("music").volume = this.settings.volumemusic;
+      document.getElementById("music").volume = Math.pow(this.settings.volumemusic, 2);
       this.saveSettings();
     },
     startMusic() {
-      document.getElementById("music").volume = this.settings.volumemusic;
+      document.getElementById("music").volume =  Math.pow(this.settings.volumemusic, 2);
       document.getElementById("music").play();
     },
     loadSettings() {
@@ -71,7 +71,7 @@ export default {
         const c = localStorage.getItem("volumemusic");
         if (c !== null) {
           this.settings.volumemusic = parseFloat(c);
-          document.getElementById("music").volume = this.settings.volumemusic;
+          document.getElementById("music").volume = Math.pow(this.settings.volumemusic, 2);
         }
       } catch (exception) { console.log("localstorage not available"); }
     },
@@ -86,7 +86,7 @@ export default {
       var audio = document.createElement('audio');
       audio.src = this.sounds[e];
       document.body.appendChild(audio);
-      audio.volume = this.settings.volume;
+      audio.volume = Math.pow(this.settings.volume, 2);
       audio.play();
 
       audio.onended = function () {
