@@ -1,139 +1,118 @@
 {
   "1": {
-    "name": "Tutorials",
+    "name": "Introduction",
     "id": "1",
     "levels": {
       "1": {
         "id": "1",
-        "name": "First level",
-        "message": "Cat moves into boxes right next to it! Click on an empty tile to place a box!",
-        "data": "eyJib3hlcyI6MSwiZmlzaCI6MCwidGlsZXMiOltbImJsb2NrIiwiIiwiYmxvY2siXSxbIiIsImNhdCIsIiJdLFsiYmxvY2siLCIiLCJibG9jayJdXX0="
+        "message": "Click on the light gray tile to place a house for the kitten! Dark tiles are blocked.",
+        "data": "eyJib3hlcyI6MSwiZmlzaCI6MCwidGlsZXMiOltbImJsb2NrIiwiY2F0IiwiIl1dfQ=="
       },
       "2": {
         "id": "2",
-        "name": "Second level",
-        "message": "Your goal is to get all cats inside boxes!",
+        "message": "White kittens move to houses that are right next to them!",
         "data": "eyJib3hlcyI6MywiZmlzaCI6MCwidGlsZXMiOltbIiIsImNhdCIsIiIsIiJdLFsiIiwiIiwiIiwiY2F0Il0sWyJjYXQiLCIiLCIiLCIiXV19"
       },
       "3": {
         "id": "3",
-        "name": "New cat appears",
-        "message": "Not all cats are the same. Cooler cats can move to boxes that are two tiles from them!",
-        "data": "eyJib3hlcyI6MSwiZmlzaCI6MSwidGlsZXMiOltbIiIsIiIsIiJdLFsiY2F0MiIsIiIsIiJdLFsiYmxvY2siLCIiLCIiXV19"
+        "message": "Yellow cats can move up to two tiles!",
+        "data": "eyJib3hlcyI6MSwiZmlzaCI6MCwidGlsZXMiOltbIiIsIiIsIiJdLFsiY2F0MiIsIiIsIiJdLFsiYmxvY2siLCIiLCIiXV19"
       },
       "4": {
         "id": "4",
-        "name": "Boxes have limits",
-        "message": "Only one cat can fit into a box. Multiple cats trying to get inside at the same time will break the box!",
+        "message": "Only one cat can fit inside a house. Multiple cats trying to get inside will break the house!",
         "data": "eyJib3hlcyI6MywiZmlzaCI6MCwidGlsZXMiOltbIiIsIiIsIiJdLFsiY2F0IiwiIiwiY2F0Il0sWyJibG9jayIsIiIsIiJdXX0="
       },
       "5": {
         "id": "5",
-        "name": "Sacrificial box",
-        "message": "Sometimes you need to break a box to get all cats inside boxes.",
+        "message": "When kittens' moves don't work out, they move backwards. Use this to your advantage!",
         "data": "eyJib3hlcyI6NSwiZmlzaCI6MCwidGlsZXMiOltbIiIsIiIsImNhdCIsImJsb2NrIl0sWyJib3giLCIiLCIiLCJjYXQyIl0sWyJibG9jayIsImNhdDIiLCJjYXQiLCJibG9jayJdLFsiYmxvY2siLCJibG9jayIsImJsb2NrIiwiIl1dfQ=="
       },
       "6": {
         "id": "6",
-        "name": "Confused by choices",
-        "message": "Cats can't pick between multiple available boxes, making them unable to act.",
+        "message": "Cats who have multiple moves available will be paralyzed by choice!",
         "data": "eyJib3hlcyI6NSwiZmlzaCI6MCwidGlsZXMiOltbImNhdCIsIiIsIiIsIiJdLFsiIiwiIiwiIiwiIl0sWyIiLCJib3giLCIiLCJib3giXSxbImNhdDIiLCJjYXQyIiwiYm94IiwiY2F0MiJdXX0="
       },
       "7": {
         "id": "7",
-        "name": "Chain reaction",
-        "message": "A single box can cause large movements.",
+        "message": "A single move can result in a chain of moves.",
         "data": "eyJib3hlcyI6MTIsImZpc2giOjAsInRpbGVzIjpbWyJjYXQyIiwiIiwiY2F0MiIsImJveCIsImNhdDIiLCJib3giLCJjYXQyIl0sWyIiLCJib3giLCIiLCIiLCIiLCIiLCJib3giXSxbIiIsImNhdCIsImJveCIsImNhdCIsImJveCIsImJveCIsImNhdDIiXSxbIiIsImJveCIsIiIsIiIsIiIsIiIsImJveCJdLFsiY2F0MiIsIiIsImNhdDIiLCJib3giLCJjYXQyIiwiYm94IiwiY2F0MiJdXX0="
       },
       "8": {
         "id": "8",
-        "name": "Cutting corners",
-        "message": "Ninja cat moves diagonally. Being surrounded on all four directions is no challenge!",
+        "message": "Lunar cat moves one tile diagonally.",
         "data": "eyJib3hlcyI6MSwiZmlzaCI6MCwidGlsZXMiOltbIiIsImJsb2NrIiwiIl0sWyJibG9jayIsImNhdDMiLCJibG9jayJdLFsiIiwiYmxvY2siLCIiXV19"
       },
       "9": {
         "id": "9",
-        "name": "Surrounded",
-        "message": "Center has cats aplenty. Spread out!",
-        "data": "eyJib3hlcyI6NywiZmlzaCI6MCwidGlsZXMiOltbIiIsIiIsImNhdDIiLCIiXSxbIiIsImNhdCIsImNhdCIsIiJdLFsiIiwiY2F0IiwiY2F0IiwiY2F0MiJdLFsiY2F0MiIsIiIsIiIsIiJdXX0="
+        "message": "Push tiles will move cats standing on them. Houses can't be placed there.",
+        "data": "eyJib3hlcyI6MywiZmlzaCI6MCwidGlsZXMiOltbImNhdDIiLCJwdXNoZG93biIsIiIsImNhdCJdLFsiYmxvY2siLCJwdXNoZG93biIsIiIsIiJdLFsiYmxvY2siLCJwdXNocmlnaHQiLCJwdXNocmlnaHQiLCJib3giXV19"
       },
       "10": {
         "id": "10",
-        "name": "Conveyor belt",
-        "message": "Tiles with push symbol can be walked on, but boxes can't be put on them. Cats that stop on them will be pushed forward.",
-        "data": "eyJib3hlcyI6MywiZmlzaCI6MCwidGlsZXMiOltbImNhdDIiLCJwdXNoZG93biIsIiIsImNhdCJdLFsiYmxvY2siLCJwdXNoZG93biIsIiIsIiJdLFsiYmxvY2siLCJwdXNocmlnaHQiLCJwdXNocmlnaHQiLCJib3giXV19"
+        "message": "While on push tiles, kittens are unable to move.",
+        "data": "eyJib3hlcyI6NCwiZmlzaCI6MCwidGlsZXMiOltbImJveCIsImJsb2NrIiwiIiwiIl0sWyJwdXNocmlnaHQtY2F0MyIsInB1c2hyaWdodC1jYXQiLCJjYXQyIiwiIl0sWyJibG9jayIsImJsb2NrIiwiIiwiIl1dfQ=="
       },
       "11": {
         "id": "11",
-        "name": "Traffic jam",
-        "message": "Cats can't be pushed through other cats. Cats are also unable to move themselves when on push tile, even if the pushing is blocked.",
-        "data": "eyJib3hlcyI6NCwiZmlzaCI6MCwidGlsZXMiOltbImJveCIsImJsb2NrIiwiIiwiIl0sWyJwdXNocmlnaHQtY2F0MyIsInB1c2hyaWdodC1jYXQiLCJjYXQyIiwiIl0sWyJibG9jayIsImJsb2NrIiwiIiwiIl1dfQ=="
+        "message": "Cats normally avoid crowded tiles but can still end up on top of each other. Only the topmost cat can move when stacked.",
+        "data": "eyJib3hlcyI6NSwiZmlzaCI6MCwidGlsZXMiOltbIiIsInB1c2hkb3duIiwiY2F0MiIsImJsb2NrIl0sWyJwdXNocmlnaHQiLCIiLCJjYXQiLCJibG9jayJdLFsiY2F0MiIsImNhdCIsImJsb2NrIiwiIl0sWyJibG9jayIsImJsb2NrIiwiIiwiIl1dfQ=="
       },
       "12": {
         "id": "12",
-        "name": "Stack of cats",
-        "message": "Cats avoid going to same tile. In some cases they still end up on top of each other. When that happens, only the topmost cat is active.",
-        "data": "eyJib3hlcyI6NSwiZmlzaCI6MCwidGlsZXMiOltbIiIsInB1c2hkb3duIiwiY2F0MiIsImJsb2NrIl0sWyJwdXNocmlnaHQiLCIiLCJjYXQiLCJibG9jayJdLFsiY2F0MiIsImNhdCIsImJsb2NrIiwiIl0sWyJibG9jayIsImJsb2NrIiwiIiwiIl1dfQ=="
+        "message": "Some levels allow you to place fish. Cats try to move to fishes just like houses.",
+        "data": "eyJib3hlcyI6MSwiZmlzaCI6MiwidGlsZXMiOltbImNhdDIiLCJibG9jayIsImJveCJdLFsiIiwiYmxvY2siLCIiXSxbIiIsIiIsIiJdXX0="
       },
       "13": {
         "id": "13",
-        "name": "Lured by fish",
-        "message": "Sometimes you can place fishes instead of boxes on board. Cats try to move to fishes just like boxes.",
-        "data": "eyJib3hlcyI6MSwiZmlzaCI6MiwidGlsZXMiOltbImNhdDIiLCJibG9jayIsImJveCJdLFsiIiwiYmxvY2siLCIiXSxbIiIsIiIsIiJdXX0="
+        "name": "Fish and boxes",
+        "message": "When both fish and houses are available, select what to with the buttons at top left!",
+        "data": "eyJib3hlcyI6MiwiZmlzaCI6MSwidGlsZXMiOltbImNhdDIiLCIiLCIiXSxbIiIsIiIsImJveCJdLFsiY2F0MiIsIiIsIiJdXX0="
       },
       "14": {
         "id": "14",
-        "name": "Fish and boxes",
-        "message": "Some levels allow you to place both boxes and fish. Select what to place by clicking the icons on top-left!",
-        "data": "eyJib3hlcyI6MSwiZmlzaCI6MiwidGlsZXMiOltbImNhdDIiLCJibG9jayIsImJveCJdLFsiIiwiYmxvY2siLCIiXSxbIiIsIiIsIiJdXX0="
+        "message": "Warrior cats push other cats around, even onto tiles they normally wouldn't go! They can also move two tiles, like yellow cats.",
+        "data": "eyJib3hlcyI6MiwiZmlzaCI6MiwidGlsZXMiOltbImJveCIsIiIsIiIsIiIsIiJdLFsiIiwiIiwiY2F0MyIsImJsb2NrIiwiIl0sWyIiLCJjYXQ0IiwiYmxvY2siLCIiLCJib3giXV19"
       },
       "15": {
         "id": "15",
-        "name": "Cat on cat violence",
-        "message": "Not all cats like each other. Gang cats push other cats away, even onto tiles they wouldn't normally move to!",
-        "data": "eyJib3hlcyI6MiwiZmlzaCI6MiwidGlsZXMiOltbImJveCIsIiIsIiIsIiIsIiJdLFsiIiwiIiwiY2F0MyIsImJsb2NrIiwiIl0sWyIiLCJjYXQ0IiwiYmxvY2siLCIiLCJib3giXV19"
-      },
-      "16": {
-        "id": "16",
-        "name": "Still confused by choices",
-        "message": "Eating fish or gang cats pushing other cats is a pleasure on par with fitting inside boxes. Cats are unable to pick if multiple choices are available.",
+        "message": "For cats, all actions are equal. Multiple available actions cause cats to be unable to choose.",
         "data": "eyJib3hlcyI6MywiZmlzaCI6MiwidGlsZXMiOltbIiIsImJveCIsImJsb2NrIiwiIl0sWyJib3giLCJjYXQiLCIiLCJjYXQyIl0sWyIiLCJjYXQ0IiwiIiwiIl0sWyIiLCJib3giLCIiLCIiXV19"
       }
     }
   },
   "2": {
-    "name": "World 2",
+    "name": "Challenges",
     "id": "2",
     "levels": {
       "1": {
         "id": "1",
-        "name": "Trapped in corner",
-        "data": "eyJib3hlcyI6OSwiZmlzaCI6MCwidGlsZXMiOltbImNhdCIsImJveCIsIiIsIiIsImNhdDIiLCIiXSxbImJveCIsIiIsIiIsIiIsIiIsImJsb2NrIl0sWyJjYXQyIiwiIiwiIiwiY2F0MiIsIiIsIiJdLFsiIiwiY2F0MyIsImNhdDMiLCIiLCIiLCIiXSxbImJveCIsIiIsImJveCIsIiIsIiIsIiJdXX0="
+        "message": "Challenge levels don't have hints. Check out the introductory levels first!",
+        "data": "eyJib3hlcyI6MywiZmlzaCI6MywidGlsZXMiOltbIiIsIiIsIiIsImJveCIsIiJdLFsiY2F0NCIsIiIsIiIsIiIsIiJdLFsiYmxvY2siLCJib3giLCJjYXQzIiwiIiwiIl0sWyIiLCIiLCIiLCIiLCJjYXQ0Il0sWyIiLCJib3giLCIiLCIiLCIiXV19"
       },
       "2": {
         "id": "2",
-        "name": "By fishes be baited",
-        "data": "eyJib3hlcyI6MywiZmlzaCI6MywidGlsZXMiOltbIiIsIiIsIiIsImJveCIsIiJdLFsiY2F0NCIsIiIsIiIsIiIsIiJdLFsiYmxvY2siLCJib3giLCJjYXQzIiwiIiwiIl0sWyIiLCIiLCIiLCIiLCJjYXQ0Il0sWyIiLCJib3giLCIiLCIiLCIiXV19"
+        "data": "eyJib3hlcyI6NCwiZmlzaCI6NCwidGlsZXMiOltbImJveCIsIiIsImNhdCIsIiIsImJveCJdLFsiIiwiY2F0NCIsIiIsIiIsIiJdLFsiIiwiIiwiY2F0MyIsImNhdDIiLCIiXSxbImJveCIsIiIsIiIsIiIsImJveCJdXX0="
       },
       "3": {
         "id": "3",
-        "name": "Dodging ninjacats",
         "data": "eyJib3hlcyI6NywiZmlzaCI6MCwidGlsZXMiOltbIiIsIiIsImNhdDQiLCIiLCIiLCJib3giXSxbIiIsImNhdDMiLCIiLCJjYXQyIiwiIiwiIl0sWyIiLCJjYXQzIiwiIiwiY2F0MyIsIiIsIiJdLFsiYm94IiwiIiwiYm94IiwiIiwiYm94IiwiIl1dfQ=="
       },
       "4": {
         "id": "4",
-        "name": "Four cats, four boxes",
-        "data": "eyJib3hlcyI6NCwiZmlzaCI6NCwidGlsZXMiOltbImJveCIsIiIsImNhdCIsIiIsImJveCJdLFsiIiwiY2F0NCIsIiIsIiIsIiJdLFsiIiwiIiwiY2F0MyIsImNhdDIiLCIiXSxbImJveCIsIiIsIiIsIiIsImJveCJdXX0="
-      }
-    }
-  },
-  "3": {
-    "name": "Test levels",
-    "id": "3",
-    "levels": {
-      "1": {
-        "id": "1",
-        "name": "Trapped in corner",
+        "data": "eyJib3hlcyI6NSwiZmlzaCI6MywidGlsZXMiOltbIiIsIiIsImJveCIsIiIsIiJdLFsiY2F0MiIsInB1c2hyaWdodCIsIiIsImJveCIsIiJdLFsiIiwiY2F0MiIsInB1c2hkb3duIiwiIiwiYm94Il0sWyIiLCIiLCJjYXQyIiwiY2F0MyIsIiJdLFsiYm94IiwiIiwiY2F0MiIsIiIsImJveCJdXX0="
+      },
+      "5": {
+        "id": "5",
+        "data": "eyJib3hlcyI6NCwiZmlzaCI6NCwidGlsZXMiOltbIiIsImJveCIsImZpc2giLCJib3giLCJibG9jayJdLFsiY2F0MiIsInB1c2hkb3duIiwiIiwicHVzaGxlZnQiLCJjYXQ0Il0sWyIiLCIiLCJmaXNoIiwiIiwiIl0sWyJjYXQ0IiwicHVzaHJpZ2h0IiwiIiwicHVzaHVwIiwiY2F0MiJdLFsiYmxvY2siLCJib3giLCJmaXNoIiwiYm94IiwiIl1dfQ=="
+      },
+      "6": {
+        "id": "6",
+        "data": "eyJib3hlcyI6NywiZmlzaCI6NSwidGlsZXMiOltbImNhdDQiLCIiLCIiLCIiLCIiXSxbIiIsImJsb2NrIiwiIiwiYmxvY2siLCJib3giXSxbIiIsIiIsImNhdDMtY2F0Mi1jYXQtY2F0MyIsIiIsImJveCJdLFsiIiwiYmxvY2siLCJib3giLCJibG9jayIsImJveCJdXX0="
+      },
+      "7": {
+        "id": "7",
+        "message": "This is the final level of this build. Thank you for playing!",
         "data": "eyJib3hlcyI6OSwiZmlzaCI6MCwidGlsZXMiOltbImNhdCIsImJveCIsIiIsIiIsImNhdDIiLCIiXSxbImJveCIsIiIsIiIsIiIsIiIsImJsb2NrIl0sWyJjYXQyIiwiIiwiIiwiY2F0MiIsIiIsIiJdLFsiIiwiY2F0MyIsImNhdDMiLCIiLCIiLCIiXSxbImJveCIsIiIsImJveCIsIiIsIiIsIiJdXX0="
       }
     }
