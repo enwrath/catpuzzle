@@ -55,7 +55,7 @@ export default {
       return size;
     },
     topMargin: function () {
-      const extraheight = this.height - this.tileSize * this.data.tiles.length;
+      const extraheight = this.height - this.tileSize * this.data.tiles.length + 0.1 * this.height;
       return extraheight / 2;
     }
   }
