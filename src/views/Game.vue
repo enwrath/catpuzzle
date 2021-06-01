@@ -57,7 +57,7 @@ export default {
       victory: false,
       levelData: {},
       itemSelected: "box",
-      passableTiles: ["","pushleft","pushright","pushup","pushdown","fish"],
+      passableTiles: ["","pushleft","pushright","pushup","pushdown","fish","tilehint"],
       goalTiles: ["box", "fish"],
       fromEditor: false,
       animationDuration: 1000,
@@ -162,7 +162,7 @@ export default {
     },
     mouseClick(e) {
       if (!this.victory && !this.animating) {
-        if (this.data.tiles[e.y][e.x] !== "") return;
+        if (this.data.tiles[e.y][e.x] !== "" && this.data.tiles[e.y][e.x] !== "tilehint") return;
         if (this.itemSelected === 'box' && this.boxesOnBoard < this.data.totalBoxes) {
           this.placeItem(e.y, e.x);
         } else if (this.itemSelected === 'fish' && this.fishLeft > 0) {

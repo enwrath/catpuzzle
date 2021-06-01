@@ -18,7 +18,7 @@ export default {
   },
   data() {
     return {
-      tileTypes: ["tilebg", "block", "box", "fish", "cat", "cat2", "cat3", "cat4", "pushup", "pushright", "pushdown", "pushleft"]
+      tileTypes: ["tilebg", "tilehint", "block", "box", "fish", "cat", "cat2", "cat3", "cat4", "pushup", "pushright", "pushdown", "pushleft"]
     }
   }
 }

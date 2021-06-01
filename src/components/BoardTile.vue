@@ -61,7 +61,7 @@ export default {
       return this.img1.includes("cat") && (!this.img1.includes("box") || this.img1.includes("broken"));
     },
     showHoverItem: function() {
-      return this.itemInfo.canUse && this.hovering && this.inside === "";
+      return this.itemInfo.canUse && this.hovering && (this.inside === "" || this.inside === "tilehint");
     },
     isAnimated: function() {
       return this.animationName !== "idleAnimation";

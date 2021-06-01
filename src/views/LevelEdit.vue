@@ -70,7 +70,7 @@ export default {
       itemSelected: "box",
       importInput: "",
       exportInput: "",
-      floorTiles: ["pushup","pushdown","pushleft","pushright","box","block"]
+      floorTiles: ["pushup","pushdown","pushleft","pushright","box","block","tilehint"]
     }
   },
   methods: {

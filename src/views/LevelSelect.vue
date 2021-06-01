@@ -25,7 +25,7 @@
       </div>
     </div>
 
-    <div class="customlevel">
+    <div v-if="worldSelected === ''" class="customlevel">
       <h2>Custom level</h2>
       <div class="customcontainer">
         <input type="text" v-model="levelBase64" id="customLevel" placeholder="Paste level code here">
