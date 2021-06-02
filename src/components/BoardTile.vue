@@ -3,8 +3,8 @@
     <div v-if="isHighlighted" class="highlight"></div>
     <img v-if="showHoverItem" class="hoverImg" :src="require(`@/assets/${itemInfo.item}.webp`)" />
     <div v-if="isConfused" class="confusedDiv">
-      <img :key="`${x}${y}-confused-${i}`" v-for="i in confusedAngles" :style="`transform: rotate(${i}deg);`" :src="require(`@/assets/arrowright.webp`)"  />
       <img :src="require(`@/assets/qmark.webp`)" />
+      <img :key="`${x}${y}-confused-${i}`" v-for="i in confusedAngles" :style="`transform: rotate(${i}deg);`" :src="require(`@/assets/arrowright.webp`)"  />
     </div>
     <img v-if="floorImage!==''" class="floorimg" :src="require(`@/assets/${floorImage}.webp`)" />
     <div :style="`width: ${tileSize}px; height: ${tileSize}px;`">
@@ -167,8 +167,8 @@ img {
 }
 .confusedDiv {
   position: absolute;
-  width: 30%;
-  height: 30%;
+  width: 37.5%;
+  height: 35.5%;
   left: 0;
   bottom: 0;
   z-index: 45;
