@@ -53,7 +53,6 @@ export default {
     },
     updateSettings(e) {
       this.settings = e;
-      console.log("get",e.hoverEffect);
       document.getElementById("music").volume = Math.pow(this.settings.volumemusic, 2);
       this.saveSettings();
     },
@@ -80,7 +79,6 @@ export default {
         const d = localStorage.getItem("hoverEffect");
         if (d !== null) {
           this.settings.hoverEffect = d === "true";
-          console.log(d);
         }
       } catch (exception) { console.log("localstorage not available"); }
     },
