@@ -213,7 +213,11 @@ export default {
         this.data.hoverTile = {x: x, y: y};
         const tileSplit = this.data.tiles[y][x].split("-");
         const topItem = tileSplit[tileSplit.length-1];
-
+        const secondTop = tileSplit[tileSplit.length-2];
+        if (secondTop !== undefined && secondTop === "box") {
+          this.data.highlightedTiles = [];
+          return;
+        }
         if (topItem === "cat") {
           this.data.highlightedTiles = this.neighbourTiles(y,x);
         } else if (topItem === "cat2") {
