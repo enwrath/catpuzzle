@@ -10,6 +10,7 @@
       <audio id="music" preload="auto" loop :src="require(`@/assets/music.ogg`)">
       </audio>
       <input id="animSpeed" type="number" disabled v-model="settings.animationDuration" />
+      <input id="hoverEffect" type="checkbox" disable v-model="settings.hoverEffect" />
       <img :src="`${img}`" :key="`preloadimage-${key}`" v-for="(img, key) in images">
       <div id="completedLevelsNoLocalStorage">
       </div>
@@ -30,7 +31,8 @@ export default {
       settings: {
         animationDuration: 1000,
         volume: 0.3,
-        volumemusic: 0.3
+        volumemusic: 0.3,
+        hoverEffect: true
       },
       showSettings: false,
       sounds: {
@@ -51,6 +53,7 @@ export default {
     },
     updateSettings(e) {
       this.settings = e;
+      console.log("get",e.hoverEffect);
       document.getElementById("music").volume = Math.pow(this.settings.volumemusic, 2);
       this.saveSettings();
     },
@@ -73,6 +76,12 @@ export default {
           this.settings.volumemusic = parseFloat(c);
           document.getElementById("music").volume = Math.pow(this.settings.volumemusic, 2);
         }
+
+        const d = localStorage.getItem("hoverEffect");
+        if (d !== null) {
+          this.settings.hoverEffect = d === "true";
+          console.log(d);
+        }
       } catch (exception) { console.log("localstorage not available"); }
     },
     saveSettings() {
@@ -80,6 +89,7 @@ export default {
         localStorage.setItem("animSpeed", this.settings.animationDuration);
         localStorage.setItem("volume", this.settings.volume);
         localStorage.setItem("volumemusic", this.settings.volumemusic);
+        localStorage.setItem("hoverEffect", this.settings.hoverEffect);
       } catch (exception) { console.log("localstorage not available"); }
     },
     playSound(e){

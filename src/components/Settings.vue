@@ -15,6 +15,11 @@
       <button @click="changeSpeed(500)" :class="{selectedBtn : animationDuration===500}">Fast</button>
       <button @click="changeSpeed(200)" :class="{selectedBtn : animationDuration===200}">Very fast</button>
       <button @click="changeSpeed(0)" :class="{selectedBtn : animationDuration===0}">No animations</button>
+
+      <br />
+      <span>Hover highlights: </span>
+      <button class="inlinebtn" @click="toggleHover">{{hoverEffect ? "On" : "Off"}}</button>
+
     </div>
   </div>
 </template>
@@ -30,7 +35,8 @@ export default {
     return {
       animationDuration: this.settings.animationDuration,
       volume: this.settings.volume,
-      volumemusic: this.settings.volumemusic
+      volumemusic: this.settings.volumemusic,
+      hoverEffect: this.settings.hoverEffect
     }
   },
   methods: {
@@ -42,11 +48,15 @@ export default {
       this.updateSettings();
     },
     updateSettings() {
-      const newSettings = {animationDuration: this.animationDuration, volume: this.volume, volumemusic: this.volumemusic};
+      const newSettings = {animationDuration: this.animationDuration, volume: this.volume, volumemusic: this.volumemusic, hoverEffect: this.hoverEffect};
       this.$emit("updateSettings", newSettings);
     },
     changeSpeed(e) {
       this.animationDuration = e;
+      this.updateSettings();
+    },
+    toggleHover() {
+      this.hoverEffect = !this.hoverEffect;
       this.updateSettings();
     }
   }
@@ -98,8 +108,30 @@ button {
 button:hover {
   background-color: #9fe2ff;
 }
+.inlinebtn {
+  vertical-align: middle;
+}
 h3 {
-  margin-top: -5vh;
+  font-size: 3.5vmin;
+  margin: -3vh 0 1vh 0;
+}
+h4 {
+  font-size: 2.5vmin;
+  margin: 0;
+  padding: 3vh 2vw;
+}
+span {
+  display: inline-block;
+  font-size: 2.5vmin;
+  font-weight: bold;
+  margin: 0;
+  padding: 6vh 2vw;
+}
+
+input[type=checkbox] {
+  width: 6vw;
+  height: 6vh;
+  background-color: #8abcd2;
 }
 
 /* Generated with some online tool */
