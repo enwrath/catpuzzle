@@ -199,6 +199,10 @@ export default {
       this.data.showHighlight = true;
     },
     updateHighlightTiles(e) {
+      if (!document.getElementById("hoverEffect").checked) {
+        this.data.highlightedTiles = [];
+        return;
+      }
       const x = e.x;
       const y = e.y;
       if (!e.start && this.data.hoverTile.x === x && this.data.hoverTile.y === y) {
@@ -608,7 +612,7 @@ export default {
       if (this.data.tiles[y-1] !== undefined && this.data.tiles[y-1][x+1] !== undefined) neighbours.push({x:x+1, y:y-1});
       if (this.data.tiles[y-1] !== undefined && this.data.tiles[y-1][x-1] !== undefined) neighbours.push({x:x-1, y:y-1});
       return neighbours;
-    },
+    }
   },
   computed: {
     boxesOnBoard: function () {
